@@ -239,9 +239,15 @@ boolean don_cr_route() {
                     adv1(island, -1, useWind ? windMacro : seaMacro);
                 }
             } else if (step == 5 && stageAttempts <= 2) {
+                // The final Giant Giant Crab is a harder fight; mirror Garbo's
+                // explicit health recovery, but stop if recovery cannot succeed.
                 location island = to_location(get_property("_lastPirateRealmIsland"));
-                if (island == $location[none]) running = false;
-                else adv1(island, -1, seaMacro);
+                if (island == $location[none] || !restore_hp(my_maxhp())) {
+                    print("PirateRealm: boss stage not safe (location/HP).", "red");
+                    running = false;
+                } else {
+                    adv1(island, -1, seaMacro);
+                }
             } else if (step == 6 && stageAttempts <= 2) {
                 adv1($location[Sailing the PirateRealm Seas], -1, seaMacro);
             } else {
