@@ -580,21 +580,58 @@ void don_mayam() {
     }
 }
 
-void augmentBreakfast() {
-    if (get_property("breakfastCompleted").to_boolean()) {
-        don_log("Breakfast already completed.");
-        return;
+// Explicitly called integration: stages PirateRealm until Trash Island is
+// selected. It does not start Garbo or initiate any cockroach combats itself.
+// See don_cockroach_router.ash for its bounded, resumable route.
+boolean cockroach_fight_prep() {
+    if (get_property("_lastPirateRealmIsland") == "Trash Island") {
+        don_log("PirateRealm already points to Trash Island.");
+        return true;
     }
-    if (!cli_execute("breakfast")) don_warning("Native breakfast command failed.");
+    if (my_inebriety() > inebriety_limit()) {
+        don_warning("Cockroach prep skipped: character is overdrunk.");
+        return false;
+    }
+    set_property("_don_cockroachRouteResult", "not-run");
+    if (!cli_execute("call don_cockroach_router.ash")) {
+        don_warning("Cockroach router failed or is unavailable.");
+        return false;
+    }
+    boolean done = get_property("_don_cockroachRouteResult") == "success" &&
+                   get_property("_lastPirateRealmIsland") == "Trash Island";
+    if (!done) don_warning("Cockroach preparation incomplete; review router logs.");
+    return done;
+}
+
+// Breakfast's daily tasks are independent of KoLmafia's breakfastCompleted flag.
+// PirateRealm is deliberately opt-in: set don_breakfastCockroach = true.
+void augmentBreakfast() {
+    if (!get_property("breakfastCompleted").to_boolean()) {
+        if (!cli_execute("breakfast"))
+            don_warning("Native breakfast command failed.");
+    } else {
+        don_log("Native breakfast already completed; checking Don daily tasks.");
+    }
+
     raffle();
-    if (!get_property("_aprilShower").to_boolean())
-        cli_execute("shower ice");
+
+    if (!get_property("_aprilShower").to_boolean() &&
+        !cli_execute("shower ice"))
+        don_warning("April shower ice command failed.");
+
     if (get_property("bankedKarma").to_int() > 2000 &&
-        available_amount($item[The Big Book of Every Skill]) > 0)
-        use(1, $item[The Big Book of Every Skill]);
+        available_amount($item[The Big Book of Every Skill]) > 0 &&
+        !use(1, $item[The Big Book of Every Skill]))
+        don_warning("Unable to use The Big Book of Every Skill.");
+
     don_mayam();
-    if (!cli_execute("call don_praccess.ash"))
-        don_warning("Optional don_praccess.ash failed or is not installed.");
+
+    if (get_property("don_breakfastCockroach").to_boolean()) {
+        if (!cockroach_fight_prep())
+            don_warning("Breakfast continued, but cockroach setup did not finish.");
+    } else {
+        don_log("PirateRealm cockroach route skipped (don_breakfastCockroach=false).");
+    }
 }
 
 void Baseline() {
