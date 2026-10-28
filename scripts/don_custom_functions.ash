@@ -1,5 +1,6 @@
 script "don_custom_functions.ash";
 import <don_master_lib.ash>;
+import <agent_web_ash.ash>;
 
 /*
   DON CUSTOM FUNCTIONS

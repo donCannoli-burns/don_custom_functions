@@ -1,0 +1,591 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>don_custom_functions · actual</title><style>body{max-width:1050px;margin:20px auto;padding:18px;font:15px/1.5 system-ui;color:#000;background:#fcfcff}header{background:#abd1f3;border:2px solid black;padding:15px}article{padding:14px;border:1px solid #444;background:white;margin:12px 0;overflow-wrap:anywhere}article:target{outline:3px solid #4a94c6}a{color:#14537a}code,pre{font-family:monospace}pre{padding:12px;background:#dff7fa;white-space:pre-wrap;overflow-wrap:anywhere;max-height:600px;overflow:auto}input{box-sizing:border-box;width:100%;padding:10px;border:2px solid #000}details{padding:5px}small{color:#444}</style></head><body><header><h1>don_custom_functions · actual</h1><p>Agent Web v0.1 — read-only static source index, no model embeddings or executable functions</p></header><article id="actual-11-1"><h2>possessItem <small>[11.1]</small></h2><p><code>boolean possessItem(item thingy)</code></p><p>scripts/don_custom_functions.ash:68–77</p><p>function_actual11.1.2</p><pre><code>boolean possessItem(item thingy) {
+    // Historically this function unequipped matching equipment; retain that
+    // behavior for callers relying on it. For a pure test, use don_have().
+    if (item_amount(thingy) &gt; 0 || closet_amount(thingy) &gt; 0) return true;
+    if (!have_equipped(thingy)) return false;
+    if (!cli_execute(&quot;unequip &quot; + thingy)) {
+        don_warning(&quot;possessItem(): could not unequip &quot; + thingy);
+    }
+    return true;
+}</code></pre></article>
+<article id="actual-11-2"><h2>IamLegendary <small>[11.2]</small></h2><p><code>boolean IamLegendary()</code></p><p>scripts/don_custom_functions.ash:79–90</p><p>function_actual11.2.2</p><pre><code>boolean IamLegendary() {
+    if (MuscleClass())
+        return possessItem($item[Hammer of Smiting]) ||
+               possessItem($item[Chelonian Morningstar]);
+    if (MoxieClass())
+        return possessItem($item[Shagadelic Disco Banjo]) ||
+               possessItem($item[Squeezebox of the Ages]);
+    if (MysticalityClass())
+        return possessItem($item[Greek Pasta Spoon of Peril]) ||
+               possessItem($item[17-alarm Saucepan]);
+    return false;
+}</code></pre></article>
+<article id="actual-11-3"><h2>IamEpic <small>[11.3]</small></h2><p><code>boolean IamEpic()</code></p><p>scripts/don_custom_functions.ash:92–104</p><p>function_actual11.3.2</p><pre><code>boolean IamEpic() {
+    if (IamLegendary()) return true;
+    if (MuscleClass())
+        return possessItem($item[Bjorn&#39;s Hammer]) ||
+               possessItem($item[Mace of the Tortoise]);
+    if (MoxieClass())
+        return possessItem($item[Rock and Roll Legend]) ||
+               possessItem($item[Disco Banjo]);
+    if (MysticalityClass())
+        return possessItem($item[Pasta Spoon of Peril]) ||
+               possessItem($item[5-Alarm Saucepan]);
+    return false;
+}</code></pre></article>
+<article id="actual-11-4"><h2>CheckFortune <small>[11.4]</small></h2><p><code>string CheckFortune(boolean autoeat)</code></p><p>scripts/don_custom_functions.ash:106–156</p><p>function_actual11.4.2</p><pre><code>string CheckFortune(boolean autoeat) {
+    // Bounded: at most one fortune cookie consumed per invocation.
+    string counters = get_property(&quot;relayCounters&quot;);
+    matcher finder = create_matcher(&quot;(\\d+):Fortune Cookie&quot;, counters);
+    int[int] turns;
+    int index = 0;
+
+    while (finder.find()) {
+        int remaining = finder.group(1).to_int() - my_turncount();
+        if (remaining &gt; 0) {
+            index += 1;
+            turns[index] = remaining;
+        }
+    }
+
+    if (index == 0 &amp;&amp; my_fullness() &lt; fullness_limit() &amp;&amp; my_meat() &gt; 40) {
+        boolean approve = autoeat;
+        if (!autoeat) approve = user_confirm(&quot;Eat one fortune cookie?&quot;);
+        if (approve) {
+            if (!eatsilent(1, $item[fortune cookie])) {
+                return &quot;&lt;b&gt;&lt;font color=#ff0000&gt;Failed to eat a Fortune Cookie.&lt;/font&gt;&lt;/b&gt;&quot;;
+            }
+            // Only re-read counters. Do not recurse into another eat/prompt.
+            counters = get_property(&quot;relayCounters&quot;);
+            finder = create_matcher(&quot;(\\d+):Fortune Cookie&quot;, counters);
+            while (finder.find()) {
+                int remaining = finder.group(1).to_int() - my_turncount();
+                if (remaining &gt; 0) {
+                    index += 1;
+                    turns[index] = remaining;
+                }
+            }
+        }
+    }
+
+    string result = &quot;&quot;;
+    if (index &gt; 0) {
+        result = &quot;&lt;b&gt;&lt;font color=#365f91&gt;Semi-rare counters active: &quot; + index + &quot;.&lt;br /&gt;&quot;;
+        foreach i, remaining in turns {
+            result += &quot;Semi-rare in &lt;font color=#00b0f0&gt;&quot; + remaining + &quot;&lt;/font&gt; turns.&lt;br /&gt;&quot;;
+        }
+        result += &quot;&lt;/font&gt;&lt;/b&gt;&quot;;
+    } else if (my_fullness() &gt;= fullness_limit()) {
+        result = &quot;&lt;b&gt;&lt;font color=#ff0000&gt;No future fortune counter; too full to eat a cookie.&lt;br /&gt;&lt;/font&gt;&lt;/b&gt;&quot;;
+    } else {
+        result = &quot;&lt;b&gt;&lt;font color=#ff0000&gt;No future fortune counter detected.&lt;br /&gt;&lt;/font&gt;&lt;/b&gt;&quot;;
+    }
+    result += &quot;&lt;b&gt;&lt;font color=#365f91&gt;Last semi-rare: &lt;font color=#00b0f0&gt;&quot; +
+              get_property(&quot;semirareLocation&quot;) + &quot;&lt;/font&gt;&lt;/font&gt;&lt;/b&gt;&quot;;
+    return result;
+}</code></pre></article>
+<article id="actual-11-5"><h2>ListItems <small>[11.5]</small></h2><p><code>string ListItems(int[item] Closet, int mode)</code></p><p>scripts/don_custom_functions.ash:158–174</p><p>function_actual11.5.2</p><pre><code>string ListItems(int[item] Closet, int mode) {
+    string names = &quot;&quot;;
+    foreach it in Closet {
+        boolean include = false;
+        switch (mode) {
+            case 1: include = closet_amount(it) == 0; break;
+            case 2: include = closet_amount(it) &gt; 0; break;
+            case 3: include = item_amount(it) == 0; break;
+            case 4: include = item_amount(it) &gt; 0; break;
+            case 5: include = stash_amount(it) == 0; break;
+            case 6: include = stash_amount(it) &gt; 0; break;
+        }
+        if (include) names = don_list_add(names, it.to_string());
+    }
+    if (names == &quot;&quot;) return &quot;&lt;EMPTY&gt;&quot;;
+    return names;
+}</code></pre></article>
+<article id="actual-11-6"><h2>day_of_week <small>[11.6]</small></h2><p><code>int day_of_week()</code></p><p>scripts/don_custom_functions.ash:176–190</p><p>function_actual11.6.2</p><pre><code>int day_of_week() {
+    // Use the date parser in don_master_lib rather than the old broken
+    // yyyyMMdd slicing formula. 0 = Sunday, 6 = Saturday.
+    string name = Day();
+    switch (name) {
+        case &quot;Sunday&quot;: return 0;
+        case &quot;Monday&quot;: return 1;
+        case &quot;Tuesday&quot;: return 2;
+        case &quot;Wednesday&quot;: return 3;
+        case &quot;Thursday&quot;: return 4;
+        case &quot;Friday&quot;: return 5;
+        case &quot;Saturday&quot;: return 6;
+    }
+    return -1;
+}</code></pre></article>
+<article id="actual-11-7"><h2>consume <small>[11.7]</small></h2><p><code>void consume()</code></p><p>scripts/don_custom_functions.ash:196–214</p><p>function_actual11.7.2</p><pre><code>void consume() {
+    refresh_status();
+    print(&quot;Fullness: &quot; + my_fullness() + &quot;/&quot; + fullness_limit());
+    print(&quot;Inebriety: &quot; + my_inebriety() + &quot;/&quot; + inebriety_limit());
+    print(&quot;Spleen: &quot; + my_spleen_use() + &quot;/&quot; + spleen_limit());
+
+    int today = get_property(&quot;ascensionsToday&quot;).to_int();
+    if (today == 0) {
+        set_property(&quot;CONSUME.ALLOWLIFETIMELIMITED&quot;, &quot;true&quot;);
+        set_property(&quot;valueOfAdventure&quot;, &quot;7100&quot;);
+        if (!cli_execute(&quot;CONSUME ALL&quot;)) don_error(&quot;Leg 1 CONSUME failed.&quot;);
+    } else if (today == 1) {
+        set_property(&quot;CONSUME.ALLOWLIFETIMELIMITED&quot;, &quot;false&quot;);
+        set_property(&quot;valueOfAdventure&quot;, &quot;6400&quot;);
+        if (!cli_execute(&quot;CONSUME ALL&quot;)) don_error(&quot;Leg 2 CONSUME failed.&quot;);
+    } else {
+        don_warning(&quot;consume(): no rule for ascensionsToday=&quot; + today);
+    }
+}</code></pre></article>
+<article id="actual-11-8"><h2>BeachAccess <small>[11.8]</small></h2><p><code>void BeachAccess()</code></p><p>scripts/don_custom_functions.ash:216–224</p><p>function_actual11.8.2</p><pre><code>void BeachAccess() {
+    if (available_amount($item[134]) &gt; 0 ||
+        available_amount($item[4770]) &gt; 0 ||
+        available_amount($item[4769]) &gt; 0 ||
+        available_amount($item[6775]) &gt; 0) return;
+
+    if (!retrieve_item(1, $item[bitchin&#39; meatcar]))
+        don_error(&quot;Unable to retrieve a bitchin&#39; meatcar for beach access.&quot;);
+}</code></pre></article>
+<article id="actual-11-9"><h2>advManager <small>[11.9]</small></h2><p><code>void advManager()</code></p><p>scripts/don_custom_functions.ash:226–232</p><p>function_actual11.9.2</p><pre><code>void advManager() {
+    // Legacy branch that tried day-shorteners was unreachable; do not guess
+    // at a spending policy in a library function.
+    if (my_adventures() &gt; 50) abort(&quot;advManager(): more than 50 adventures.&quot;);
+    if (my_adventures() &gt;= 5)
+        don_warning(&quot;advManager(): no supported day-shortener action.&quot;);
+}</code></pre></article>
+<article id="actual-11-10"><h2>eat_sausage <small>[11.10]</small></h2><p><code>void eat_sausage()</code></p><p>scripts/don_custom_functions.ash:234–242</p><p>function_actual11.10.2</p><pre><code>void eat_sausage() {
+    int needed = max(0, 23 - get_property(&quot;_sausagesEaten&quot;).to_int());
+    if (needed &lt;= 0) {
+        don_warning(&quot;No magical sausages remaining in configured daily target.&quot;);
+        return;
+    }
+    if (!cli_execute(&quot;eat &quot; + needed + &quot; magical sausage&quot;))
+        don_error(&quot;Unable to eat all configured magical sausages.&quot;);
+}</code></pre></article>
+<article id="actual-11-11"><h2>Sweat <small>[11.11]</small></h2><p><code>void Sweat()</code></p><p>scripts/don_custom_functions.ash:244–260</p><p>function_actual11.11.2</p><pre><code>void Sweat() {
+    if (!have_skill($skill[Sweat Out Some Booze])) {
+        don_warning(&quot;Sweat Out Some Booze not available.&quot;);
+        return;
+    }
+    int attempts = 0;
+    while (attempts &lt; 3 &amp;&amp;
+           get_property(&quot;_sweatOutSomeBoozeUsed&quot;).to_int() &lt; 3 &amp;&amp;
+           get_property(&quot;sweat&quot;).to_int() &gt;= 25 &amp;&amp;
+           my_inebriety() &gt; 0) {
+        attempts += 1;
+        if (!use_skill(1, $skill[Sweat Out Some Booze])) {
+            don_error(&quot;Sweat Out Some Booze failed; stopping.&quot;);
+            return;
+        }
+    }
+}</code></pre></article>
+<article id="actual-11-12"><h2>startBarf <small>[11.12]</small></h2><p><code>void startBarf()</code></p><p>scripts/don_custom_functions.ash:262–274</p><p>function_actual11.12.2</p><pre><code>void startBarf() {
+    int before = get_property(&quot;_juneCleaverEncounters&quot;).to_int();
+    if (!cli_execute(&quot;barfascend.txt&quot;)) {
+        don_error(&quot;barfascend.txt failed.&quot;);
+        return;
+    }
+    if (get_property(&quot;_juneCleaverEncounters&quot;).to_int() != before) {
+        don_warning(&quot;June Cleaver changed; retrying barfascend once.&quot;);
+        cli_execute(&quot;uneffect beaten up&quot;);
+        if (!cli_execute(&quot;barfascend.txt&quot;))
+            don_error(&quot;barfascend.txt retry failed.&quot;);
+    }
+}</code></pre></article>
+<article id="actual-11-13"><h2>comboAll <small>[11.13]</small></h2><p><code>void comboAll()</code></p><p>scripts/don_custom_functions.ash:276–283</p><p>function_actual11.13.2</p><pre><code>void comboAll() {
+    int turns = my_adventures() - 1;
+    if (turns &lt;= 0) {
+        don_warning(&quot;comboAll(): no spare adventures.&quot;);
+        return;
+    }
+    if (!cli_execute(&quot;combo &quot; + turns)) don_error(&quot;combo failed.&quot;);
+}</code></pre></article>
+<article id="actual-11-14"><h2>comb <small>[11.14]</small></h2><p><code>void comb()</code></p><p>scripts/don_custom_functions.ash:285–292</p><p>function_actual11.14.2</p><pre><code>void comb() {
+    if (my_adventures() &lt; 1) use(1, $item[Law of Averages]);
+    if (get_property(&quot;_freeBeachWalksUsed&quot;).to_int() != 11) {
+        if (!cli_execute(&quot;combo.js&quot;)) don_error(&quot;combo.js failed.&quot;);
+    } else {
+        don_log(&quot;All configured free beach walks used.&quot;);
+    }
+}</code></pre></article>
+<article id="actual-11-15"><h2>raffle <small>[11.15]</small></h2><p><code>void raffle()</code></p><p>scripts/don_custom_functions.ash:294–307</p><p>function_actual11.15.2</p><pre><code>void raffle() {
+    int count = don_owned_amount($item[raffle ticket]);
+    if (count &gt; 0) {
+        don_log(&quot;Already holding &quot; + count + &quot; raffle tickets.&quot;);
+        return;
+    }
+    if (!cli_execute(&quot;raffle 111&quot;)) {
+        don_error(&quot;Raffle command failed.&quot;);
+        return;
+    }
+    count = don_owned_amount($item[raffle ticket]);
+    if (count &lt; 1) don_error(&quot;No raffle tickets acquired.&quot;);
+    else don_good(&quot;Raffle tickets acquired: &quot; + count);
+}</code></pre></article>
+<article id="actual-11-16"><h2>autoBot <small>[11.16]</small></h2><p><code>void autoBot()</code></p><p>scripts/don_custom_functions.ash:309–321</p><p>function_actual11.16.2</p><pre><code>void autoBot() {
+    if (get_property(&quot;_autumnatonQuests&quot;).to_int() != 0) return;
+    location target = $location[none];
+    foreach loc in $locations[The Deep Machine Tunnels, A Smoldering Pelvis, Shadow Rift] {
+        if (can_adventure(loc)) target = loc;
+    }
+    if (target == $location[none]) {
+        don_warning(&quot;No available autumn-aton destination.&quot;);
+        return;
+    }
+    if (!cli_execute(&quot;autumnaton send &quot; + target))
+        don_error(&quot;Could not send autumn-aton to &quot; + target);
+}</code></pre></article>
+<article id="actual-11-17"><h2>DOD <small>[11.17]</small></h2><p><code>void DOD()</code></p><p>scripts/don_custom_functions.ash:327–347</p><p>function_actual11.17.2</p><pre><code>void DOD() {
+    if (my_meat() &lt; 5000) {
+        don_error(&quot;At least 5000 meat required for DOD.&quot;);
+        return;
+    }
+    if (available_amount($item[dead mimic]) &gt; 0) {
+        don_good(&quot;Dead mimic acquired; ready to use.&quot;);
+        return;
+    }
+    if (!can_adventure($location[The Dungeons of Doom])) {
+        don_error(&quot;The Dungeons of Doom are not accessible.&quot;);
+        return;
+    }
+    equip($slot[acc1], $item[none]);
+    set_property(&quot;choiceAdventure25&quot;, &quot;2&quot;);
+    while (item_amount($item[dead mimic]) == 0 &amp;&amp; my_adventures() &gt; 0) {
+        if (!adventure(1, $location[The Dungeons of Doom])) break;
+    }
+    if (available_amount($item[dead mimic]) &gt; 0) don_good(&quot;Dead mimic acquired.&quot;);
+    else don_error(&quot;Stopped without obtaining dead mimic.&quot;);
+}</code></pre></article>
+<article id="actual-11-18"><h2>EGTS <small>[11.18]</small></h2><p><code>void EGTS()</code></p><p>scripts/don_custom_functions.ash:349–397</p><p>function_actual11.18.2</p><pre><code>void EGTS() {
+    string page = visit_url(&quot;da.php&quot;);
+    if (contains_text(page, &quot;The Dungeons of Doom&quot;)) {
+        DOD();
+        return;
+    }
+    if (!can_adventure($location[The Enormous Greater-Than Sign])) {
+        don_error(&quot;Greater-Than Sign is not accessible.&quot;);
+        return;
+    }
+    set_property(&quot;choiceAdventure3&quot;, &quot;3&quot;);
+    set_property(&quot;choiceAdventure451&quot;, &quot;3&quot;);
+    while (available_amount($item[plus sign]) == 0 &amp;&amp; my_adventures() &gt; 0) {
+        if (!adventure(1, $location[The Enormous Greater-Than Sign])) break;
+    }
+    if (available_amount($item[plus sign]) == 0) {
+        don_error(&quot;Could not obtain a plus sign.&quot;);
+        return;
+    }
+    set_property(&quot;choiceAdventure451&quot;, &quot;5&quot;);
+
+    if (available_amount($item[ring of teleportation]) == 0 &amp;&amp;
+        can_interact() &amp;&amp; my_meat() &gt; 100000)
+        cli_execute(&quot;buy 1 ring of teleportation&quot;);
+
+    if (available_amount($item[ring of teleportation]) == 0) {
+        don_error(&quot;Ring of teleportation unavailable.&quot;);
+        return;
+    }
+
+    item previous = equipped_item($slot[acc1]);
+    if (!equip($slot[acc1], $item[ring of teleportation])) {
+        don_error(&quot;Unable to equip teleportation ring.&quot;);
+        return;
+    }
+    while (get_property(&quot;lastEncounter&quot;) != &quot;The Oracle Will See You Now&quot; &amp;&amp;
+           my_adventures() &gt; 0) {
+        if (!adventure(1, $location[The Enormous Greater-Than Sign])) break;
+    }
+
+    if (get_property(&quot;lastEncounter&quot;) != &quot;The Oracle Will See You Now&quot;) {
+        don_error(&quot;Could not reach the Oracle.&quot;);
+        equip($slot[acc1], previous);
+        return;
+    }
+    if (!use(1, $item[plus sign])) don_error(&quot;Could not use plus sign.&quot;);
+    equip($slot[acc1], previous);
+    if (can_adventure($location[The Dungeons of Doom])) DOD();
+}</code></pre></article>
+<article id="actual-11-19"><h2>zapWand <small>[11.19]</small></h2><p><code>void zapWand()</code></p><p>scripts/don_custom_functions.ash:399–408</p><p>function_actual11.19.2</p><pre><code>void zapWand() {
+    if (my_meat() &lt; 6000) {
+        don_error(&quot;At least 6000 meat required for zap wand quest.&quot;);
+        return;
+    }
+    string page = visit_url(&quot;da.php&quot;);
+    if (contains_text(page, &quot;The Enormous Greater-Than Sign&quot;)) EGTS();
+    else if (contains_text(page, &quot;The Dungeons of Doom&quot;)) DOD();
+    else don_warning(&quot;Cannot determine dungeon access from da.php.&quot;);
+}</code></pre></article>
+<article id="actual-11-20"><h2>chowDown <small>[11.20]</small></h2><p><code>void chowDown()</code></p><p>scripts/don_custom_functions.ash:410–419</p><p>function_actual11.20.2</p><pre><code>void chowDown() {
+    if (!outfit(&quot;chowDown&quot;)) {
+        don_error(&quot;Missing chowDown outfit.&quot;);
+        return;
+    }
+    cli_execute(&quot;refresh all&quot;);
+    wait(5);
+    consume();
+    set_property(&quot;_don_chowdownCount&quot;, &quot;1&quot;);
+}</code></pre></article>
+<article id="actual-11-21"><h2>chowDown2 <small>[11.21]</small></h2><p><code>void chowDown2()</code></p><p>scripts/don_custom_functions.ash:421–430</p><p>function_actual11.21.2</p><pre><code>void chowDown2() {
+    if (!outfit(&quot;chowDown2&quot;)) {
+        don_error(&quot;Missing chowDown2 outfit.&quot;);
+        return;
+    }
+    cli_execute(&quot;refresh all&quot;);
+    wait(5);
+    consume();
+    set_property(&quot;_don_chowdownCount&quot;, &quot;2&quot;);
+}</code></pre></article>
+<article id="actual-11-22"><h2>openDungeon <small>[11.22]</small></h2><p><code>void openDungeon()</code></p><p>scripts/don_custom_functions.ash:432–442</p><p>function_actual11.22.2</p><pre><code>void openDungeon() {
+    familiar yeti = $familiar[cooler yeti];
+    int xp = yeti.experience;
+    if (!outfit(&quot;yetibuff&quot;)) {
+        don_error(&quot;Missing yetibuff outfit.&quot;);
+        return;
+    }
+    don_log(&quot;Cooler Yeti: &quot; + xp + &quot;/400 XP.&quot;);
+    if (xp &lt; 400 &amp;&amp; contains_text(visit_url(&quot;da.php&quot;), &quot;The Enormous Greater-Than Sign&quot;))
+        zapWand();
+}</code></pre></article>
+<article id="actual-11-23"><h2>yetiAdv <small>[11.23]</small></h2><p><code>void yetiAdv()</code></p><p>scripts/don_custom_functions.ash:444–482</p><p>function_actual11.23.2</p><pre><code>void yetiAdv() {
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti)) {
+        don_error(&quot;Cooler Yeti not owned.&quot;);
+        return;
+    }
+    if (current_mcd() != 11) change_mcd(11);
+    if (current_mcd() != 11) change_mcd(10);
+    autoBot();
+    if (!outfit(&quot;yetibuff&quot;)) {
+        don_error(&quot;Missing yetibuff outfit.&quot;);
+        return;
+    }
+    if (!use_familiar(yeti)) {
+        don_error(&quot;Unable to equip Cooler Yeti.&quot;);
+        return;
+    }
+    if (!cli_execute(&quot;CONSUME ALL VALUE 7500&quot;)) {
+        don_error(&quot;CONSUME command failed.&quot;);
+        return;
+    }
+    string dungeon = visit_url(&quot;da.php&quot;);
+    if (contains_text(dungeon, &quot;The Enormous Greater-Than Sign&quot;)) {
+        openDungeon();
+    }
+    if (!can_adventure($location[The Dungeons of Doom])) {
+        don_error(&quot;Dungeons of Doom not accessible.&quot;);
+        return;
+    }
+    while (my_adventures() &gt; 2 &amp;&amp; yeti.experience &lt; 400) {
+        don_log(&quot;Cooler Yeti XP: &quot; + yeti.experience + &quot;/400.&quot;);
+        if (!adventure(1, $location[The Dungeons of Doom])) {
+            don_error(&quot;Adventure failed while training Yeti.&quot;);
+            return;
+        }
+    }
+    if (yeti.experience &gt;= 400) don_good(&quot;Cooler Yeti drink buff ready.&quot;);
+    else don_warning(&quot;Cooler Yeti needs &quot; + max(0, 400 - yeti.experience) + &quot; XP.&quot;);
+}</code></pre></article>
+<article id="actual-11-24"><h2>stooperDis <small>[11.24]</small></h2><p><code>void stooperDis()</code></p><p>scripts/don_custom_functions.ash:488–501</p><p>function_actual11.24.2</p><pre><code>void stooperDis() {
+    cli_execute(&quot;cast Communism!&quot;);
+    familiar stooper = $familiar[Stooper];
+    if (!have_familiar(stooper)) {
+        don_warning(&quot;Stooper not available.&quot;);
+        return;
+    }
+    if (!use_familiar(stooper)) return;
+    if (my_inebriety() &lt; inebriety_limit() &amp;&amp;
+        (available_amount($item[tiny stillsuit]) &gt; 0 ||
+         have_equipped($item[tiny stillsuit]))) {
+        cli_execute(&quot;drink stillsuit distillate&quot;);
+    }
+}</code></pre></article>
+<article id="actual-11-25"><h2>getCool <small>[11.25]</small></h2><p><code>void getCool()</code></p><p>scripts/don_custom_functions.ash:503–542</p><p>function_actual11.25.2</p><pre><code>void getCool() {
+    outfit(&quot;maxo&quot;);
+    refresh_status();
+    if (!get_property(&quot;_communismUsed&quot;).to_boolean() &amp;&amp;
+        my_inebriety() == inebriety_limit() - 1)
+        stooperDis();
+
+    familiar previous = my_familiar();
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti) || yeti.experience &lt; 400) {
+        don_warning(&quot;Cooler Yeti missing or below 400 XP.&quot;);
+        return;
+    }
+    if (!use_familiar(yeti)) {
+        don_error(&quot;Unable to equip Cooler Yeti.&quot;);
+        return;
+    }
+    cli_execute(&quot;cast ode to booze&quot;);
+
+    // Explicit choice validation: do not submit unrelated choice options.
+    buffer page = visit_url(&quot;main.php?talktoyeti=1&quot;, false, true);
+    buffer_to_file(page, &quot;_yeti_talk2.html&quot;);
+    string[int] choices = available_choice_options();
+    if (!handling_choice() || choices[2] == &quot;&quot;) {
+        don_error(&quot;Cooler Yeti did not offer expected first option 2.&quot;);
+        if (previous != $familiar[none]) use_familiar(previous);
+        return;
+    }
+    run_choice(2);
+    choices = available_choice_options();
+    if (!handling_choice() || choices[1] == &quot;&quot;) {
+        don_error(&quot;Cooler Yeti did not offer expected follow-up option 1.&quot;);
+        if (previous != $familiar[none]) use_familiar(previous);
+        return;
+    }
+    run_choice(1);
+
+    if (previous != $familiar[none]) use_familiar(previous);
+    don_good(&quot;Yeti drink enhancement sequence submitted.&quot;);
+}</code></pre></article>
+<article id="actual-11-26"><h2>shrugAT <small>[11.26]</small></h2><p><code>void shrugAT()</code></p><p>scripts/don_custom_functions.ash:544–552</p><p>function_actual11.26.2</p><pre><code>void shrugAT() {
+    cli_execute(&quot;shrug Stevedave&#39;s Shanty of Superiority&quot;);
+    cli_execute(&quot;shrug Power Ballad of the Arrowsmith&quot;);
+    cli_execute(&quot;shrug The Moxious Madrigal&quot;);
+    cli_execute(&quot;shrug The Magical Mojomuscular Melody&quot;);
+    cli_execute(&quot;shrug Cletus&#39;s Canticle of Celerity&quot;);
+    cli_execute(&quot;shrug Jackasses&#39; Symphony of Destruction&quot;);
+    cli_execute(&quot;shrug Brawnee&#39;s Anthem of Absorption&quot;);
+}</code></pre></article>
+<article id="actual-11-27"><h2>don_mayam <small>[11.27]</small></h2><p><code>void don_mayam()</code></p><p>scripts/don_custom_functions.ash:554–580</p><p>function_actual11.27.2</p><pre><code>void don_mayam() {
+    if (available_amount($item[Mayam Calendar]) == 0 ||
+        get_property(&quot;_don_mayam_done&quot;).to_boolean()) return;
+
+    familiar mimic = $familiar[chest mimic];
+    if (!have_familiar(mimic)) {
+        don_warning(&quot;Chest Mimic not available; skipping Mayam.&quot;);
+        return;
+    }
+    familiar previous = my_familiar();
+    if (!use_familiar(mimic)) {
+        don_error(&quot;Cannot equip Chest Mimic.&quot;);
+        return;
+    }
+    boolean ok1 = cli_execute(&quot;mayam rings fur meat eyepatch yam&quot;);
+    boolean ok2 = cli_execute(&quot;mayam rings yam lightning yam clock&quot;);
+    boolean ok3 = cli_execute(&quot;mayam rings vessel yam cheese explosion&quot;);
+    if (previous != $familiar[none]) use_familiar(previous);
+
+    if (ok1 &amp;&amp; ok2 &amp;&amp; ok3) {
+        set_property(&quot;_don_mayam_done&quot;, &quot;true&quot;);
+        used_don_mayam = true;
+        don_good(&quot;Mayam commands completed.&quot;);
+    } else {
+        don_error(&quot;Mayam command failed; completion pref unchanged.&quot;);
+    }
+}</code></pre></article>
+<article id="actual-11-28"><h2>augmentBreakfast <small>[11.28]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:582–597</p><p>function_actual11.28.2</p><pre><code>void augmentBreakfast() {
+    if (get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
+        don_log(&quot;Breakfast already completed.&quot;);
+        return;
+    }
+    if (!cli_execute(&quot;breakfast&quot;)) don_warning(&quot;Native breakfast command failed.&quot;);
+    raffle();
+    if (!get_property(&quot;_aprilShower&quot;).to_boolean())
+        cli_execute(&quot;shower ice&quot;);
+    if (get_property(&quot;bankedKarma&quot;).to_int() &gt; 2000 &amp;&amp;
+        available_amount($item[The Big Book of Every Skill]) &gt; 0)
+        use(1, $item[The Big Book of Every Skill]);
+    don_mayam();
+    if (!cli_execute(&quot;call don_praccess.ash&quot;))
+        don_warning(&quot;Optional don_praccess.ash failed or is not installed.&quot;);
+}</code></pre></article>
+<article id="actual-11-29"><h2>Baseline <small>[11.29]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:599–615</p><p>function_actual11.29.2</p><pre><code>void Baseline() {
+    shrugAT();
+    cli_execute(&quot;hagnk all&quot;);
+    cli_execute(&quot;refresh all&quot;);
+    cli_execute(&quot;mood apathetic&quot;);
+    cli_execute(&quot;ccs don_default&quot;);
+    set_property(&quot;hpAutoRecovery&quot;, &quot;0.65&quot;);
+    set_property(&quot;hpAutoRecoveryTarget&quot;, &quot;0.95&quot;);
+    set_property(&quot;mpAutoRecovery&quot;, &quot;0.65&quot;);
+    set_property(&quot;mpAutoRecoveryTarget&quot;, &quot;0.95&quot;);
+    effect sparky = $effect[1927];
+    item antidote = $item[Soft green echo eyedrop antidote];
+    if (have_effect(sparky) &gt; 0) {
+        if (item_amount(antidote) &lt; 1) buy(1, antidote);
+        cli_execute(&quot;uneffect &quot; + sparky);
+    }
+}</code></pre></article>
+<article id="actual-11-30"><h2>nightcap <small>[11.30]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:617–635</p><p>function_actual11.30.2</p><pre><code>void nightcap() {
+    // A drink must be in inventory before use. Owned items in the closet
+    // may be retrievable; inaccessible Hagnk&#39;s storage is not consumable.
+    if (item_amount(night_cap) &lt; 1 &amp;&amp; available_amount(night_cap) &gt; 0) {
+        if (!retrieve_item(1, night_cap))
+            don_warning(&quot;Could not retrieve owned &quot; + night_cap + &quot;.&quot;);
+    }
+
+    if (item_amount(night_cap) &lt; 1)
+        buy(1, night_cap, 175000);
+
+    if (item_amount(night_cap) &lt; 1) {
+        don_error(&quot;Nightcap unavailable in inventory within 175000 meat limit.&quot;);
+        return;
+    }
+
+    if (!overdrink(1, night_cap))
+        don_error(&quot;Could not drink &quot; + night_cap);
+}</code></pre></article>
+<article id="actual-11-31"><h2>don_dpills <small>[11.31]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:637–646</p><p>function_actual11.31.2</p><pre><code>void don_dpills() {
+    cli_execute(&quot;ccs don_default&quot;);
+    cli_execute(&quot;outfit wineglass&quot;);
+    cli_execute(&quot;mood apathetic&quot;);
+    if (!cli_execute(&quot;dpills &quot; + my_adventures())) {
+        don_error(&quot;dpills command failed.&quot;);
+        return;
+    }
+    set_property(&quot;_don_dailyPills&quot;, my_adventures() &lt; 5 ? &quot;true&quot; : &quot;false&quot;);
+}</code></pre></article>
+<article id="actual-11-32"><h2>don_Midcap <small>[11.32]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:648–664</p><p>function_actual11.32.2</p><pre><code>void don_Midcap() {
+    item midcap = $item[bucket of wine];
+    if (needToAcquireItem(midcap)) buy(1, midcap, 15000);
+    if (available_amount(midcap) == 0) {
+        don_error(&quot;Bucket of wine unavailable within 15000 meat limit.&quot;);
+        return;
+    }
+    familiar stooper = $familiar[Stooper];
+    if (!have_familiar(stooper)) {
+        don_warning(&quot;Stooper unavailable; not overdrinking.&quot;);
+        return;
+    }
+    familiar previous = my_familiar();
+    if (!use_familiar(stooper)) return;
+    if (!overdrink(1, midcap)) don_error(&quot;Overdrink failed.&quot;);
+    if (previous != $familiar[none]) use_familiar(previous);
+}</code></pre></article>
+<article id="actual-11-33"><h2>don_Midcap_Pills <small>[11.33]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:666–675</p><p>function_actual11.33.2</p><pre><code>void don_Midcap_Pills() {
+    if (!don_is_overdrunk() &amp;&amp; my_adventures() &gt;= 50) {
+        int spare = my_adventures() - 50;
+        if (spare &gt; 0 &amp;&amp; !cli_execute(&quot;combo &quot; + spare)) {
+            don_error(&quot;combo failed; not launching dpills.&quot;);
+            return;
+        }
+    }
+    don_dpills();
+}</code></pre></article>
+<article id="actual-11-34"><h2>newstuff <small>[11.34]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:677–703</p><p>function_actual11.34.2</p><pre><code>void newstuff() {
+    int profitOffset = 100;
+    string page = visit_url(&quot;campground.php?action=inspectdwelling&quot;);
+    if (contains_text(page, &quot;Clockwork Maid&quot;) ||
+        contains_text(page, &quot;Meat Butler&quot;) ||
+        contains_text(page, &quot;Meat Maid&quot;)) {
+        don_log(&quot;Maid or butler already installed.&quot;);
+        return;
+    }
+    int voa = get_property(&quot;valueOfAdventure&quot;).to_int();
+    if (available_amount($item[Clockwork Maid]) &gt; 0 ||
+        buy(1, $item[Clockwork Maid], max(0, 8 * voa - profitOffset)) == 1) {
+        if (!use(1, $item[Clockwork Maid])) don_error(&quot;Clockwork Maid install failed.&quot;);
+        return;
+    }
+    if (available_amount($item[Meat Butler]) &gt; 0 ||
+        buy(1, $item[Meat Butler], max(0, 4 * voa - profitOffset)) == 1) {
+        if (!use(1, $item[Meat Butler])) don_error(&quot;Meat Butler install failed.&quot;);
+        return;
+    }
+    if (available_amount($item[Meat Maid]) &gt; 0 ||
+        buy(1, $item[Meat Maid], max(0, 4 * voa - profitOffset)) == 1) {
+        if (!use(1, $item[Meat Maid])) don_error(&quot;Meat Maid install failed.&quot;);
+        return;
+    }
+    don_warning(&quot;Maid / butler options are all outside price range.&quot;);
+}</code></pre></article></body></html>

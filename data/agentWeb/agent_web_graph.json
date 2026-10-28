@@ -1,0 +1,4050 @@
+{
+  "schema": "agent-web/0.1",
+  "embeddings": "not_computed",
+  "evidence": "lexical static call scan; no runtime proof",
+  "scripts": [
+    {
+      "slug": "don_custom_functions",
+      "path": "scripts/don_custom_functions.ash",
+      "number": 11,
+      "functions": [
+        {
+          "id": "11.1",
+          "script": "don_custom_functions",
+          "name": "possessItem",
+          "signature": "boolean possessItem(item thingy)",
+          "line_start": 68,
+          "line_end": 77,
+          "keywords": [
+            "possess",
+            "item",
+            "boolean",
+            "possessitem",
+            "thingy",
+            "amount",
+            "closet",
+            "have",
+            "equipped",
+            "cli",
+            "execute",
+            "don",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.2",
+          "script": "don_custom_functions",
+          "name": "IamLegendary",
+          "signature": "boolean IamLegendary()",
+          "line_start": 79,
+          "line_end": 90,
+          "keywords": [
+            "iam",
+            "legendary",
+            "boolean",
+            "iamlegendary",
+            "muscleclass",
+            "possessitem",
+            "moxieclass",
+            "mysticalityclass"
+          ]
+        },
+        {
+          "id": "11.3",
+          "script": "don_custom_functions",
+          "name": "IamEpic",
+          "signature": "boolean IamEpic()",
+          "line_start": 92,
+          "line_end": 104,
+          "keywords": [
+            "iam",
+            "epic",
+            "boolean",
+            "iamepic",
+            "iamlegendary",
+            "muscleclass",
+            "possessitem",
+            "moxieclass",
+            "mysticalityclass"
+          ]
+        },
+        {
+          "id": "11.4",
+          "script": "don_custom_functions",
+          "name": "CheckFortune",
+          "signature": "string CheckFortune(boolean autoeat)",
+          "line_start": 106,
+          "line_end": 156,
+          "keywords": [
+            "check",
+            "fortune",
+            "string",
+            "checkfortune",
+            "boolean",
+            "autoeat",
+            "get",
+            "property",
+            "create",
+            "matcher",
+            "find",
+            "group",
+            "int",
+            "turncount",
+            "fullness",
+            "limit",
+            "meat",
+            "user",
+            "confirm",
+            "eatsilent"
+          ]
+        },
+        {
+          "id": "11.5",
+          "script": "don_custom_functions",
+          "name": "ListItems",
+          "signature": "string ListItems(int[item] Closet, int mode)",
+          "line_start": 158,
+          "line_end": 174,
+          "keywords": [
+            "list",
+            "items",
+            "string",
+            "listitems",
+            "int",
+            "item",
+            "closet",
+            "mode",
+            "amount",
+            "stash",
+            "don",
+            "add"
+          ]
+        },
+        {
+          "id": "11.6",
+          "script": "don_custom_functions",
+          "name": "day_of_week",
+          "signature": "int day_of_week()",
+          "line_start": 176,
+          "line_end": 190,
+          "keywords": [
+            "day",
+            "week",
+            "int"
+          ]
+        },
+        {
+          "id": "11.7",
+          "script": "don_custom_functions",
+          "name": "consume",
+          "signature": "void consume()",
+          "line_start": 196,
+          "line_end": 214,
+          "keywords": [
+            "consume",
+            "void",
+            "refresh",
+            "status",
+            "print",
+            "fullness",
+            "limit",
+            "inebriety",
+            "spleen",
+            "use",
+            "get",
+            "property",
+            "int",
+            "set",
+            "cli",
+            "execute",
+            "don",
+            "error",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.8",
+          "script": "don_custom_functions",
+          "name": "BeachAccess",
+          "signature": "void BeachAccess()",
+          "line_start": 216,
+          "line_end": 224,
+          "keywords": [
+            "beach",
+            "access",
+            "void",
+            "beachaccess",
+            "available",
+            "amount",
+            "retrieve",
+            "item",
+            "don",
+            "error"
+          ]
+        },
+        {
+          "id": "11.9",
+          "script": "don_custom_functions",
+          "name": "advManager",
+          "signature": "void advManager()",
+          "line_start": 226,
+          "line_end": 232,
+          "keywords": [
+            "adv",
+            "manager",
+            "void",
+            "advmanager",
+            "adventures",
+            "abort",
+            "don",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.10",
+          "script": "don_custom_functions",
+          "name": "eat_sausage",
+          "signature": "void eat_sausage()",
+          "line_start": 234,
+          "line_end": 242,
+          "keywords": [
+            "eat",
+            "sausage",
+            "void",
+            "max",
+            "get",
+            "property",
+            "int",
+            "don",
+            "warning",
+            "cli",
+            "execute",
+            "error"
+          ]
+        },
+        {
+          "id": "11.11",
+          "script": "don_custom_functions",
+          "name": "Sweat",
+          "signature": "void Sweat()",
+          "line_start": 244,
+          "line_end": 260,
+          "keywords": [
+            "sweat",
+            "void",
+            "have",
+            "skill",
+            "don",
+            "warning",
+            "get",
+            "property",
+            "int",
+            "inebriety",
+            "use",
+            "error"
+          ]
+        },
+        {
+          "id": "11.12",
+          "script": "don_custom_functions",
+          "name": "startBarf",
+          "signature": "void startBarf()",
+          "line_start": 262,
+          "line_end": 274,
+          "keywords": [
+            "start",
+            "barf",
+            "void",
+            "startbarf",
+            "get",
+            "property",
+            "int",
+            "cli",
+            "execute",
+            "don",
+            "error",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.13",
+          "script": "don_custom_functions",
+          "name": "comboAll",
+          "signature": "void comboAll()",
+          "line_start": 276,
+          "line_end": 283,
+          "keywords": [
+            "combo",
+            "all",
+            "void",
+            "comboall",
+            "adventures",
+            "don",
+            "warning",
+            "cli",
+            "execute",
+            "error"
+          ]
+        },
+        {
+          "id": "11.14",
+          "script": "don_custom_functions",
+          "name": "comb",
+          "signature": "void comb()",
+          "line_start": 285,
+          "line_end": 292,
+          "keywords": [
+            "comb",
+            "void",
+            "adventures",
+            "use",
+            "get",
+            "property",
+            "int",
+            "cli",
+            "execute",
+            "don",
+            "error",
+            "log"
+          ]
+        },
+        {
+          "id": "11.15",
+          "script": "don_custom_functions",
+          "name": "raffle",
+          "signature": "void raffle()",
+          "line_start": 294,
+          "line_end": 307,
+          "keywords": [
+            "raffle",
+            "void",
+            "don",
+            "owned",
+            "amount",
+            "log",
+            "cli",
+            "execute",
+            "error",
+            "good"
+          ]
+        },
+        {
+          "id": "11.16",
+          "script": "don_custom_functions",
+          "name": "autoBot",
+          "signature": "void autoBot()",
+          "line_start": 309,
+          "line_end": 321,
+          "keywords": [
+            "auto",
+            "bot",
+            "void",
+            "autobot",
+            "get",
+            "property",
+            "int",
+            "can",
+            "adventure",
+            "don",
+            "warning",
+            "cli",
+            "execute",
+            "error"
+          ]
+        },
+        {
+          "id": "11.17",
+          "script": "don_custom_functions",
+          "name": "DOD",
+          "signature": "void DOD()",
+          "line_start": 327,
+          "line_end": 347,
+          "keywords": [
+            "dod",
+            "void",
+            "meat",
+            "don",
+            "error",
+            "available",
+            "amount",
+            "good",
+            "can",
+            "adventure",
+            "equip",
+            "set",
+            "property",
+            "item",
+            "adventures"
+          ]
+        },
+        {
+          "id": "11.18",
+          "script": "don_custom_functions",
+          "name": "EGTS",
+          "signature": "void EGTS()",
+          "line_start": 349,
+          "line_end": 397,
+          "keywords": [
+            "egts",
+            "void",
+            "visit",
+            "url",
+            "contains",
+            "text",
+            "dod",
+            "can",
+            "adventure",
+            "don",
+            "error",
+            "set",
+            "property",
+            "available",
+            "amount",
+            "adventures",
+            "interact",
+            "meat",
+            "cli",
+            "execute",
+            "equipped",
+            "item",
+            "equip",
+            "get",
+            "use"
+          ]
+        },
+        {
+          "id": "11.19",
+          "script": "don_custom_functions",
+          "name": "zapWand",
+          "signature": "void zapWand()",
+          "line_start": 399,
+          "line_end": 408,
+          "keywords": [
+            "zap",
+            "wand",
+            "void",
+            "zapwand",
+            "meat",
+            "don",
+            "error",
+            "visit",
+            "url",
+            "contains",
+            "text",
+            "egts",
+            "dod",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.20",
+          "script": "don_custom_functions",
+          "name": "chowDown",
+          "signature": "void chowDown()",
+          "line_start": 410,
+          "line_end": 419,
+          "keywords": [
+            "chow",
+            "down",
+            "void",
+            "chowdown",
+            "outfit",
+            "don",
+            "error",
+            "cli",
+            "execute",
+            "wait",
+            "consume",
+            "set",
+            "property"
+          ]
+        },
+        {
+          "id": "11.21",
+          "script": "don_custom_functions",
+          "name": "chowDown2",
+          "signature": "void chowDown2()",
+          "line_start": 421,
+          "line_end": 430,
+          "keywords": [
+            "chow",
+            "down2",
+            "void",
+            "chowdown2",
+            "outfit",
+            "don",
+            "error",
+            "cli",
+            "execute",
+            "wait",
+            "consume",
+            "set",
+            "property"
+          ]
+        },
+        {
+          "id": "11.22",
+          "script": "don_custom_functions",
+          "name": "openDungeon",
+          "signature": "void openDungeon()",
+          "line_start": 432,
+          "line_end": 442,
+          "keywords": [
+            "open",
+            "dungeon",
+            "void",
+            "opendungeon",
+            "outfit",
+            "don",
+            "error",
+            "log",
+            "contains",
+            "text",
+            "visit",
+            "url",
+            "zapwand"
+          ]
+        },
+        {
+          "id": "11.23",
+          "script": "don_custom_functions",
+          "name": "yetiAdv",
+          "signature": "void yetiAdv()",
+          "line_start": 444,
+          "line_end": 482,
+          "keywords": [
+            "yeti",
+            "adv",
+            "void",
+            "yetiadv",
+            "have",
+            "familiar",
+            "don",
+            "error",
+            "current",
+            "mcd",
+            "change",
+            "autobot",
+            "outfit",
+            "use",
+            "cli",
+            "execute",
+            "visit",
+            "url",
+            "contains",
+            "text",
+            "opendungeon",
+            "can",
+            "adventure",
+            "adventures",
+            "log",
+            "good",
+            "warning",
+            "max"
+          ]
+        },
+        {
+          "id": "11.24",
+          "script": "don_custom_functions",
+          "name": "stooperDis",
+          "signature": "void stooperDis()",
+          "line_start": 488,
+          "line_end": 501,
+          "keywords": [
+            "stooper",
+            "dis",
+            "void",
+            "stooperdis",
+            "cli",
+            "execute",
+            "have",
+            "familiar",
+            "don",
+            "warning",
+            "use",
+            "inebriety",
+            "limit",
+            "available",
+            "amount",
+            "equipped"
+          ]
+        },
+        {
+          "id": "11.25",
+          "script": "don_custom_functions",
+          "name": "getCool",
+          "signature": "void getCool()",
+          "line_start": 503,
+          "line_end": 542,
+          "keywords": [
+            "get",
+            "cool",
+            "void",
+            "getcool",
+            "outfit",
+            "refresh",
+            "status",
+            "property",
+            "boolean",
+            "inebriety",
+            "limit",
+            "stooperdis",
+            "familiar",
+            "have",
+            "don",
+            "warning",
+            "use",
+            "error",
+            "cli",
+            "execute",
+            "visit",
+            "url",
+            "buffer",
+            "file",
+            "available",
+            "choice",
+            "options",
+            "handling",
+            "run",
+            "good"
+          ]
+        },
+        {
+          "id": "11.26",
+          "script": "don_custom_functions",
+          "name": "shrugAT",
+          "signature": "void shrugAT()",
+          "line_start": 544,
+          "line_end": 552,
+          "keywords": [
+            "shrug",
+            "void",
+            "shrugat",
+            "cli",
+            "execute"
+          ]
+        },
+        {
+          "id": "11.27",
+          "script": "don_custom_functions",
+          "name": "don_mayam",
+          "signature": "void don_mayam()",
+          "line_start": 554,
+          "line_end": 580,
+          "keywords": [
+            "don",
+            "mayam",
+            "void",
+            "available",
+            "amount",
+            "get",
+            "property",
+            "boolean",
+            "have",
+            "familiar",
+            "warning",
+            "use",
+            "error",
+            "cli",
+            "execute",
+            "set",
+            "good"
+          ]
+        },
+        {
+          "id": "11.28",
+          "script": "don_custom_functions",
+          "name": "augmentBreakfast",
+          "signature": "void augmentBreakfast()",
+          "line_start": 582,
+          "line_end": 597,
+          "keywords": [
+            "augment",
+            "breakfast",
+            "void",
+            "augmentbreakfast",
+            "get",
+            "property",
+            "boolean",
+            "don",
+            "log",
+            "cli",
+            "execute",
+            "warning",
+            "raffle",
+            "int",
+            "available",
+            "amount",
+            "use",
+            "mayam"
+          ]
+        },
+        {
+          "id": "11.29",
+          "script": "don_custom_functions",
+          "name": "Baseline",
+          "signature": "void Baseline()",
+          "line_start": 599,
+          "line_end": 615,
+          "keywords": [
+            "baseline",
+            "void",
+            "shrugat",
+            "cli",
+            "execute",
+            "set",
+            "property",
+            "have",
+            "effect",
+            "item",
+            "amount",
+            "buy"
+          ]
+        },
+        {
+          "id": "11.30",
+          "script": "don_custom_functions",
+          "name": "nightcap",
+          "signature": "void nightcap()",
+          "line_start": 617,
+          "line_end": 635,
+          "keywords": [
+            "nightcap",
+            "void",
+            "item",
+            "amount",
+            "available",
+            "retrieve",
+            "don",
+            "warning",
+            "buy",
+            "error",
+            "overdrink"
+          ]
+        },
+        {
+          "id": "11.31",
+          "script": "don_custom_functions",
+          "name": "don_dpills",
+          "signature": "void don_dpills()",
+          "line_start": 637,
+          "line_end": 646,
+          "keywords": [
+            "don",
+            "dpills",
+            "void",
+            "cli",
+            "execute",
+            "adventures",
+            "error",
+            "set",
+            "property"
+          ]
+        },
+        {
+          "id": "11.32",
+          "script": "don_custom_functions",
+          "name": "don_Midcap",
+          "signature": "void don_Midcap()",
+          "line_start": 648,
+          "line_end": 664,
+          "keywords": [
+            "don",
+            "midcap",
+            "void",
+            "needtoacquireitem",
+            "buy",
+            "available",
+            "amount",
+            "error",
+            "have",
+            "familiar",
+            "warning",
+            "use",
+            "overdrink"
+          ]
+        },
+        {
+          "id": "11.33",
+          "script": "don_custom_functions",
+          "name": "don_Midcap_Pills",
+          "signature": "void don_Midcap_Pills()",
+          "line_start": 666,
+          "line_end": 675,
+          "keywords": [
+            "don",
+            "midcap",
+            "pills",
+            "void",
+            "overdrunk",
+            "adventures",
+            "cli",
+            "execute",
+            "error",
+            "dpills"
+          ]
+        },
+        {
+          "id": "11.34",
+          "script": "don_custom_functions",
+          "name": "newstuff",
+          "signature": "void newstuff()",
+          "line_start": 677,
+          "line_end": 703,
+          "keywords": [
+            "newstuff",
+            "void",
+            "visit",
+            "url",
+            "contains",
+            "text",
+            "don",
+            "log",
+            "get",
+            "property",
+            "int",
+            "available",
+            "amount",
+            "buy",
+            "max",
+            "use",
+            "error",
+            "warning"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "don_master_lib",
+      "path": "don-master-ash-lib/scripts/don_master_lib.ash",
+      "number": 12,
+      "functions": [
+        {
+          "id": "12.1",
+          "script": "don_master_lib",
+          "name": "don_log",
+          "signature": "void don_log(string message)",
+          "line_start": 101,
+          "line_end": 101,
+          "keywords": [
+            "don",
+            "log",
+            "void",
+            "string",
+            "message",
+            "print"
+          ]
+        },
+        {
+          "id": "12.2",
+          "script": "don_master_lib",
+          "name": "don_good",
+          "signature": "void don_good(string message)",
+          "line_start": 102,
+          "line_end": 102,
+          "keywords": [
+            "don",
+            "good",
+            "void",
+            "string",
+            "message",
+            "print"
+          ]
+        },
+        {
+          "id": "12.3",
+          "script": "don_master_lib",
+          "name": "don_caution",
+          "signature": "void don_caution(string message)",
+          "line_start": 103,
+          "line_end": 103,
+          "keywords": [
+            "don",
+            "caution",
+            "void",
+            "string",
+            "message",
+            "print"
+          ]
+        },
+        {
+          "id": "12.4",
+          "script": "don_master_lib",
+          "name": "don_warning",
+          "signature": "void don_warning(string message)",
+          "line_start": 104,
+          "line_end": 104,
+          "keywords": [
+            "don",
+            "warning",
+            "void",
+            "string",
+            "message",
+            "print"
+          ]
+        },
+        {
+          "id": "12.5",
+          "script": "don_master_lib",
+          "name": "don_error",
+          "signature": "void don_error(string message)",
+          "line_start": 105,
+          "line_end": 105,
+          "keywords": [
+            "don",
+            "error",
+            "void",
+            "string",
+            "message",
+            "print"
+          ]
+        },
+        {
+          "id": "12.6",
+          "script": "don_master_lib",
+          "name": "don_breaker",
+          "signature": "void don_breaker()",
+          "line_start": 107,
+          "line_end": 109,
+          "keywords": [
+            "don",
+            "breaker",
+            "void",
+            "print"
+          ]
+        },
+        {
+          "id": "12.7",
+          "script": "don_master_lib",
+          "name": "don_header",
+          "signature": "void don_header(string header)",
+          "line_start": 111,
+          "line_end": 115,
+          "keywords": [
+            "don",
+            "header",
+            "void",
+            "string",
+            "breaker",
+            "print"
+          ]
+        },
+        {
+          "id": "12.8",
+          "script": "don_master_lib",
+          "name": "don_sub",
+          "signature": "void don_sub(string sub)",
+          "line_start": 117,
+          "line_end": 119,
+          "keywords": [
+            "don",
+            "sub",
+            "void",
+            "string",
+            "print"
+          ]
+        },
+        {
+          "id": "12.9",
+          "script": "don_master_lib",
+          "name": "don_footer",
+          "signature": "void don_footer()",
+          "line_start": 121,
+          "line_end": 121,
+          "keywords": [
+            "don",
+            "footer",
+            "void",
+            "breaker"
+          ]
+        },
+        {
+          "id": "12.10",
+          "script": "don_master_lib",
+          "name": "don_clamp",
+          "signature": "float don_clamp(float value, float low, float high)",
+          "line_start": 127,
+          "line_end": 129,
+          "keywords": [
+            "don",
+            "clamp",
+            "float",
+            "value",
+            "low",
+            "high",
+            "max",
+            "min"
+          ]
+        },
+        {
+          "id": "12.11",
+          "script": "don_master_lib",
+          "name": "don_clamp",
+          "signature": "int don_clamp(int value, int low, int high)",
+          "line_start": 131,
+          "line_end": 133,
+          "keywords": [
+            "don",
+            "clamp",
+            "int",
+            "value",
+            "low",
+            "high",
+            "max",
+            "min"
+          ]
+        },
+        {
+          "id": "12.12",
+          "script": "don_master_lib",
+          "name": "don_rnum",
+          "signature": "string don_rnum(int value)",
+          "line_start": 135,
+          "line_end": 137,
+          "keywords": [
+            "don",
+            "rnum",
+            "string",
+            "int",
+            "value"
+          ]
+        },
+        {
+          "id": "12.13",
+          "script": "don_master_lib",
+          "name": "don_bool_word",
+          "signature": "string don_bool_word(boolean value)",
+          "line_start": 139,
+          "line_end": 142,
+          "keywords": [
+            "don",
+            "bool",
+            "word",
+            "string",
+            "boolean",
+            "value"
+          ]
+        },
+        {
+          "id": "12.14",
+          "script": "don_master_lib",
+          "name": "don_blank",
+          "signature": "boolean don_blank(string value)",
+          "line_start": 144,
+          "line_end": 146,
+          "keywords": [
+            "don",
+            "blank",
+            "boolean",
+            "string",
+            "value"
+          ]
+        },
+        {
+          "id": "12.15",
+          "script": "don_master_lib",
+          "name": "don_list_add",
+          "signature": "string don_list_add(string list, string value, string glue)",
+          "line_start": 148,
+          "line_end": 152,
+          "keywords": [
+            "don",
+            "list",
+            "add",
+            "string",
+            "value",
+            "glue"
+          ]
+        },
+        {
+          "id": "12.16",
+          "script": "don_master_lib",
+          "name": "don_list_add",
+          "signature": "string don_list_add(string list, string value)",
+          "line_start": 154,
+          "line_end": 156,
+          "keywords": [
+            "don",
+            "list",
+            "add",
+            "string",
+            "value"
+          ]
+        },
+        {
+          "id": "12.17",
+          "script": "don_master_lib",
+          "name": "don_list_remove",
+          "signature": "string don_list_remove(string list, string value, string glue)",
+          "line_start": 158,
+          "line_end": 166,
+          "keywords": [
+            "don",
+            "list",
+            "remove",
+            "string",
+            "value",
+            "glue",
+            "split",
+            "add"
+          ]
+        },
+        {
+          "id": "12.18",
+          "script": "don_master_lib",
+          "name": "don_list_remove",
+          "signature": "string don_list_remove(string list, string value)",
+          "line_start": 168,
+          "line_end": 170,
+          "keywords": [
+            "don",
+            "list",
+            "remove",
+            "string",
+            "value"
+          ]
+        },
+        {
+          "id": "12.19",
+          "script": "don_master_lib",
+          "name": "don_wait_minutes",
+          "signature": "void don_wait_minutes(int minutes)",
+          "line_start": 172,
+          "line_end": 174,
+          "keywords": [
+            "don",
+            "wait",
+            "minutes",
+            "void",
+            "int"
+          ]
+        },
+        {
+          "id": "12.20",
+          "script": "don_master_lib",
+          "name": "don_pref_exists_or_daily",
+          "signature": "boolean don_pref_exists_or_daily(string property)",
+          "line_start": 180,
+          "line_end": 184,
+          "keywords": [
+            "don",
+            "pref",
+            "exists",
+            "daily",
+            "boolean",
+            "string",
+            "property",
+            "starts",
+            "with"
+          ]
+        },
+        {
+          "id": "12.21",
+          "script": "don_master_lib",
+          "name": "don_pref_string",
+          "signature": "string don_pref_string(string property)",
+          "line_start": 186,
+          "line_end": 192,
+          "keywords": [
+            "don",
+            "pref",
+            "string",
+            "property",
+            "exists",
+            "daily",
+            "warning",
+            "get"
+          ]
+        },
+        {
+          "id": "12.22",
+          "script": "don_master_lib",
+          "name": "don_pref_int",
+          "signature": "int don_pref_int(string property)",
+          "line_start": 194,
+          "line_end": 196,
+          "keywords": [
+            "don",
+            "pref",
+            "int",
+            "string",
+            "property"
+          ]
+        },
+        {
+          "id": "12.23",
+          "script": "don_master_lib",
+          "name": "don_pref_float",
+          "signature": "float don_pref_float(string property)",
+          "line_start": 198,
+          "line_end": 200,
+          "keywords": [
+            "don",
+            "pref",
+            "float",
+            "string",
+            "property"
+          ]
+        },
+        {
+          "id": "12.24",
+          "script": "don_master_lib",
+          "name": "don_pref_bool",
+          "signature": "boolean don_pref_bool(string property)",
+          "line_start": 202,
+          "line_end": 204,
+          "keywords": [
+            "don",
+            "pref",
+            "bool",
+            "boolean",
+            "string",
+            "property"
+          ]
+        },
+        {
+          "id": "12.25",
+          "script": "don_master_lib",
+          "name": "don_pref_item",
+          "signature": "item don_pref_item(string property)",
+          "line_start": 206,
+          "line_end": 208,
+          "keywords": [
+            "don",
+            "pref",
+            "item",
+            "string",
+            "property"
+          ]
+        },
+        {
+          "id": "12.26",
+          "script": "don_master_lib",
+          "name": "don_pref_location",
+          "signature": "location don_pref_location(string property)",
+          "line_start": 210,
+          "line_end": 212,
+          "keywords": [
+            "don",
+            "pref",
+            "location",
+            "string",
+            "property"
+          ]
+        },
+        {
+          "id": "12.27",
+          "script": "don_master_lib",
+          "name": "don_pref_familiar",
+          "signature": "familiar don_pref_familiar(string property)",
+          "line_start": 214,
+          "line_end": 216,
+          "keywords": [
+            "don",
+            "pref",
+            "familiar",
+            "string",
+            "property"
+          ]
+        },
+        {
+          "id": "12.28",
+          "script": "don_master_lib",
+          "name": "don_set_pref",
+          "signature": "void don_set_pref(string property, string value)",
+          "line_start": 218,
+          "line_end": 220,
+          "keywords": [
+            "don",
+            "set",
+            "pref",
+            "void",
+            "string",
+            "property",
+            "value"
+          ]
+        },
+        {
+          "id": "12.29",
+          "script": "don_master_lib",
+          "name": "don_set_pref",
+          "signature": "void don_set_pref(string property, int value)",
+          "line_start": 222,
+          "line_end": 224,
+          "keywords": [
+            "don",
+            "set",
+            "pref",
+            "void",
+            "string",
+            "property",
+            "int",
+            "value"
+          ]
+        },
+        {
+          "id": "12.30",
+          "script": "don_master_lib",
+          "name": "don_set_pref",
+          "signature": "void don_set_pref(string property, boolean value)",
+          "line_start": 226,
+          "line_end": 228,
+          "keywords": [
+            "don",
+            "set",
+            "pref",
+            "void",
+            "string",
+            "property",
+            "boolean",
+            "value"
+          ]
+        },
+        {
+          "id": "12.31",
+          "script": "don_master_lib",
+          "name": "don_is_buzzed",
+          "signature": "boolean don_is_buzzed()",
+          "line_start": 234,
+          "line_end": 234,
+          "keywords": [
+            "don",
+            "buzzed",
+            "boolean",
+            "inebriety",
+            "limit"
+          ]
+        },
+        {
+          "id": "12.32",
+          "script": "don_master_lib",
+          "name": "don_is_overdrunk",
+          "signature": "boolean don_is_overdrunk()",
+          "line_start": 235,
+          "line_end": 235,
+          "keywords": [
+            "don",
+            "overdrunk",
+            "boolean",
+            "inebriety",
+            "limit"
+          ]
+        },
+        {
+          "id": "12.33",
+          "script": "don_master_lib",
+          "name": "don_is_full",
+          "signature": "boolean don_is_full()",
+          "line_start": 236,
+          "line_end": 236,
+          "keywords": [
+            "don",
+            "full",
+            "boolean",
+            "fullness",
+            "limit"
+          ]
+        },
+        {
+          "id": "12.34",
+          "script": "don_master_lib",
+          "name": "don_is_spleen_full",
+          "signature": "boolean don_is_spleen_full()",
+          "line_start": 237,
+          "line_end": 237,
+          "keywords": [
+            "don",
+            "spleen",
+            "full",
+            "boolean",
+            "use",
+            "limit"
+          ]
+        },
+        {
+          "id": "12.35",
+          "script": "don_master_lib",
+          "name": "don_have_adv",
+          "signature": "boolean don_have_adv()",
+          "line_start": 238,
+          "line_end": 238,
+          "keywords": [
+            "don",
+            "have",
+            "adv",
+            "boolean",
+            "adventures"
+          ]
+        },
+        {
+          "id": "12.36",
+          "script": "don_master_lib",
+          "name": "don_in_aftercore",
+          "signature": "boolean don_in_aftercore()",
+          "line_start": 239,
+          "line_end": 239,
+          "keywords": [
+            "don",
+            "aftercore",
+            "boolean",
+            "get",
+            "property"
+          ]
+        },
+        {
+          "id": "12.37",
+          "script": "don_master_lib",
+          "name": "don_has_effect",
+          "signature": "boolean don_has_effect(effect ef)",
+          "line_start": 240,
+          "line_end": 240,
+          "keywords": [
+            "don",
+            "has",
+            "effect",
+            "boolean",
+            "have"
+          ]
+        },
+        {
+          "id": "12.38",
+          "script": "don_master_lib",
+          "name": "don_muscle_class",
+          "signature": "boolean don_muscle_class()",
+          "line_start": 242,
+          "line_end": 242,
+          "keywords": [
+            "don",
+            "muscle",
+            "class",
+            "boolean",
+            "primestat"
+          ]
+        },
+        {
+          "id": "12.39",
+          "script": "don_master_lib",
+          "name": "don_myst_class",
+          "signature": "boolean don_myst_class()",
+          "line_start": 243,
+          "line_end": 243,
+          "keywords": [
+            "don",
+            "myst",
+            "class",
+            "boolean",
+            "primestat"
+          ]
+        },
+        {
+          "id": "12.40",
+          "script": "don_master_lib",
+          "name": "don_moxie_class",
+          "signature": "boolean don_moxie_class()",
+          "line_start": 244,
+          "line_end": 244,
+          "keywords": [
+            "don",
+            "moxie",
+            "class",
+            "boolean",
+            "primestat"
+          ]
+        },
+        {
+          "id": "12.41",
+          "script": "don_master_lib",
+          "name": "don_hp_fraction",
+          "signature": "float don_hp_fraction()",
+          "line_start": 246,
+          "line_end": 249,
+          "keywords": [
+            "don",
+            "fraction",
+            "float",
+            "maxhp"
+          ]
+        },
+        {
+          "id": "12.42",
+          "script": "don_master_lib",
+          "name": "don_mp_fraction",
+          "signature": "float don_mp_fraction()",
+          "line_start": 251,
+          "line_end": 254,
+          "keywords": [
+            "don",
+            "fraction",
+            "float",
+            "maxmp"
+          ]
+        },
+        {
+          "id": "12.43",
+          "script": "don_master_lib",
+          "name": "don_print_snapshot",
+          "signature": "void don_print_snapshot()",
+          "line_start": 280,
+          "line_end": 292,
+          "keywords": [
+            "don",
+            "print",
+            "snapshot",
+            "void",
+            "header",
+            "rnum",
+            "bool",
+            "word",
+            "footer"
+          ]
+        },
+        {
+          "id": "12.44",
+          "script": "don_master_lib",
+          "name": "don_inventory_amount",
+          "signature": "int don_inventory_amount(item it)",
+          "line_start": 298,
+          "line_end": 298,
+          "keywords": [
+            "don",
+            "inventory",
+            "amount",
+            "int",
+            "item"
+          ]
+        },
+        {
+          "id": "12.45",
+          "script": "don_master_lib",
+          "name": "don_owned_amount",
+          "signature": "int don_owned_amount(item it)",
+          "line_start": 300,
+          "line_end": 302,
+          "keywords": [
+            "don",
+            "owned",
+            "amount",
+            "int",
+            "item",
+            "equipped",
+            "closet",
+            "storage"
+          ]
+        },
+        {
+          "id": "12.46",
+          "script": "don_master_lib",
+          "name": "don_owned_amount",
+          "signature": "int don_owned_amount(item it, boolean include_display, boolean include_shop, boolean include_stash)",
+          "line_start": 304,
+          "line_end": 310,
+          "keywords": [
+            "don",
+            "owned",
+            "amount",
+            "int",
+            "item",
+            "boolean",
+            "include",
+            "display",
+            "shop",
+            "stash"
+          ]
+        },
+        {
+          "id": "12.47",
+          "script": "don_master_lib",
+          "name": "don_have",
+          "signature": "boolean don_have(item it)",
+          "line_start": 312,
+          "line_end": 314,
+          "keywords": [
+            "don",
+            "have",
+            "boolean",
+            "item",
+            "owned",
+            "amount"
+          ]
+        },
+        {
+          "id": "12.48",
+          "script": "don_master_lib",
+          "name": "don_need",
+          "signature": "boolean don_need(item it)",
+          "line_start": 316,
+          "line_end": 318,
+          "keywords": [
+            "don",
+            "need",
+            "boolean",
+            "item",
+            "owned",
+            "amount"
+          ]
+        },
+        {
+          "id": "12.49",
+          "script": "don_master_lib",
+          "name": "don_possess_inventory_closet_equipped",
+          "signature": "boolean don_possess_inventory_closet_equipped(item it)",
+          "line_start": 320,
+          "line_end": 322,
+          "keywords": [
+            "don",
+            "possess",
+            "inventory",
+            "closet",
+            "equipped",
+            "boolean",
+            "item",
+            "amount",
+            "have"
+          ]
+        },
+        {
+          "id": "12.50",
+          "script": "don_master_lib",
+          "name": "don_familiar_equipped_amount",
+          "signature": "int don_familiar_equipped_amount(item it)",
+          "line_start": 324,
+          "line_end": 331,
+          "keywords": [
+            "don",
+            "familiar",
+            "equipped",
+            "amount",
+            "int",
+            "item",
+            "have",
+            "equipment"
+          ]
+        },
+        {
+          "id": "12.51",
+          "script": "don_master_lib",
+          "name": "don_true_owned_amount",
+          "signature": "int don_true_owned_amount(item it, boolean include_stash)",
+          "line_start": 333,
+          "line_end": 337,
+          "keywords": [
+            "don",
+            "true",
+            "owned",
+            "amount",
+            "int",
+            "item",
+            "boolean",
+            "include",
+            "stash",
+            "familiar",
+            "equipped"
+          ]
+        },
+        {
+          "id": "12.52",
+          "script": "don_master_lib",
+          "name": "don_retrieve",
+          "signature": "boolean don_retrieve(int amount, item it)",
+          "line_start": 339,
+          "line_end": 343,
+          "keywords": [
+            "don",
+            "retrieve",
+            "boolean",
+            "int",
+            "amount",
+            "item"
+          ]
+        },
+        {
+          "id": "12.53",
+          "script": "don_master_lib",
+          "name": "don_use_any",
+          "signature": "boolean don_use_any(int amount, item it)",
+          "line_start": 379,
+          "line_end": 386,
+          "keywords": [
+            "don",
+            "use",
+            "any",
+            "boolean",
+            "int",
+            "amount",
+            "item",
+            "retrieve",
+            "eat",
+            "drink"
+          ]
+        },
+        {
+          "id": "12.54",
+          "script": "don_master_lib",
+          "name": "don_value_of_adventure",
+          "signature": "int don_value_of_adventure()",
+          "line_start": 392,
+          "line_end": 396,
+          "keywords": [
+            "don",
+            "value",
+            "adventure",
+            "int",
+            "get",
+            "property"
+          ]
+        },
+        {
+          "id": "12.55",
+          "script": "don_master_lib",
+          "name": "don_item_value",
+          "signature": "int don_item_value(item it)",
+          "line_start": 437,
+          "line_end": 440,
+          "keywords": [
+            "don",
+            "item",
+            "value",
+            "int",
+            "price",
+            "max",
+            "autosell"
+          ]
+        },
+        {
+          "id": "12.56",
+          "script": "don_master_lib",
+          "name": "don_price_at_most",
+          "signature": "boolean don_price_at_most(item it, int max_price)",
+          "line_start": 442,
+          "line_end": 445,
+          "keywords": [
+            "don",
+            "price",
+            "most",
+            "boolean",
+            "item",
+            "int",
+            "max"
+          ]
+        },
+        {
+          "id": "12.57",
+          "script": "don_master_lib",
+          "name": "don_profit",
+          "signature": "int don_profit(item output, item input, int input_count)",
+          "line_start": 447,
+          "line_end": 449,
+          "keywords": [
+            "don",
+            "profit",
+            "int",
+            "item",
+            "output",
+            "input",
+            "count",
+            "value"
+          ]
+        },
+        {
+          "id": "12.58",
+          "script": "don_master_lib",
+          "name": "don_use_familiar",
+          "signature": "boolean don_use_familiar(familiar fam)",
+          "line_start": 455,
+          "line_end": 459,
+          "keywords": [
+            "don",
+            "use",
+            "familiar",
+            "boolean",
+            "fam",
+            "have"
+          ]
+        },
+        {
+          "id": "12.59",
+          "script": "don_master_lib",
+          "name": "don_equip_familiar_default",
+          "signature": "boolean don_equip_familiar_default(familiar fam)",
+          "line_start": 461,
+          "line_end": 475,
+          "keywords": [
+            "don",
+            "equip",
+            "familiar",
+            "default",
+            "boolean",
+            "fam",
+            "have",
+            "use",
+            "equipment",
+            "retrieve",
+            "item"
+          ]
+        },
+        {
+          "id": "12.60",
+          "script": "don_master_lib",
+          "name": "don_train_familiar",
+          "signature": "boolean don_train_familiar(familiar fam, int base_weight_goal)",
+          "line_start": 477,
+          "line_end": 485,
+          "keywords": [
+            "don",
+            "train",
+            "familiar",
+            "boolean",
+            "fam",
+            "int",
+            "base",
+            "weight",
+            "goal",
+            "have",
+            "use",
+            "cli",
+            "execute"
+          ]
+        },
+        {
+          "id": "12.61",
+          "script": "don_master_lib",
+          "name": "don_save_outfit",
+          "signature": "boolean don_save_outfit(string name)",
+          "line_start": 487,
+          "line_end": 490,
+          "keywords": [
+            "don",
+            "save",
+            "outfit",
+            "boolean",
+            "string",
+            "name",
+            "cli",
+            "execute"
+          ]
+        },
+        {
+          "id": "12.62",
+          "script": "don_master_lib",
+          "name": "don_wear_outfit",
+          "signature": "boolean don_wear_outfit(string name)",
+          "line_start": 492,
+          "line_end": 495,
+          "keywords": [
+            "don",
+            "wear",
+            "outfit",
+            "boolean",
+            "string",
+            "name"
+          ]
+        },
+        {
+          "id": "12.63",
+          "script": "don_master_lib",
+          "name": "don_unequip",
+          "signature": "boolean don_unequip(item it)",
+          "line_start": 497,
+          "line_end": 500,
+          "keywords": [
+            "don",
+            "unequip",
+            "boolean",
+            "item",
+            "have",
+            "equipped",
+            "cli",
+            "execute"
+          ]
+        },
+        {
+          "id": "12.64",
+          "script": "don_master_lib",
+          "name": "don_song_limit",
+          "signature": "int don_song_limit()",
+          "line_start": 506,
+          "line_end": 511,
+          "keywords": [
+            "don",
+            "song",
+            "limit",
+            "int",
+            "boolean",
+            "modifier",
+            "numeric"
+          ]
+        },
+        {
+          "id": "12.65",
+          "script": "don_master_lib",
+          "name": "don_song_count",
+          "signature": "int don_song_count()",
+          "line_start": 513,
+          "line_end": 521,
+          "keywords": [
+            "don",
+            "song",
+            "count",
+            "int",
+            "effects",
+            "skill"
+          ]
+        },
+        {
+          "id": "12.66",
+          "script": "don_master_lib",
+          "name": "don_recover_hp",
+          "signature": "boolean don_recover_hp(float target_fraction)",
+          "line_start": 523,
+          "line_end": 528,
+          "keywords": [
+            "don",
+            "recover",
+            "boolean",
+            "float",
+            "target",
+            "fraction",
+            "clamp",
+            "ceil",
+            "maxhp",
+            "int",
+            "restore"
+          ]
+        },
+        {
+          "id": "12.67",
+          "script": "don_master_lib",
+          "name": "don_recover_mp",
+          "signature": "boolean don_recover_mp(float target_fraction)",
+          "line_start": 530,
+          "line_end": 535,
+          "keywords": [
+            "don",
+            "recover",
+            "boolean",
+            "float",
+            "target",
+            "fraction",
+            "clamp",
+            "ceil",
+            "maxmp",
+            "int",
+            "restore"
+          ]
+        },
+        {
+          "id": "12.68",
+          "script": "don_master_lib",
+          "name": "don_quest_step",
+          "signature": "int don_quest_step(string quest_property)",
+          "line_start": 541,
+          "line_end": 548,
+          "keywords": [
+            "don",
+            "quest",
+            "step",
+            "int",
+            "string",
+            "property",
+            "get",
+            "starts",
+            "with",
+            "substring"
+          ]
+        },
+        {
+          "id": "12.69",
+          "script": "don_master_lib",
+          "name": "don_quest_started",
+          "signature": "boolean don_quest_started(string quest_property)",
+          "line_start": 550,
+          "line_end": 552,
+          "keywords": [
+            "don",
+            "quest",
+            "started",
+            "boolean",
+            "string",
+            "property",
+            "step"
+          ]
+        },
+        {
+          "id": "12.70",
+          "script": "don_master_lib",
+          "name": "don_quest_finished",
+          "signature": "boolean don_quest_finished(string quest_property)",
+          "line_start": 554,
+          "line_end": 556,
+          "keywords": [
+            "don",
+            "quest",
+            "finished",
+            "boolean",
+            "string",
+            "property",
+            "get"
+          ]
+        },
+        {
+          "id": "12.71",
+          "script": "don_master_lib",
+          "name": "don_quest_at_least",
+          "signature": "boolean don_quest_at_least(string quest_property, int step)",
+          "line_start": 558,
+          "line_end": 562,
+          "keywords": [
+            "don",
+            "quest",
+            "least",
+            "boolean",
+            "string",
+            "property",
+            "int",
+            "step"
+          ]
+        },
+        {
+          "id": "12.72",
+          "script": "don_master_lib",
+          "name": "don_choice_id",
+          "signature": "int don_choice_id()",
+          "line_start": 564,
+          "line_end": 566,
+          "keywords": [
+            "don",
+            "choice",
+            "int",
+            "get",
+            "property"
+          ]
+        },
+        {
+          "id": "12.73",
+          "script": "don_master_lib",
+          "name": "don_in_choice",
+          "signature": "boolean don_in_choice()",
+          "line_start": 568,
+          "line_end": 570,
+          "keywords": [
+            "don",
+            "choice",
+            "boolean",
+            "handling"
+          ]
+        },
+        {
+          "id": "12.74",
+          "script": "don_master_lib",
+          "name": "don_require",
+          "signature": "boolean don_require(boolean condition, string message)",
+          "line_start": 643,
+          "line_end": 647,
+          "keywords": [
+            "don",
+            "require",
+            "boolean",
+            "condition",
+            "string",
+            "message",
+            "abort"
+          ]
+        },
+        {
+          "id": "12.75",
+          "script": "don_master_lib",
+          "name": "don_find_wand",
+          "signature": "item don_find_wand()",
+          "line_start": 653,
+          "line_end": 661,
+          "keywords": [
+            "don",
+            "find",
+            "wand",
+            "item",
+            "get",
+            "zap",
+            "owned",
+            "amount"
+          ]
+        },
+        {
+          "id": "12.76",
+          "script": "don_master_lib",
+          "name": "don_wand_usable",
+          "signature": "boolean don_wand_usable(item wand)",
+          "line_start": 663,
+          "line_end": 669,
+          "keywords": [
+            "don",
+            "wand",
+            "usable",
+            "boolean",
+            "item",
+            "visit",
+            "url",
+            "contains",
+            "text"
+          ]
+        },
+        {
+          "id": "12.77",
+          "script": "don_master_lib",
+          "name": "don_minutes_to_rollover",
+          "signature": "int don_minutes_to_rollover()",
+          "line_start": 671,
+          "line_end": 688,
+          "keywords": [
+            "don",
+            "minutes",
+            "rollover",
+            "int",
+            "visit",
+            "url",
+            "index",
+            "length",
+            "substring",
+            "max"
+          ]
+        },
+        {
+          "id": "12.78",
+          "script": "don_master_lib",
+          "name": "don_day",
+          "signature": "string don_day()",
+          "line_start": 690,
+          "line_end": 692,
+          "keywords": [
+            "don",
+            "day",
+            "string",
+            "format",
+            "date",
+            "time",
+            "today"
+          ]
+        },
+        {
+          "id": "12.79",
+          "script": "don_master_lib",
+          "name": "don_element_color",
+          "signature": "string don_element_color(element el)",
+          "line_start": 698,
+          "line_end": 707,
+          "keywords": [
+            "don",
+            "element",
+            "color",
+            "string"
+          ]
+        },
+        {
+          "id": "12.80",
+          "script": "don_master_lib",
+          "name": "don_default_combat_action",
+          "signature": "string don_default_combat_action()",
+          "line_start": 709,
+          "line_end": 712,
+          "keywords": [
+            "don",
+            "default",
+            "combat",
+            "action",
+            "string",
+            "have",
+            "skill",
+            "cost"
+          ]
+        },
+        {
+          "id": "12.81",
+          "script": "don_master_lib",
+          "name": "don_monster_hp_now",
+          "signature": "float don_monster_hp_now()",
+          "line_start": 714,
+          "line_end": 714,
+          "keywords": [
+            "don",
+            "monster",
+            "now",
+            "float"
+          ]
+        },
+        {
+          "id": "12.82",
+          "script": "don_master_lib",
+          "name": "don_monster_attack_now",
+          "signature": "float don_monster_attack_now()",
+          "line_start": 715,
+          "line_end": 715,
+          "keywords": [
+            "don",
+            "monster",
+            "attack",
+            "now",
+            "float"
+          ]
+        },
+        {
+          "id": "12.83",
+          "script": "don_master_lib",
+          "name": "don_monster_defense_now",
+          "signature": "float don_monster_defense_now()",
+          "line_start": 716,
+          "line_end": 716,
+          "keywords": [
+            "don",
+            "monster",
+            "defense",
+            "now",
+            "float"
+          ]
+        },
+        {
+          "id": "12.84",
+          "script": "don_master_lib",
+          "name": "don_updates_file",
+          "signature": "string don_updates_file(string script_name)",
+          "line_start": 722,
+          "line_end": 724,
+          "keywords": [
+            "don",
+            "updates",
+            "file",
+            "string",
+            "script",
+            "name"
+          ]
+        },
+        {
+          "id": "12.85",
+          "script": "don_master_lib",
+          "name": "don_updates_init",
+          "signature": "void don_updates_init(string script_name)",
+          "line_start": 726,
+          "line_end": 732,
+          "keywords": [
+            "don",
+            "updates",
+            "init",
+            "void",
+            "string",
+            "script",
+            "name",
+            "map",
+            "file"
+          ]
+        },
+        {
+          "id": "12.86",
+          "script": "don_master_lib",
+          "name": "don_updates_add",
+          "signature": "void don_updates_add(string script_name, string update_text)",
+          "line_start": 734,
+          "line_end": 743,
+          "keywords": [
+            "don",
+            "updates",
+            "add",
+            "void",
+            "string",
+            "script",
+            "name",
+            "update",
+            "text",
+            "file",
+            "map",
+            "int"
+          ]
+        },
+        {
+          "id": "12.87",
+          "script": "don_master_lib",
+          "name": "don_updates_check",
+          "signature": "void don_updates_check(string script_name)",
+          "line_start": 745,
+          "line_end": 762,
+          "keywords": [
+            "don",
+            "updates",
+            "check",
+            "void",
+            "string",
+            "script",
+            "name",
+            "file",
+            "map",
+            "int",
+            "get",
+            "property",
+            "header",
+            "max",
+            "print",
+            "set",
+            "footer"
+          ]
+        },
+        {
+          "id": "12.88",
+          "script": "don_master_lib",
+          "name": "needToAcquireItem",
+          "signature": "boolean needToAcquireItem(item x)",
+          "line_start": 770,
+          "line_end": 770,
+          "keywords": [
+            "need",
+            "acquire",
+            "item",
+            "boolean",
+            "needtoacquireitem",
+            "don"
+          ]
+        },
+        {
+          "id": "12.89",
+          "script": "don_master_lib",
+          "name": "needToAcquirePullItem",
+          "signature": "boolean needToAcquirePullItem(item x)",
+          "line_start": 771,
+          "line_end": 771,
+          "keywords": [
+            "need",
+            "acquire",
+            "pull",
+            "item",
+            "boolean",
+            "needtoacquirepullitem",
+            "available",
+            "amount",
+            "storage"
+          ]
+        },
+        {
+          "id": "12.90",
+          "script": "don_master_lib",
+          "name": "WaitMinutes",
+          "signature": "void WaitMinutes(int minutes)",
+          "line_start": 772,
+          "line_end": 772,
+          "keywords": [
+            "wait",
+            "minutes",
+            "void",
+            "waitminutes",
+            "int",
+            "don"
+          ]
+        },
+        {
+          "id": "12.91",
+          "script": "don_master_lib",
+          "name": "MuscleClass",
+          "signature": "boolean MuscleClass()",
+          "line_start": 773,
+          "line_end": 773,
+          "keywords": [
+            "muscle",
+            "class",
+            "boolean",
+            "muscleclass",
+            "don"
+          ]
+        },
+        {
+          "id": "12.92",
+          "script": "don_master_lib",
+          "name": "MoxieClass",
+          "signature": "boolean MoxieClass()",
+          "line_start": 774,
+          "line_end": 774,
+          "keywords": [
+            "moxie",
+            "class",
+            "boolean",
+            "moxieclass",
+            "don"
+          ]
+        },
+        {
+          "id": "12.93",
+          "script": "don_master_lib",
+          "name": "MysticalityClass",
+          "signature": "boolean MysticalityClass()",
+          "line_start": 775,
+          "line_end": 775,
+          "keywords": [
+            "mysticality",
+            "class",
+            "boolean",
+            "mysticalityclass",
+            "don",
+            "myst"
+          ]
+        },
+        {
+          "id": "12.94",
+          "script": "don_master_lib",
+          "name": "getanduse",
+          "signature": "void getanduse(int n, item it)",
+          "line_start": 777,
+          "line_end": 779,
+          "keywords": [
+            "getanduse",
+            "void",
+            "int",
+            "item",
+            "don",
+            "use",
+            "any",
+            "warning"
+          ]
+        },
+        {
+          "id": "12.95",
+          "script": "don_master_lib",
+          "name": "save_outfit",
+          "signature": "boolean save_outfit(string outfitlabel)",
+          "line_start": 781,
+          "line_end": 781,
+          "keywords": [
+            "save",
+            "outfit",
+            "boolean",
+            "string",
+            "outfitlabel",
+            "don"
+          ]
+        },
+        {
+          "id": "12.96",
+          "script": "don_master_lib",
+          "name": "trainfam",
+          "signature": "void trainfam(familiar pet, int goal)",
+          "line_start": 782,
+          "line_end": 782,
+          "keywords": [
+            "trainfam",
+            "void",
+            "familiar",
+            "pet",
+            "int",
+            "goal",
+            "don",
+            "train"
+          ]
+        },
+        {
+          "id": "12.97",
+          "script": "don_master_lib",
+          "name": "FindWand",
+          "signature": "int FindWand()",
+          "line_start": 783,
+          "line_end": 783,
+          "keywords": [
+            "find",
+            "wand",
+            "int",
+            "findwand",
+            "don"
+          ]
+        },
+        {
+          "id": "12.98",
+          "script": "don_master_lib",
+          "name": "WandUseable",
+          "signature": "boolean WandUseable(int wand)",
+          "line_start": 784,
+          "line_end": 784,
+          "keywords": [
+            "wand",
+            "useable",
+            "boolean",
+            "wanduseable",
+            "int",
+            "don",
+            "usable",
+            "item"
+          ]
+        },
+        {
+          "id": "12.99",
+          "script": "don_master_lib",
+          "name": "MinutesToRollover",
+          "signature": "int MinutesToRollover()",
+          "line_start": 785,
+          "line_end": 785,
+          "keywords": [
+            "minutes",
+            "rollover",
+            "int",
+            "minutestorollover",
+            "don"
+          ]
+        },
+        {
+          "id": "12.100",
+          "script": "don_master_lib",
+          "name": "Day",
+          "signature": "string Day()",
+          "line_start": 786,
+          "line_end": 786,
+          "keywords": [
+            "day",
+            "string",
+            "don"
+          ]
+        },
+        {
+          "id": "12.101",
+          "script": "don_master_lib",
+          "name": "saucegeyserAll",
+          "signature": "string saucegeyserAll(int round, monster opp, string text)",
+          "line_start": 788,
+          "line_end": 790,
+          "keywords": [
+            "saucegeyser",
+            "all",
+            "string",
+            "saucegeyserall",
+            "int",
+            "round",
+            "monster",
+            "opp",
+            "text",
+            "don",
+            "default",
+            "combat",
+            "action"
+          ]
+        },
+        {
+          "id": "12.102",
+          "script": "don_master_lib",
+          "name": "don_master_about",
+          "signature": "void don_master_about()",
+          "line_start": 796,
+          "line_end": 802,
+          "keywords": [
+            "don",
+            "master",
+            "about",
+            "void",
+            "header",
+            "print",
+            "footer"
+          ]
+        },
+        {
+          "id": "12.103",
+          "script": "don_master_lib",
+          "name": "don_master_smoke",
+          "signature": "boolean don_master_smoke()",
+          "line_start": 804,
+          "line_end": 815,
+          "keywords": [
+            "don",
+            "master",
+            "smoke",
+            "boolean",
+            "snapshot",
+            "clamp",
+            "list",
+            "add",
+            "bool",
+            "word",
+            "good",
+            "error"
+          ]
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "11.1",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.2",
+      "to": "12.91",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.2",
+      "to": "11.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.2",
+      "to": "12.92",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.2",
+      "to": "12.93",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.3",
+      "to": "11.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.3",
+      "to": "12.91",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.3",
+      "to": "11.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.3",
+      "to": "12.92",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.3",
+      "to": "12.93",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.5",
+      "to": "12.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.5",
+      "to": "12.16",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.6",
+      "to": "12.100",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.7",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.7",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.8",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.9",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.10",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.10",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.11",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.11",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.12",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.12",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.13",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.13",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.14",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.14",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.15",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.15",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.15",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.15",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.15",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.16",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.16",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.17",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.17",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.18",
+      "to": "11.17",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.18",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.19",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.19",
+      "to": "11.18",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.19",
+      "to": "11.17",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.19",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.20",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.20",
+      "to": "11.7",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.21",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.21",
+      "to": "11.7",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.22",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.22",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.22",
+      "to": "11.19",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.23",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.23",
+      "to": "11.16",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.23",
+      "to": "11.22",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.23",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.23",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.23",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.24",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.25",
+      "to": "11.24",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.25",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.25",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.25",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.27",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.27",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.27",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.28",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.28",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.28",
+      "to": "11.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.28",
+      "to": "11.27",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.29",
+      "to": "11.26",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.30",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.30",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.31",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.32",
+      "to": "12.88",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.32",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.32",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.33",
+      "to": "12.32",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.33",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.33",
+      "to": "11.31",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.34",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.34",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.34",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "12.7",
+      "to": "12.6",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.9",
+      "to": "12.6",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.16",
+      "to": "12.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.16",
+      "to": "12.16",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.17",
+      "to": "12.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.17",
+      "to": "12.16",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.18",
+      "to": "12.17",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.18",
+      "to": "12.18",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.21",
+      "to": "12.20",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.21",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.22",
+      "to": "12.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.23",
+      "to": "12.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.24",
+      "to": "12.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.25",
+      "to": "12.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.26",
+      "to": "12.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.27",
+      "to": "12.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.43",
+      "to": "12.7",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.43",
+      "to": "12.12",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.43",
+      "to": "12.13",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.43",
+      "to": "12.9",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.46",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.46",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.47",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.47",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.48",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.48",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.51",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.51",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.51",
+      "to": "12.50",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.57",
+      "to": "12.55",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.66",
+      "to": "12.10",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.66",
+      "to": "12.11",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.67",
+      "to": "12.10",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.67",
+      "to": "12.11",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.69",
+      "to": "12.68",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.71",
+      "to": "12.68",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.75",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.75",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.85",
+      "to": "12.84",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.86",
+      "to": "12.84",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.87",
+      "to": "12.84",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.87",
+      "to": "12.7",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.87",
+      "to": "12.9",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.88",
+      "to": "12.48",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.90",
+      "to": "12.19",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.91",
+      "to": "12.38",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.92",
+      "to": "12.40",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.93",
+      "to": "12.39",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.94",
+      "to": "12.53",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.94",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.95",
+      "to": "12.61",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.96",
+      "to": "12.60",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.97",
+      "to": "12.75",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.98",
+      "to": "12.76",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.99",
+      "to": "12.77",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.100",
+      "to": "12.78",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.101",
+      "to": "12.80",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.102",
+      "to": "12.7",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.102",
+      "to": "12.9",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.10",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.11",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.16",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.13",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "12.103",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11",
+      "to": "12",
+      "kind": "import",
+      "state": "strong",
+      "position": "anchor",
+      "capability": "attachment_bond",
+      "filament": "agent_filament_strong_anchor_attachment_bond",
+      "cross_ladder": true
+    }
+  ],
+  "ladder_metrics": [
+    {
+      "script": "don_custom_functions",
+      "resolved_outgoing": 80,
+      "cross_ladder_outgoing": 64,
+      "percent": 80,
+      "tier": "agent-web-review-for-merge"
+    },
+    {
+      "script": "don_master_lib",
+      "resolved_outgoing": 66,
+      "cross_ladder_outgoing": 0,
+      "percent": 0,
+      "tier": "sparse"
+    }
+  ]
+}

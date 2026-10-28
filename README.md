@@ -2,6 +2,22 @@
 
 Reusable [KoLmafia](https://kolmafia.us/) ASH utilities by donCannoli. Designed as a **companion to** [don-ash-lib](https://github.com/donCannoli-burns/don-ash-lib), not another copy of it.
 
+## Agent Web AA–DD read-only prototype
+
+The checkout includes an HTML micro-agent map of `don_custom_functions` and imported `don_master_lib`. It is an indexed source viewer, **not** an executing agent.
+
+```text
+git update donCannoli-burns-don_custom_functions-main
+git sync
+verify agent_web_ash.ash
+verify don_custom_functions.ash
+call agent_web_smoke.ash
+```
+
+Open `http://127.0.0.1:60080/relay_agent_web.ash` in the KoLmafia relay browser; to inspect the master library use `?script=don_master_lib`. Static documents install into `data/agentWeb/`, with the search page at `data/agentWeb/don_custom_functions_micro_agent.html`.
+
+**ASH cannot import HTML:** `don_custom_functions.ash` imports the read-only `agent_web_ash.ash` loader instead. See [AGENT_WEB_SPEC.md](AGENT_WEB_SPEC.md) for state/position/capability matrix, coupling ratios, CC/ DD mapping, and regeneration with `tools/build-agent-web.mjs`.
+
 ## Install in KoLmafia gCLI
 
 ~~~text

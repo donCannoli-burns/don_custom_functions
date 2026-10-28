@@ -1,0 +1,415 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>don_master_lib · actual</title><style>body{max-width:1050px;margin:20px auto;padding:18px;font:15px/1.5 system-ui;color:#000;background:#fcfcff}header{background:#abd1f3;border:2px solid black;padding:15px}article{padding:14px;border:1px solid #444;background:white;margin:12px 0;overflow-wrap:anywhere}article:target{outline:3px solid #4a94c6}a{color:#14537a}code,pre{font-family:monospace}pre{padding:12px;background:#dff7fa;white-space:pre-wrap;overflow-wrap:anywhere;max-height:600px;overflow:auto}input{box-sizing:border-box;width:100%;padding:10px;border:2px solid #000}details{padding:5px}small{color:#444}</style></head><body><header><h1>don_master_lib · actual</h1><p>Agent Web v0.1 — read-only static source index, no model embeddings or executable functions</p></header><article id="actual-12-1"><h2>don_log <small>[12.1]</small></h2><p><code>void don_log(string message)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:101–101</p><p>function_actual12.1.2</p><pre><code>void don_log(string message) { print(message, DON_COLOR_INFO); }</code></pre></article>
+<article id="actual-12-2"><h2>don_good <small>[12.2]</small></h2><p><code>void don_good(string message)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:102–102</p><p>function_actual12.2.2</p><pre><code>void don_good(string message) { print(message, DON_COLOR_GOOD); }</code></pre></article>
+<article id="actual-12-3"><h2>don_caution <small>[12.3]</small></h2><p><code>void don_caution(string message)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:103–103</p><p>function_actual12.3.2</p><pre><code>void don_caution(string message) { print(message, DON_COLOR_CAUTION); }</code></pre></article>
+<article id="actual-12-4"><h2>don_warning <small>[12.4]</small></h2><p><code>void don_warning(string message)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:104–104</p><p>function_actual12.4.2</p><pre><code>void don_warning(string message) { print(message, DON_COLOR_WARNING); }</code></pre></article>
+<article id="actual-12-5"><h2>don_error <small>[12.5]</small></h2><p><code>void don_error(string message)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:105–105</p><p>function_actual12.5.2</p><pre><code>void don_error(string message) { print(message, DON_COLOR_ERROR); }</code></pre></article>
+<article id="actual-12-6"><h2>don_breaker <small>[12.6]</small></h2><p><code>void don_breaker()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:107–109</p><p>function_actual12.6.2</p><pre><code>void don_breaker() {
+    print(&quot;|= == == == == == == == == == == == == == == == == == == == == == == == == == == = |&quot;, DON_COLOR_HEADER);
+}</code></pre></article>
+<article id="actual-12-7"><h2>don_header <small>[12.7]</small></h2><p><code>void don_header(string header)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:111–115</p><p>function_actual12.7.2</p><pre><code>void don_header(string header) {
+    don_breaker();
+    print(&quot;|- &quot; + header + &quot; -|&quot;, DON_COLOR_HEADER);
+    don_breaker();
+}</code></pre></article>
+<article id="actual-12-8"><h2>don_sub <small>[12.8]</small></h2><p><code>void don_sub(string sub)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:117–119</p><p>function_actual12.8.2</p><pre><code>void don_sub(string sub) {
+    print(&quot;|= == == == | &quot; + sub + &quot; | == == == == =|&quot;, DON_COLOR_GOOD);
+}</code></pre></article>
+<article id="actual-12-9"><h2>don_footer <small>[12.9]</small></h2><p><code>void don_footer()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:121–121</p><p>function_actual12.9.2</p><pre><code>void don_footer() { don_breaker(); }</code></pre></article>
+<article id="actual-12-10"><h2>don_clamp <small>[12.10]</small></h2><p><code>float don_clamp(float value, float low, float high)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:127–129</p><p>function_actual12.10.2</p><pre><code>float don_clamp(float value, float low, float high) {
+    return max(low, min(value, high));
+}</code></pre></article>
+<article id="actual-12-11"><h2>don_clamp <small>[12.11]</small></h2><p><code>int don_clamp(int value, int low, int high)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:131–133</p><p>function_actual12.11.2</p><pre><code>int don_clamp(int value, int low, int high) {
+    return max(low, min(value, high));
+}</code></pre></article>
+<article id="actual-12-12"><h2>don_rnum <small>[12.12]</small></h2><p><code>string don_rnum(int value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:135–137</p><p>function_actual12.12.2</p><pre><code>string don_rnum(int value) {
+    return to_string(value, &quot;%,d&quot;);
+}</code></pre></article>
+<article id="actual-12-13"><h2>don_bool_word <small>[12.13]</small></h2><p><code>string don_bool_word(boolean value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:139–142</p><p>function_actual12.13.2</p><pre><code>string don_bool_word(boolean value) {
+    if (value) return &quot;true&quot;;
+    return &quot;false&quot;;
+}</code></pre></article>
+<article id="actual-12-14"><h2>don_blank <small>[12.14]</small></h2><p><code>boolean don_blank(string value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:144–146</p><p>function_actual12.14.2</p><pre><code>boolean don_blank(string value) {
+    return value == &quot;&quot;;
+}</code></pre></article>
+<article id="actual-12-15"><h2>don_list_add <small>[12.15]</small></h2><p><code>string don_list_add(string list, string value, string glue)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:148–152</p><p>function_actual12.15.2</p><pre><code>string don_list_add(string list, string value, string glue) {
+    if (value == &quot;&quot;) return list;
+    if (list == &quot;&quot;) return value;
+    return list + glue + value;
+}</code></pre></article>
+<article id="actual-12-16"><h2>don_list_add <small>[12.16]</small></h2><p><code>string don_list_add(string list, string value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:154–156</p><p>function_actual12.16.2</p><pre><code>string don_list_add(string list, string value) {
+    return don_list_add(list, value, &quot;, &quot;);
+}</code></pre></article>
+<article id="actual-12-17"><h2>don_list_remove <small>[12.17]</small></h2><p><code>string don_list_remove(string list, string value, string glue)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:158–166</p><p>function_actual12.17.2</p><pre><code>string don_list_remove(string list, string value, string glue) {
+    string[int] bits = split_string(list, glue);
+    string out = &quot;&quot;;
+    foreach i, bit in bits {
+        if (bit == value || bit == &quot;&quot;) continue;
+        out = don_list_add(out, bit, glue);
+    }
+    return out;
+}</code></pre></article>
+<article id="actual-12-18"><h2>don_list_remove <small>[12.18]</small></h2><p><code>string don_list_remove(string list, string value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:168–170</p><p>function_actual12.18.2</p><pre><code>string don_list_remove(string list, string value) {
+    return don_list_remove(list, value, &quot;, &quot;);
+}</code></pre></article>
+<article id="actual-12-19"><h2>don_wait_minutes <small>[12.19]</small></h2><p><code>void don_wait_minutes(int minutes)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:172–174</p><p>function_actual12.19.2</p><pre><code>void don_wait_minutes(int minutes) {
+    if (minutes &gt; 0) wait(minutes * 60);
+}</code></pre></article>
+<article id="actual-12-20"><h2>don_pref_exists_or_daily <small>[12.20]</small></h2><p><code>boolean don_pref_exists_or_daily(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:180–184</p><p>function_actual12.20.2</p><pre><code>boolean don_pref_exists_or_daily(string property) {
+    if (property == &quot;&quot;) return false;
+    if (starts_with(property, &quot;_&quot;)) return true;
+    return property_exists(property);
+}</code></pre></article>
+<article id="actual-12-21"><h2>don_pref_string <small>[12.21]</small></h2><p><code>string don_pref_string(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:186–192</p><p>function_actual12.21.2</p><pre><code>string don_pref_string(string property) {
+    if (!don_pref_exists_or_daily(property)) {
+        don_warning(&quot;Unknown preference: &quot; + property);
+        return &quot;&quot;;
+    }
+    return get_property(property);
+}</code></pre></article>
+<article id="actual-12-22"><h2>don_pref_int <small>[12.22]</small></h2><p><code>int don_pref_int(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:194–196</p><p>function_actual12.22.2</p><pre><code>int don_pref_int(string property) {
+    return don_pref_string(property).to_int();
+}</code></pre></article>
+<article id="actual-12-23"><h2>don_pref_float <small>[12.23]</small></h2><p><code>float don_pref_float(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:198–200</p><p>function_actual12.23.2</p><pre><code>float don_pref_float(string property) {
+    return don_pref_string(property).to_float();
+}</code></pre></article>
+<article id="actual-12-24"><h2>don_pref_bool <small>[12.24]</small></h2><p><code>boolean don_pref_bool(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:202–204</p><p>function_actual12.24.2</p><pre><code>boolean don_pref_bool(string property) {
+    return don_pref_string(property).to_boolean();
+}</code></pre></article>
+<article id="actual-12-25"><h2>don_pref_item <small>[12.25]</small></h2><p><code>item don_pref_item(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:206–208</p><p>function_actual12.25.2</p><pre><code>item don_pref_item(string property) {
+    return to_item(don_pref_string(property));
+}</code></pre></article>
+<article id="actual-12-26"><h2>don_pref_location <small>[12.26]</small></h2><p><code>location don_pref_location(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:210–212</p><p>function_actual12.26.2</p><pre><code>location don_pref_location(string property) {
+    return to_location(don_pref_string(property));
+}</code></pre></article>
+<article id="actual-12-27"><h2>don_pref_familiar <small>[12.27]</small></h2><p><code>familiar don_pref_familiar(string property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:214–216</p><p>function_actual12.27.2</p><pre><code>familiar don_pref_familiar(string property) {
+    return to_familiar(don_pref_string(property));
+}</code></pre></article>
+<article id="actual-12-28"><h2>don_set_pref <small>[12.28]</small></h2><p><code>void don_set_pref(string property, string value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:218–220</p><p>function_actual12.28.2</p><pre><code>void don_set_pref(string property, string value) {
+    set_property(property, value);
+}</code></pre></article>
+<article id="actual-12-29"><h2>don_set_pref <small>[12.29]</small></h2><p><code>void don_set_pref(string property, int value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:222–224</p><p>function_actual12.29.2</p><pre><code>void don_set_pref(string property, int value) {
+    set_property(property, value.to_string());
+}</code></pre></article>
+<article id="actual-12-30"><h2>don_set_pref <small>[12.30]</small></h2><p><code>void don_set_pref(string property, boolean value)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:226–228</p><p>function_actual12.30.2</p><pre><code>void don_set_pref(string property, boolean value) {
+    set_property(property, value.to_string());
+}</code></pre></article>
+<article id="actual-12-31"><h2>don_is_buzzed <small>[12.31]</small></h2><p><code>boolean don_is_buzzed()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:234–234</p><p>function_actual12.31.2</p><pre><code>boolean don_is_buzzed() { return my_inebriety() &gt;= inebriety_limit(); }</code></pre></article>
+<article id="actual-12-32"><h2>don_is_overdrunk <small>[12.32]</small></h2><p><code>boolean don_is_overdrunk()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:235–235</p><p>function_actual12.32.2</p><pre><code>boolean don_is_overdrunk() { return my_inebriety() &gt; inebriety_limit(); }</code></pre></article>
+<article id="actual-12-33"><h2>don_is_full <small>[12.33]</small></h2><p><code>boolean don_is_full()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:236–236</p><p>function_actual12.33.2</p><pre><code>boolean don_is_full() { return my_fullness() &gt;= fullness_limit(); }</code></pre></article>
+<article id="actual-12-34"><h2>don_is_spleen_full <small>[12.34]</small></h2><p><code>boolean don_is_spleen_full()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:237–237</p><p>function_actual12.34.2</p><pre><code>boolean don_is_spleen_full() { return my_spleen_use() &gt;= spleen_limit(); }</code></pre></article>
+<article id="actual-12-35"><h2>don_have_adv <small>[12.35]</small></h2><p><code>boolean don_have_adv()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:238–238</p><p>function_actual12.35.2</p><pre><code>boolean don_have_adv() { return my_adventures() &gt; 0; }</code></pre></article>
+<article id="actual-12-36"><h2>don_in_aftercore <small>[12.36]</small></h2><p><code>boolean don_in_aftercore()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:239–239</p><p>function_actual12.36.2</p><pre><code>boolean don_in_aftercore() { return get_property(&quot;kingLiberated&quot;).to_boolean(); }</code></pre></article>
+<article id="actual-12-37"><h2>don_has_effect <small>[12.37]</small></h2><p><code>boolean don_has_effect(effect ef)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:240–240</p><p>function_actual12.37.2</p><pre><code>boolean don_has_effect(effect ef) { return have_effect(ef) &gt; 0; }</code></pre></article>
+<article id="actual-12-38"><h2>don_muscle_class <small>[12.38]</small></h2><p><code>boolean don_muscle_class()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:242–242</p><p>function_actual12.38.2</p><pre><code>boolean don_muscle_class() { return my_primestat() == $stat[muscle]; }</code></pre></article>
+<article id="actual-12-39"><h2>don_myst_class <small>[12.39]</small></h2><p><code>boolean don_myst_class()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:243–243</p><p>function_actual12.39.2</p><pre><code>boolean don_myst_class() { return my_primestat() == $stat[mysticality]; }</code></pre></article>
+<article id="actual-12-40"><h2>don_moxie_class <small>[12.40]</small></h2><p><code>boolean don_moxie_class()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:244–244</p><p>function_actual12.40.2</p><pre><code>boolean don_moxie_class() { return my_primestat() == $stat[moxie]; }</code></pre></article>
+<article id="actual-12-41"><h2>don_hp_fraction <small>[12.41]</small></h2><p><code>float don_hp_fraction()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:246–249</p><p>function_actual12.41.2</p><pre><code>float don_hp_fraction() {
+    if (my_maxhp() &lt;= 0) return 0.0;
+    return my_hp().to_float() / my_maxhp().to_float();
+}</code></pre></article>
+<article id="actual-12-42"><h2>don_mp_fraction <small>[12.42]</small></h2><p><code>float don_mp_fraction()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:251–254</p><p>function_actual12.42.2</p><pre><code>float don_mp_fraction() {
+    if (my_maxmp() &lt;= 0) return 0.0;
+    return my_mp().to_float() / my_maxmp().to_float();
+}</code></pre></article>
+<article id="actual-12-43"><h2>don_print_snapshot <small>[12.43]</small></h2><p><code>void don_print_snapshot()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:280–292</p><p>function_actual12.43.2</p><pre><code>void don_print_snapshot() {
+    don_state s = don_snapshot();
+    don_header(&quot;STATE SNAPSHOT&quot;);
+    print(&quot;Player: &quot; + s.player + &quot; | level &quot; + s.level + &quot; | ascensions &quot; + s.ascensions);
+    print(&quot;Adventures: &quot; + s.adventures + &quot; | Meat: &quot; + don_rnum(s.meat));
+    print(&quot;HP: &quot; + s.hp + &quot;/&quot; + s.maxhp + &quot; | MP: &quot; + s.mp + &quot;/&quot; + s.maxmp);
+    print(&quot;Fullness: &quot; + s.fullness + &quot;/&quot; + s.fullness_limit);
+    print(&quot;Inebriety: &quot; + s.inebriety + &quot;/&quot; + s.inebriety_limit);
+    print(&quot;Spleen: &quot; + s.spleen + &quot;/&quot; + s.spleen_limit);
+    print(&quot;Familiar: &quot; + s.fam + &quot; | Location: &quot; + s.loc);
+    print(&quot;Aftercore: &quot; + don_bool_word(s.aftercore) + &quot; | Overdrunk: &quot; + don_bool_word(s.overdrunk));
+    don_footer();
+}</code></pre></article>
+<article id="actual-12-44"><h2>don_inventory_amount <small>[12.44]</small></h2><p><code>int don_inventory_amount(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:298–298</p><p>function_actual12.44.2</p><pre><code>int don_inventory_amount(item it) { return item_amount(it); }</code></pre></article>
+<article id="actual-12-45"><h2>don_owned_amount <small>[12.45]</small></h2><p><code>int don_owned_amount(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:300–302</p><p>function_actual12.45.2</p><pre><code>int don_owned_amount(item it) {
+    return item_amount(it) + equipped_amount(it) + closet_amount(it) + storage_amount(it);
+}</code></pre></article>
+<article id="actual-12-46"><h2>don_owned_amount <small>[12.46]</small></h2><p><code>int don_owned_amount(item it, boolean include_display, boolean include_shop, boolean include_stash)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:304–310</p><p>function_actual12.46.2</p><pre><code>int don_owned_amount(item it, boolean include_display, boolean include_shop, boolean include_stash) {
+    int amount = don_owned_amount(it);
+    if (include_display) amount += display_amount(it);
+    if (include_shop) amount += shop_amount(it);
+    if (include_stash) amount += stash_amount(it);
+    return amount;
+}</code></pre></article>
+<article id="actual-12-47"><h2>don_have <small>[12.47]</small></h2><p><code>boolean don_have(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:312–314</p><p>function_actual12.47.2</p><pre><code>boolean don_have(item it) {
+    return don_owned_amount(it) &gt; 0;
+}</code></pre></article>
+<article id="actual-12-48"><h2>don_need <small>[12.48]</small></h2><p><code>boolean don_need(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:316–318</p><p>function_actual12.48.2</p><pre><code>boolean don_need(item it) {
+    return don_owned_amount(it) == 0;
+}</code></pre></article>
+<article id="actual-12-49"><h2>don_possess_inventory_closet_equipped <small>[12.49]</small></h2><p><code>boolean don_possess_inventory_closet_equipped(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:320–322</p><p>function_actual12.49.2</p><pre><code>boolean don_possess_inventory_closet_equipped(item it) {
+    return item_amount(it) &gt; 0 || closet_amount(it) &gt; 0 || have_equipped(it);
+}</code></pre></article>
+<article id="actual-12-50"><h2>don_familiar_equipped_amount <small>[12.50]</small></h2><p><code>int don_familiar_equipped_amount(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:324–331</p><p>function_actual12.50.2</p><pre><code>int don_familiar_equipped_amount(item it) {
+    int amount = 0;
+    foreach fam in $familiars[] {
+        if (!have_familiar(fam)) continue;
+        if (familiar_equipped_equipment(fam) == it) amount += 1;
+    }
+    return amount;
+}</code></pre></article>
+<article id="actual-12-51"><h2>don_true_owned_amount <small>[12.51]</small></h2><p><code>int don_true_owned_amount(item it, boolean include_stash)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:333–337</p><p>function_actual12.51.2</p><pre><code>int don_true_owned_amount(item it, boolean include_stash) {
+    int amount = don_owned_amount(it, true, true, include_stash);
+    amount += don_familiar_equipped_amount(it);
+    return amount;
+}</code></pre></article>
+<article id="actual-12-52"><h2>don_retrieve <small>[12.52]</small></h2><p><code>boolean don_retrieve(int amount, item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:339–343</p><p>function_actual12.52.2</p><pre><code>boolean don_retrieve(int amount, item it) {
+    if (amount &lt;= 0) return true;
+    if (item_amount(it) &gt;= amount) return true;
+    return retrieve_item(amount, it);
+}</code></pre></article>
+<article id="actual-12-53"><h2>don_use_any <small>[12.53]</small></h2><p><code>boolean don_use_any(int amount, item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:379–386</p><p>function_actual12.53.2</p><pre><code>boolean don_use_any(int amount, item it) {
+    if (amount &lt;= 0) return true;
+    if (item_amount(it) &lt; amount &amp;&amp; !retrieve_item(amount, it)) return false;
+    if (use(amount, it)) return true;
+    if (eat(amount, it)) return true;
+    if (drink(amount, it)) return true;
+    return false;
+}</code></pre></article>
+<article id="actual-12-54"><h2>don_value_of_adventure <small>[12.54]</small></h2><p><code>int don_value_of_adventure()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:392–396</p><p>function_actual12.54.2</p><pre><code>int don_value_of_adventure() {
+    int voa = get_property(&quot;valueOfAdventure&quot;).to_int();
+    if (voa &lt;= 0) return 5000;
+    return voa;
+}</code></pre></article>
+<article id="actual-12-55"><h2>don_item_value <small>[12.55]</small></h2><p><code>int don_item_value(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:437–440</p><p>function_actual12.55.2</p><pre><code>int don_item_value(item it) {
+    don_price_quote q = don_price(it);
+    return max(q.value, autosell_price(it));
+}</code></pre></article>
+<article id="actual-12-56"><h2>don_price_at_most <small>[12.56]</small></h2><p><code>boolean don_price_at_most(item it, int max_price)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:442–445</p><p>function_actual12.56.2</p><pre><code>boolean don_price_at_most(item it, int max_price) {
+    if (max_price &lt;= 0) return false;
+    return don_price(it).value &lt;= max_price;
+}</code></pre></article>
+<article id="actual-12-57"><h2>don_profit <small>[12.57]</small></h2><p><code>int don_profit(item output, item input, int input_count)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:447–449</p><p>function_actual12.57.2</p><pre><code>int don_profit(item output, item input, int input_count) {
+    return don_item_value(output) - (don_item_value(input) * input_count);
+}</code></pre></article>
+<article id="actual-12-58"><h2>don_use_familiar <small>[12.58]</small></h2><p><code>boolean don_use_familiar(familiar fam)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:455–459</p><p>function_actual12.58.2</p><pre><code>boolean don_use_familiar(familiar fam) {
+    if (!have_familiar(fam)) return false;
+    use_familiar(fam);
+    return my_familiar() == fam;
+}</code></pre></article>
+<article id="actual-12-59"><h2>don_equip_familiar_default <small>[12.59]</small></h2><p><code>boolean don_equip_familiar_default(familiar fam)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:461–475</p><p>function_actual12.59.2</p><pre><code>boolean don_equip_familiar_default(familiar fam) {
+    if (!have_familiar(fam)) return false;
+    familiar old = my_familiar();
+    use_familiar(fam);
+    item gear = familiar_equipment(fam);
+    boolean ok = true;
+
+    if (gear != $item[none]) {
+        if (!retrieve_item(1, gear)) ok = false;
+        else ok = equip($slot[familiar], gear);
+    }
+
+    if (old != $familiar[none] &amp;&amp; old != fam) use_familiar(old);
+    return ok;
+}</code></pre></article>
+<article id="actual-12-60"><h2>don_train_familiar <small>[12.60]</small></h2><p><code>boolean don_train_familiar(familiar fam, int base_weight_goal)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:477–485</p><p>function_actual12.60.2</p><pre><code>boolean don_train_familiar(familiar fam, int base_weight_goal) {
+    if (!have_familiar(fam)) return false;
+    if (familiar_weight(fam) &gt;= base_weight_goal) return true;
+    familiar old = my_familiar();
+    use_familiar(fam);
+    boolean ok = cli_execute(&quot;train base &quot; + base_weight_goal);
+    if (old != $familiar[none] &amp;&amp; old != fam) use_familiar(old);
+    return ok &amp;&amp; familiar_weight(fam) &gt;= base_weight_goal;
+}</code></pre></article>
+<article id="actual-12-61"><h2>don_save_outfit <small>[12.61]</small></h2><p><code>boolean don_save_outfit(string name)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:487–490</p><p>function_actual12.61.2</p><pre><code>boolean don_save_outfit(string name) {
+    if (name == &quot;&quot;) return false;
+    return cli_execute(&quot;outfit save &quot; + name);
+}</code></pre></article>
+<article id="actual-12-62"><h2>don_wear_outfit <small>[12.62]</small></h2><p><code>boolean don_wear_outfit(string name)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:492–495</p><p>function_actual12.62.2</p><pre><code>boolean don_wear_outfit(string name) {
+    if (name == &quot;&quot;) return false;
+    return outfit(name);
+}</code></pre></article>
+<article id="actual-12-63"><h2>don_unequip <small>[12.63]</small></h2><p><code>boolean don_unequip(item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:497–500</p><p>function_actual12.63.2</p><pre><code>boolean don_unequip(item it) {
+    if (!have_equipped(it)) return true;
+    return cli_execute(&quot;unequip &quot; + it);
+}</code></pre></article>
+<article id="actual-12-64"><h2>don_song_limit <small>[12.64]</small></h2><p><code>int don_song_limit()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:506–511</p><p>function_actual12.64.2</p><pre><code>int don_song_limit() {
+    int limit = 3;
+    if (boolean_modifier(&quot;Four Songs&quot;)) limit += 1;
+    limit += numeric_modifier(&quot;Additional Song&quot;).to_int();
+    return limit;
+}</code></pre></article>
+<article id="actual-12-65"><h2>don_song_count <small>[12.65]</small></h2><p><code>int don_song_count()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:513–521</p><p>function_actual12.65.2</p><pre><code>int don_song_count() {
+    int count = 0;
+    int[effect] active = my_effects();
+    foreach ef, turns in active {
+        skill source = to_skill(ef);
+        if (source != $skill[none] &amp;&amp; source.class == $class[Accordion Thief] &amp;&amp; source.buff) count += 1;
+    }
+    return count;
+}</code></pre></article>
+<article id="actual-12-66"><h2>don_recover_hp <small>[12.66]</small></h2><p><code>boolean don_recover_hp(float target_fraction)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:523–528</p><p>function_actual12.66.2</p><pre><code>boolean don_recover_hp(float target_fraction) {
+    target_fraction = don_clamp(target_fraction, 0.0, 1.0);
+    int target = ceil(my_maxhp() * target_fraction).to_int();
+    if (my_hp() &gt;= target) return true;
+    return restore_hp(target);
+}</code></pre></article>
+<article id="actual-12-67"><h2>don_recover_mp <small>[12.67]</small></h2><p><code>boolean don_recover_mp(float target_fraction)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:530–535</p><p>function_actual12.67.2</p><pre><code>boolean don_recover_mp(float target_fraction) {
+    target_fraction = don_clamp(target_fraction, 0.0, 1.0);
+    int target = ceil(my_maxmp() * target_fraction).to_int();
+    if (my_mp() &gt;= target) return true;
+    return restore_mp(target);
+}</code></pre></article>
+<article id="actual-12-68"><h2>don_quest_step <small>[12.68]</small></h2><p><code>int don_quest_step(string quest_property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:541–548</p><p>function_actual12.68.2</p><pre><code>int don_quest_step(string quest_property) {
+    string state = get_property(quest_property);
+    if (state == &quot;&quot; || state == &quot;unstarted&quot;) return -1;
+    if (state == &quot;started&quot;) return 0;
+    if (state == &quot;finished&quot;) return 999;
+    if (starts_with(state, &quot;step&quot;)) return substring(state, 4).to_int();
+    return 0;
+}</code></pre></article>
+<article id="actual-12-69"><h2>don_quest_started <small>[12.69]</small></h2><p><code>boolean don_quest_started(string quest_property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:550–552</p><p>function_actual12.69.2</p><pre><code>boolean don_quest_started(string quest_property) {
+    return don_quest_step(quest_property) &gt;= 0;
+}</code></pre></article>
+<article id="actual-12-70"><h2>don_quest_finished <small>[12.70]</small></h2><p><code>boolean don_quest_finished(string quest_property)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:554–556</p><p>function_actual12.70.2</p><pre><code>boolean don_quest_finished(string quest_property) {
+    return get_property(quest_property) == &quot;finished&quot;;
+}</code></pre></article>
+<article id="actual-12-71"><h2>don_quest_at_least <small>[12.71]</small></h2><p><code>boolean don_quest_at_least(string quest_property, int step)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:558–562</p><p>function_actual12.71.2</p><pre><code>boolean don_quest_at_least(string quest_property, int step) {
+    int current = don_quest_step(quest_property);
+    if (current == 999) return true;
+    return current &gt;= step;
+}</code></pre></article>
+<article id="actual-12-72"><h2>don_choice_id <small>[12.72]</small></h2><p><code>int don_choice_id()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:564–566</p><p>function_actual12.72.2</p><pre><code>int don_choice_id() {
+    return get_property(&quot;lastChoice&quot;).to_int();
+}</code></pre></article>
+<article id="actual-12-73"><h2>don_in_choice <small>[12.73]</small></h2><p><code>boolean don_in_choice()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:568–570</p><p>function_actual12.73.2</p><pre><code>boolean don_in_choice() {
+    return handling_choice();
+}</code></pre></article>
+<article id="actual-12-74"><h2>don_require <small>[12.74]</small></h2><p><code>boolean don_require(boolean condition, string message)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:643–647</p><p>function_actual12.74.2</p><pre><code>boolean don_require(boolean condition, string message) {
+    if (condition) return true;
+    abort(message);
+    return false;
+}</code></pre></article>
+<article id="actual-12-75"><h2>don_find_wand <small>[12.75]</small></h2><p><code>item don_find_wand()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:653–661</p><p>function_actual12.75.2</p><pre><code>item don_find_wand() {
+    item wand = get_zap_wand();
+    if (wand != $item[none]) return wand;
+    for id from 1268 to 1272 {
+        item candidate = to_item(id);
+        if (don_owned_amount(candidate) &gt; 0) return candidate;
+    }
+    return $item[none];
+}</code></pre></article>
+<article id="actual-12-76"><h2>don_wand_usable <small>[12.76]</small></h2><p><code>boolean don_wand_usable(item wand)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:663–669</p><p>function_actual12.76.2</p><pre><code>boolean don_wand_usable(item wand) {
+    if (wand == $item[none]) return false;
+    string page = visit_url(&quot;wand.php?whichwand=&quot; + wand.id);
+    if (contains_text(page, &quot;feels warm&quot;)) return false;
+    if (contains_text(page, &quot;be careful&quot;)) return false;
+    return true;
+}</code></pre></article>
+<article id="actual-12-77"><h2>don_minutes_to_rollover <small>[12.77]</small></h2><p><code>int don_minutes_to_rollover()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:671–688</p><p>function_actual12.77.2</p><pre><code>int don_minutes_to_rollover() {
+    string source = visit_url(&quot;charpane.php&quot;);
+    string roll_marker = &quot;var rollover = &quot;;
+    string now_marker = &quot;var rightnow = &quot;;
+    int roll_start = index_of(source, roll_marker);
+    int now_start = index_of(source, now_marker);
+    if (roll_start &lt; 0 || now_start &lt; 0) return -1;
+
+    roll_start += length(roll_marker);
+    now_start += length(now_marker);
+    int roll_end = index_of(source, &quot;;&quot;, roll_start);
+    int now_end = index_of(source, &quot;;&quot;, now_start);
+    if (roll_end &lt; 0 || now_end &lt; 0) return -1;
+
+    int rollover = substring(source, roll_start, roll_end).to_int();
+    int rightnow = substring(source, now_start, now_end).to_int();
+    return max(0, (rollover - rightnow) / 60);
+}</code></pre></article>
+<article id="actual-12-78"><h2>don_day <small>[12.78]</small></h2><p><code>string don_day()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:690–692</p><p>function_actual12.78.2</p><pre><code>string don_day() {
+    return format_date_time(&quot;yyyyMMdd&quot;, today_to_string(), &quot;EEEE&quot;);
+}</code></pre></article>
+<article id="actual-12-79"><h2>don_element_color <small>[12.79]</small></h2><p><code>string don_element_color(element el)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:698–707</p><p>function_actual12.79.2</p><pre><code>string don_element_color(element el) {
+    switch (el) {
+        case $element[hot]: return &quot;red&quot;;
+        case $element[cold]: return &quot;blue&quot;;
+        case $element[spooky]: return &quot;gray&quot;;
+        case $element[sleaze]: return &quot;purple&quot;;
+        case $element[stench]: return &quot;green&quot;;
+    }
+    return &quot;black&quot;;
+}</code></pre></article>
+<article id="actual-12-80"><h2>don_default_combat_action <small>[12.80]</small></h2><p><code>string don_default_combat_action()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:709–712</p><p>function_actual12.80.2</p><pre><code>string don_default_combat_action() {
+    if (have_skill($skill[Saucegeyser]) &amp;&amp; my_mp() &gt;= mp_cost($skill[Saucegeyser])) return &quot;skill Saucegeyser&quot;;
+    return &quot;attack&quot;;
+}</code></pre></article>
+<article id="actual-12-81"><h2>don_monster_hp_now <small>[12.81]</small></h2><p><code>float don_monster_hp_now()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:714–714</p><p>function_actual12.81.2</p><pre><code>float don_monster_hp_now() { return monster_hp(); }</code></pre></article>
+<article id="actual-12-82"><h2>don_monster_attack_now <small>[12.82]</small></h2><p><code>float don_monster_attack_now()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:715–715</p><p>function_actual12.82.2</p><pre><code>float don_monster_attack_now() { return monster_attack(); }</code></pre></article>
+<article id="actual-12-83"><h2>don_monster_defense_now <small>[12.83]</small></h2><p><code>float don_monster_defense_now()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:716–716</p><p>function_actual12.83.2</p><pre><code>float don_monster_defense_now() { return monster_defense(); }</code></pre></article>
+<article id="actual-12-84"><h2>don_updates_file <small>[12.84]</small></h2><p><code>string don_updates_file(string script_name)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:722–724</p><p>function_actual12.84.2</p><pre><code>string don_updates_file(string script_name) {
+    return &quot;don_master_updates_&quot; + script_name + &quot;.txt&quot;;
+}</code></pre></article>
+<article id="actual-12-85"><h2>don_updates_init <small>[12.85]</small></h2><p><code>void don_updates_init(string script_name)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:726–732</p><p>function_actual12.85.2</p><pre><code>void don_updates_init(string script_name) {
+    if (script_name == &quot;&quot;) return;
+    string[int] updates;
+    updates[-1] = &quot;0&quot;;
+    updates[0] = DON_MASTER_NAME + &quot; update tracking initialized for &quot; + script_name;
+    map_to_file(updates, don_updates_file(script_name));
+}</code></pre></article>
+<article id="actual-12-86"><h2>don_updates_add <small>[12.86]</small></h2><p><code>void don_updates_add(string script_name, string update_text)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:734–743</p><p>function_actual12.86.2</p><pre><code>void don_updates_add(string script_name, string update_text) {
+    if (script_name == &quot;&quot; || update_text == &quot;&quot;) return;
+    string[int] updates;
+    file_to_map(don_updates_file(script_name), updates);
+    if (!(updates contains -1)) updates[-1] = &quot;0&quot;;
+    int version = updates[-1].to_int() + 1;
+    updates[-1] = version;
+    updates[version] = update_text;
+    map_to_file(updates, don_updates_file(script_name));
+}</code></pre></article>
+<article id="actual-12-87"><h2>don_updates_check <small>[12.87]</small></h2><p><code>void don_updates_check(string script_name)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:745–762</p><p>function_actual12.87.2</p><pre><code>void don_updates_check(string script_name) {
+    if (script_name == &quot;&quot;) return;
+    string[int] updates;
+    file_to_map(don_updates_file(script_name), updates);
+    if (!(updates contains -1)) return;
+
+    string property = &quot;donMasterUpdates_&quot; + script_name + &quot;_seen&quot;;
+    int latest = updates[-1].to_int();
+    int seen = get_property(property).to_int();
+    if (seen &gt;= latest) return;
+
+    don_header(script_name + &quot; updates&quot;);
+    for i from max(0, seen + 1) to latest {
+        if (updates contains i) print(i + &quot; - &quot; + updates[i]);
+    }
+    set_property(property, latest);
+    don_footer();
+}</code></pre></article>
+<article id="actual-12-88"><h2>needToAcquireItem <small>[12.88]</small></h2><p><code>boolean needToAcquireItem(item x)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:770–770</p><p>function_actual12.88.2</p><pre><code>boolean needToAcquireItem(item x) { return don_need(x); }</code></pre></article>
+<article id="actual-12-89"><h2>needToAcquirePullItem <small>[12.89]</small></h2><p><code>boolean needToAcquirePullItem(item x)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:771–771</p><p>function_actual12.89.2</p><pre><code>boolean needToAcquirePullItem(item x) { return available_amount(x) + storage_amount(x) == 0; }</code></pre></article>
+<article id="actual-12-90"><h2>WaitMinutes <small>[12.90]</small></h2><p><code>void WaitMinutes(int minutes)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:772–772</p><p>function_actual12.90.2</p><pre><code>void WaitMinutes(int minutes) { don_wait_minutes(minutes); }</code></pre></article>
+<article id="actual-12-91"><h2>MuscleClass <small>[12.91]</small></h2><p><code>boolean MuscleClass()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:773–773</p><p>function_actual12.91.2</p><pre><code>boolean MuscleClass() { return don_muscle_class(); }</code></pre></article>
+<article id="actual-12-92"><h2>MoxieClass <small>[12.92]</small></h2><p><code>boolean MoxieClass()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:774–774</p><p>function_actual12.92.2</p><pre><code>boolean MoxieClass() { return don_moxie_class(); }</code></pre></article>
+<article id="actual-12-93"><h2>MysticalityClass <small>[12.93]</small></h2><p><code>boolean MysticalityClass()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:775–775</p><p>function_actual12.93.2</p><pre><code>boolean MysticalityClass() { return don_myst_class(); }</code></pre></article>
+<article id="actual-12-94"><h2>getanduse <small>[12.94]</small></h2><p><code>void getanduse(int n, item it)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:777–779</p><p>function_actual12.94.2</p><pre><code>void getanduse(int n, item it) {
+    if (!don_use_any(n, it)) don_warning(&quot;Could not use/eat/drink &quot; + n + &quot; &quot; + it + &quot;.&quot;);
+}</code></pre></article>
+<article id="actual-12-95"><h2>save_outfit <small>[12.95]</small></h2><p><code>boolean save_outfit(string outfitlabel)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:781–781</p><p>function_actual12.95.2</p><pre><code>boolean save_outfit(string outfitlabel) { return don_save_outfit(outfitlabel); }</code></pre></article>
+<article id="actual-12-96"><h2>trainfam <small>[12.96]</small></h2><p><code>void trainfam(familiar pet, int goal)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:782–782</p><p>function_actual12.96.2</p><pre><code>void trainfam(familiar pet, int goal) { don_train_familiar(pet, goal); }</code></pre></article>
+<article id="actual-12-97"><h2>FindWand <small>[12.97]</small></h2><p><code>int FindWand()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:783–783</p><p>function_actual12.97.2</p><pre><code>int FindWand() { return don_find_wand().id; }</code></pre></article>
+<article id="actual-12-98"><h2>WandUseable <small>[12.98]</small></h2><p><code>boolean WandUseable(int wand)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:784–784</p><p>function_actual12.98.2</p><pre><code>boolean WandUseable(int wand) { return don_wand_usable(to_item(wand)); }</code></pre></article>
+<article id="actual-12-99"><h2>MinutesToRollover <small>[12.99]</small></h2><p><code>int MinutesToRollover()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:785–785</p><p>function_actual12.99.2</p><pre><code>int MinutesToRollover() { return don_minutes_to_rollover(); }</code></pre></article>
+<article id="actual-12-100"><h2>Day <small>[12.100]</small></h2><p><code>string Day()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:786–786</p><p>function_actual12.100.2</p><pre><code>string Day() { return don_day(); }</code></pre></article>
+<article id="actual-12-101"><h2>saucegeyserAll <small>[12.101]</small></h2><p><code>string saucegeyserAll(int round, monster opp, string text)</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:788–790</p><p>function_actual12.101.2</p><pre><code>string saucegeyserAll(int round, monster opp, string text) {
+    return don_default_combat_action();
+}</code></pre></article>
+<article id="actual-12-102"><h2>don_master_about <small>[12.102]</small></h2><p><code>void don_master_about()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:796–802</p><p>function_actual12.102.2</p><pre><code>void don_master_about() {
+    don_header(DON_MASTER_NAME + &quot; v&quot; + DON_MASTER_VERSION);
+    print(&quot;Import-safe standalone utility layer.&quot;);
+    print(&quot;Core areas: state, typed prefs, inventory, pricing, familiar/outfit, recovery, quest/choice, bounded actions, combat helpers, local update notes.&quot;);
+    print(&quot;No third-party library is required merely to import this file.&quot;);
+    don_footer();
+}</code></pre></article>
+<article id="actual-12-103"><h2>don_master_smoke <small>[12.103]</small></h2><p><code>boolean don_master_smoke()</code></p><p>don-master-ash-lib/scripts/don_master_lib.ash:804–815</p><p>function_actual12.103.2</p><pre><code>boolean don_master_smoke() {
+    boolean ok = true;
+    don_state s = don_snapshot();
+    if (s.player == &quot;&quot;) ok = false;
+    if (don_clamp(5, 0, 3) != 3) ok = false;
+    if (don_clamp(-1, 0, 3) != 0) ok = false;
+    if (don_list_add(&quot;a&quot;, &quot;b&quot;) != &quot;a, b&quot;) ok = false;
+    if (don_bool_word(true) != &quot;true&quot;) ok = false;
+    if (ok) don_good(DON_MASTER_NAME + &quot; smoke test PASS&quot;);
+    else don_error(DON_MASTER_NAME + &quot; smoke test FAIL&quot;);
+    return ok;
+}</code></pre></article></body></html>
