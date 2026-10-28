@@ -1,0 +1,86 @@
+# don_custom_functions
+
+Reusable [KoLmafia](https://kolmafia.us/) ASH utilities by donCannoli. Designed as a **companion to** [don-ash-lib](https://github.com/donCannoli-burns/don-ash-lib), not another copy of it.
+
+## Install in KoLmafia gCLI
+
+~~~text
+git checkout https://github.com/donCannoli-burns/don_custom_functions.git main
+verify don_custom_functions.ash
+call don_custom_smoke.ash
+~~~
+
+The repository includes \`dependencies.txt\`, so KoLmafia should **automatically check and download** the required \`don-ash-lib\` repository during checkout. Its \`manifest.json\` syncs \`don-master-ash-lib/scripts/don_master_lib.ash\` into KoLmafia's \`scripts/\` directory. The smoke test confirms that the dependency imports and that basic read-only checks pass. No paid services are required.
+
+If the dependency was not downloaded, manually install it and retry:
+
+~~~text
+git checkout https://github.com/donCannoli-burns/don-ash-lib.git main
+git sync
+verify don_master_lib.ash
+call don_master_smoke.ash
+verify don_custom_functions.ash
+call don_custom_smoke.ash
+~~~
+
+If \`verify\` fails, **do not run the gameplay functions** until the reported error is resolved. This repo was prepared without a live KoLmafia runtime; a successful in-client \`verify\` and smoke run are still required before treating it as tested.
+
+## Update
+
+~~~text
+git list
+git update donCannoli-burns-don_custom_functions-main
+git update donCannoli-burns-don-ash-lib-main
+~~~
+
+Use the **exact checkout names shown by \`git list\`** if they differ from the examples.
+
+## Remove using KoLmafia
+
+~~~text
+git list
+git delete donCannoli-burns-don_custom_functions-main
+~~~
+
+The \`git delete\` command removes this checkout's installed files. Confirm the checkout name from \`git list\` first. **Do not delete don-ash-lib** if other scripts still depend on it. If appropriate, uninstall it separately using its own entry from \`git list\`.
+
+## Import into another ASH script
+
+~~~ash
+import <don_custom_functions.ash>;
+
+void main() {
+    don_header("Don Utilities");
+    don_good("Today: " + Day());
+    print("Adventures: " + my_adventures());
+}
+~~~
+
+The import itself does **not** call \`visit_url\`, \`cli_execute\`, \`buy\`, \`adventure\`, \`set_property\`, or choices. The legacy snapshot globals (\`haveAdv\`, \`amFull\`, \`amBuzzed\`, \`amHigh\`, \`ascensionsToday\`, etc.) exist for older callers but **do not update automatically**; prefer \`my_adventures()\`, \`don_have_adv()\`, \`don_is_full()\`, and related live-state functions from \`don_master_lib.ash\`.
+
+## Compatibility notes
+
+- The master library supplies shared helpers such as \`needToAcquireItem\`, \`getanduse\`, \`save_outfit\`, \`trainfam\`, \`FindWand\`, \`WandUseable\`, \`WaitMinutes\`, \`Day\`, \`MinutesToRollover\`, the \`don_*\` state helpers, output helpers, class predicates, and \`saucegeyserAll\`. They are **not redefined here**, avoiding ASH duplicate-function conflicts.
+- The original \`haveAdv\` snapshot means **more than two** adventures, while the current master helper \`don_have_adv()\` means **at least one**. Older callers relying on the old threshold should use \`my_adventures() > 2\`.
+- \`possessItem\` retains its legacy **unequip** side effect for equipped matches. Prefer \`don_have(item)\` for a read-only ownership check.
+- \`CheckFortune\` consumes **at most one fortune cookie** per call and will not recurse into repeated auto-consumption.
+- \`advManager\` intentionally does not implement the original unreachable day-shortener branch.
+- The old unused \`zlib.ash\`, \`ProfitTracking.ash\`, \`TimeTracking.ash\`, and \`DicsLibrary.ash\` imports were removed. Functions still referenced by external callers should be migrated to the master library or handled in a separate, tested compatibility adapter, rather than reintroducing unconditional third-party imports.
+
+## Gameplay functions have side effects
+
+These functions are intended to be called **explicitly** and may spend Meat/adventures, consume items, change outfits/familiars/CCS/preferences, or submit choices. They include \`consume\`, \`raffle\`, \`DOD\`, \`EGTS\`, \`zapWand\`, \`yetiAdv\`, \`getCool\`, \`don_mayam\`, \`augmentBreakfast\`, \`Baseline\`, \`nightcap\`, \`don_Midcap\`, and \`newstuff\`.
+
+Some are integrations, **not bundled dependencies**, requiring your other installed scripts or commands: \`CONSUME\`, \`combo\`, \`combo.js\`, \`barfascend.txt\`, \`dpills\`, and \`don_praccess.ash\`. They are not automatically downloaded and should be verified separately. Outfits \`chowDown\`, \`chowDown2\`, \`yetibuff\`, and \`maxo\` are player-defined.
+
+## Repository layout
+
+~~~text
+dependencies.txt
+README.md
+scripts/
+  don_custom_functions.ash
+  don_custom_smoke.ash
+~~~
+
+No install hook runs arbitrary gameplay. KoLmafia handles the declared Git dependency and \`git delete\` lifecycle.
