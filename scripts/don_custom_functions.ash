@@ -246,9 +246,12 @@ void Sweat() {
         don_warning("Sweat Out Some Booze not available.");
         return;
     }
-    while (get_property("_sweatOutSomeBoozeUsed").to_int() < 3 &&
+    int attempts = 0;
+    while (attempts < 3 &&
+           get_property("_sweatOutSomeBoozeUsed").to_int() < 3 &&
            get_property("sweat").to_int() >= 25 &&
            my_inebriety() > 0) {
+        attempts += 1;
         if (!use_skill(1, $skill[Sweat Out Some Booze])) {
             don_error("Sweat Out Some Booze failed; stopping.");
             return;
@@ -516,10 +519,20 @@ void getCool() {
     }
     cli_execute("cast ode to booze");
 
-    // This is the original scripted choice sequence. Only run by explicit call.
+    // Explicit choice validation: do not submit unrelated choice options.
     buffer page = visit_url("main.php?talktoyeti=1", false, true);
     buffer_to_file(page, "_yeti_talk2.html");
+    if (!handling_choice() || available_choice_options()[2] == "") {
+        don_error("Cooler Yeti did not offer expected first option 2.");
+        if (previous != $familiar[none]) use_familiar(previous);
+        return;
+    }
     run_choice(2);
+    if (!handling_choice() || available_choice_options()[1] == "") {
+        don_error("Cooler Yeti did not offer expected follow-up option 1.");
+        if (previous != $familiar[none]) use_familiar(previous);
+        return;
+    }
     run_choice(1);
 
     if (previous != $familiar[none]) use_familiar(previous);
