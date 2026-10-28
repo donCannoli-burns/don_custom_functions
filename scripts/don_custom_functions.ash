@@ -522,13 +522,15 @@ void getCool() {
     // Explicit choice validation: do not submit unrelated choice options.
     buffer page = visit_url("main.php?talktoyeti=1", false, true);
     buffer_to_file(page, "_yeti_talk2.html");
-    if (!handling_choice() || available_choice_options()[2] == "") {
+    string[int] choices = available_choice_options();
+    if (!handling_choice() || choices[2] == "") {
         don_error("Cooler Yeti did not offer expected first option 2.");
         if (previous != $familiar[none]) use_familiar(previous);
         return;
     }
     run_choice(2);
-    if (!handling_choice() || available_choice_options()[1] == "") {
+    choices = available_choice_options();
+    if (!handling_choice() || choices[1] == "") {
         don_error("Cooler Yeti did not offer expected follow-up option 1.");
         if (previous != $familiar[none]) use_familiar(previous);
         return;
