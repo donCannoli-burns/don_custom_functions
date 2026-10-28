@@ -74,6 +74,76 @@ void main() {
 
 The import itself does **not** call `visit_url`, `cli_execute`, `buy`, `adventure`, `set_property`, or choices. The legacy snapshot globals (`haveAdv`, `amFull`, `amBuzzed`, `amHigh`, `ascensionsToday`, etc.) exist for older callers but **do not update automatically**; prefer `my_adventures()`, `don_have_adv()`, `don_is_full()`, and related live-state functions from `don_master_lib.ash`.
 
+## Cockroach / PirateRealm breakfast integration (opt-in)
+
+The ASH library now exposes a callable **cockroach_fight_prep()** just above
+**augmentBreakfast()**. It launches **scripts/don_cockroach_router.ash**, which
+borrows Garbo's staged PirateRealm quest approach while retaining the user's
+external **lowerstats.ash** stat-delving routine. It does **not** import or
+require Garbo. It also does not replicate Garbo's dynamic profit maximization,
+Dessert Island route selection, or encounter farming.
+
+The router is **not** executed when this library is imported. Breakfast only
+invokes it if **don_breakfastCockroach** is set to true (defaults to off).
+
+In the KoLmafia CLI:
+
+~~~text
+git sync
+verify don_custom_functions.ash
+verify don_cockroach_router.ash
+verify lowerstats.ash
+call don_custom_smoke.ash
+set don_breakfastCockroach = true
+~~~
+
+Then call your existing augmentBreakfast() entrypoint / don_breakfast alias,
+or use an ASH wrapper script:
+
+~~~ash
+import <don_custom_functions.ash>;
+void main() {
+    augmentBreakfast();
+}
+~~~
+
+To disable PirateRealm while retaining the other daily tasks:
+
+~~~text
+set don_breakfastCockroach = false
+~~~
+
+To run ONLY PirateRealm setup, use an ASH wrapper that calls
+cockroach_fight_prep() (or call don_cockroach_router.ash directly).
+
+**Preflight and fail-safe behavior:** The route requires available PirateRealm
+access, an unlocked anemometer, the eyepatch, sober enough status, and at least
+40 adventures when starting a new voyage. It does not automatically drink
+astral pilsners or use a six-pack. It selects a crewmate favoring Coxswain
+and Harquebusier, chooses the Clipper when unlocked, uses bounded quest-stage
+attempts instead of lastEncounter, and targets Trash Island. It makes up to
+30 route actions / spends no more than 30 adventures per invocation, and
+restores the affected choice preferences and accessory slot when it returns
+normally. Interrupted scripts may require manual choice cleanup.
+
+It optionally buys one windicle when its mall price is no higher than
+3 * valueOfAdventure. The old lowerstats.ash is a **separate, unbundled
+dependency** (from Prusias/pLooper). Verify it before enabling. PirateRealm's
+stat condition is **at most 100** in each buffed stat; unlike the old
+don_praccess.ash, exactly 100 is not rejected.
+
+don_praccess.ash is left untouched and can still be run manually. The new
+router does not call the legacy script or expose its old global variables.
+Both scripts can change in-game state, spend turns, buy consumables, and
+lower stats. Test only after a successful in-client verify; this branch
+has no live KoL runtime verification.
+
+**Breakfast semantics:** KoLmafia's breakfastCompleted preference now gates
+only the native breakfast CLI command. The remaining Don tasks (raffle,
+shower, Big Book, Mayam, and optionally cockroach setup) are independently
+checked on every invocation. Individual tasks remain responsible for their
+own daily idempotence and resource limits.
+
 ## Compatibility notes
 
 - The master library supplies shared helpers such as `needToAcquireItem`, `getanduse`, `save_outfit`, `trainfam`, `FindWand`, `WandUseable`, `WaitMinutes`, `Day`, `MinutesToRollover`, the `don_*` state helpers, output helpers, class predicates, and `saucegeyserAll`. They are **not redefined here**, avoiding ASH duplicate-function conflicts.
@@ -85,9 +155,9 @@ The import itself does **not** call `visit_url`, `cli_execute`, `buy`, `adventur
 
 ## Gameplay functions have side effects
 
-These functions are intended to be called **explicitly** and may spend Meat/adventures, consume items, change outfits/familiars/CCS/preferences, or submit choices. They include `consume`, `raffle`, `DOD`, `EGTS`, `zapWand`, `yetiAdv`, `getCool`, `don_mayam`, `augmentBreakfast`, `Baseline`, `nightcap`, `don_Midcap`, and `newstuff`.
+These functions are intended to be called **explicitly** and may spend Meat/adventures, consume items, change outfits/familiars/CCS/preferences, or submit choices. They include `consume`, `raffle`, `DOD`, `EGTS`, `zapWand`, `yetiAdv`, `getCool`, `don_mayam`, `cockroach_fight_prep`, `augmentBreakfast`, `Baseline`, `nightcap`, `don_Midcap`, and `newstuff`.
 
-Some are integrations, **not bundled dependencies**, requiring your other installed scripts or commands: `CONSUME`, `combo`, `combo.js`, `barfascend.txt`, `dpills`, and `don_praccess.ash`. They are not automatically downloaded and should be verified separately. Outfits `chowDown`, `chowDown2`, `yetibuff`, and `maxo` are player-defined.
+Some are integrations, **not bundled dependencies**, requiring your other installed scripts or commands: `CONSUME`, `combo`, `combo.js`, `barfascend.txt`, `dpills`, `don_praccess.ash`, and `lowerstats.ash`. They are not automatically downloaded and should be verified separately. Outfits `chowDown`, `chowDown2`, `yetibuff`, and `maxo` are player-defined.
 
 ## Repository layout
 
