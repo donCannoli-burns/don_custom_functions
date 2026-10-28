@@ -163,7 +163,23 @@ boolean don_cr_route() {
     }
 
     // Saving all affected choices makes the router less invasive.
-    int[int] choices = $ints[1352, 1365, 1364, 1361, 1357, 1360, 1356, 1362, 1363, 1359, 1358, 1367, 1355, 1368, 1385, 1353];
+    int[int] choices;
+    choices[0] = 1352;
+    choices[1] = 1365;
+    choices[2] = 1364;
+    choices[3] = 1361;
+    choices[4] = 1357;
+    choices[5] = 1360;
+    choices[6] = 1356;
+    choices[7] = 1362;
+    choices[8] = 1363;
+    choices[9] = 1359;
+    choices[10] = 1358;
+    choices[11] = 1367;
+    choices[12] = 1355;
+    choices[13] = 1368;
+    choices[14] = 1385;
+    choices[15] = 1353;
     string[int] originals;
     foreach index, choice in choices
         originals[choice] = get_property("choiceAdventure" + choice);
@@ -199,7 +215,7 @@ boolean don_cr_route() {
         print("PirateRealm step " + step + ", attempt " + stageAttempts, "teal");
 
         if (step == 0) {
-            running = don_cr_start();
+            running = stageAttempts <= 1 && don_cr_start();
         } else {
             if (!don_cr_stats()) {
                 running = false;
