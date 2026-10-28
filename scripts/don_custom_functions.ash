@@ -292,7 +292,7 @@ void comb() {
 }
 
 void raffle() {
-    int count = total_amount($item[raffle ticket]);
+    int count = don_owned_amount($item[raffle ticket]);
     if (count > 0) {
         don_log("Already holding " + count + " raffle tickets.");
         return;
@@ -301,7 +301,7 @@ void raffle() {
         don_error("Raffle command failed.");
         return;
     }
-    count = total_amount($item[raffle ticket]);
+    count = don_owned_amount($item[raffle ticket]);
     if (count < 1) don_error("No raffle tickets acquired.");
     else don_good("Raffle tickets acquired: " + count);
 }
@@ -615,11 +615,21 @@ void Baseline() {
 }
 
 void nightcap() {
-    if (total_amount(night_cap) == 0) buy(1, night_cap, 175000);
-    if (total_amount(night_cap) == 0) {
-        don_error("Nightcap unavailable within 175000 meat limit.");
+    // A drink must be in inventory before use. Owned items in the closet
+    // may be retrievable; inaccessible Hagnk's storage is not consumable.
+    if (item_amount(night_cap) < 1 && available_amount(night_cap) > 0) {
+        if (!retrieve_item(1, night_cap))
+            don_warning("Could not retrieve owned " + night_cap + ".");
+    }
+
+    if (item_amount(night_cap) < 1)
+        buy(1, night_cap, 175000);
+
+    if (item_amount(night_cap) < 1) {
+        don_error("Nightcap unavailable in inventory within 175000 meat limit.");
         return;
     }
+
     if (!overdrink(1, night_cap))
         don_error("Could not drink " + night_cap);
 }
