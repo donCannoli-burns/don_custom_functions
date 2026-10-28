@@ -201,6 +201,8 @@ boolean don_cr_route() {
             break;
         }
         step = don_cr_step();
+        // Unstarted voyage enters the same port-setup path as "started".
+        if (step == -1) step = 0;
         if (step < 0 || step >= 7) {
             running = false;
             break;
