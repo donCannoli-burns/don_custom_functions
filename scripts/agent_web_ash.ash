@@ -5,12 +5,12 @@ string agent_web_path(string name) {
     return "agentWeb/" + name + "_micro_agent.html";
 }
 buffer agent_web_html(string name) {
-    string path = agent_web_path(name);
-    if (path == "") {
+    string html_file_name = agent_web_path(name);
+    if (html_file_name == "") {
         buffer empty;
         return empty;
     }
-    return file_to_buffer(path);
+    return file_to_buffer(html_file_name);
 }
 boolean agent_web_ready(string name) {
     buffer document = agent_web_html(name);
