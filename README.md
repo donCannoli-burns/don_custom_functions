@@ -221,6 +221,105 @@ shower, Big Book, Mayam, and optionally cockroach setup) are independently
 checked on every invocation. Individual tasks remain responsible for their
 own daily idempotence and resource limits.
 
+## Don Post-Run — independent stages and full chain (feature branch)
+
+**Safe first steps (compile / read-only):**
+
+~~~text
+verify don_custom_functions.ash
+verify don_post_run.ash
+verify don_post_run_smoke.ash
+call don_post_run_smoke.ash
+call don_post_run.ash help
+call don_post_run.ash status
+~~~
+
+To **install aliases without running gameplay**, explicitly call:
+
+~~~text
+call don_post_run.ash install
+~~~
+
+This registers `don-post-run => call don_post_run.ash %%` and stage aliases
+`yeti-adv`, `get-cool`, `eod-process`, and `don-nightcap`.
+A first `start` call also installs them. No aliases are installed on import.
+Do not append a second semicolon to the alias.
+
+**Live invocations:**
+
+~~~text
+don-post-run start
+don-post-run yeti
+don-post-run cool
+don-post-run eod
+don-post-run nightcap
+don-post-run status
+~~~
+
+ASH calls: `don_post_run();`, `don_yeti_adv();`, `get_cool();`,
+`eod_proccess();` (requested spelling) or `eod_process();`, and
+`nightcap();`. The original `yetiAdv()`, `getCool()`,
+`DOD()`, `EGTS()`, `chowDown()`, `chowDown2()`, and
+`openDungeon()` remain independently callable.
+
+The chain maximizes familiar XP once per day (only while not overdrunk),
+equips `maxorgan`, attempts `stooperDis()`, and runs
+`CONSUME ALL VALUE 6500`. It checks Cooler Yeti XP and, if below 400,
+trains in Dungeons of Doom with a **20-adventure reserve** and equips
+a toy cupid bow when available. The existing `openDungeon()` method
+can call `EGTS()` / `DOD()` if access is missing. Optional
+`don_post_run_chow=true` enables invoking both saved chow outfits/
+consumption routines before training; default is false due to side effects.
+The old `yetiAdv()` keeps its original behavior when called directly.
+At XP >=400, the chain invokes `combo watersheep-N` with
+`N=my_adventures()`, once per saved stage for the day. It **will not**
+repeat the combo automatically after marking `combo_done`.
+
+EOD requires at most two adventures, full stomach, spleen and liver,
+`maxorgan` outfit, and Stooper familiar. A failed readiness check stops
+rather than launching a nightcap. EOD attempts the Cooler Yeti drink
+upgrade, selected nightcap, Left-Hand Man, `genie effect offhand remarkable`,
+`max adv`, optional Philter, `mall-manager reprice`,
+`call buy-script.js`, raffle-ticket purchase up to 111,
+and optionally ptrack checkpoints. The script retains a dated stage and
+an EOD step counter to resume without repeating successful nightcap purchases.
+
+**Nightcap configuration (no preference written on import):**
+
+| Preference | Unset/default | Behavior |
+| --- | --- | --- |
+| `don_defaultNightcap` | `5227` | Normal nightcap item ID |
+| `don_event` | `false` | Enable event mode |
+| `don_eventNightcap` | `5227` | Event fallback item ID |
+| `don_nightcap_buy_limit` | `175000` | Maximum buy price in Meat |
+| `don_post_run_philter` | `false` | Philter is opt-in (may ask about untracked items) |
+| `don_post_run_ptrack` | `false` | Optional `ptrack.ash` checkpoint calls |
+| `don_post_run_chow` | `false` | Optional chowDown + chowDown2 before Yeti training |
+
+In event mode, compare mall_price estimates of item IDs **8553 and 8554**;
+choose an owned one or the cheapest candidate within the buy limit.
+If neither has an acceptable estimated price, use the configured event
+fallback. Note: KoLmafia's `mall_price` generally reports fifth-lowest,
+not absolute lowest. The code resolves item IDs at runtime; check that
+5227, 8553 and 8554 match your intended drinks before live consumption.
+Overdrunk characters do not consume another nightcap.
+
+**Philter prompt:** Upstream Philter asks about uncategorized items.
+Its question is not suppressed here and no third-party script is patched.
+If Philter is enabled, answer **No** manually to process only items
+already covered by your ruleset. For a fully unattended run, keep
+`don_post_run_philter=false` until an upstream-supported no-prompt
+option is verified.
+
+**Dependencies:** `CONSUME`, `combo watersheep-N`, `philter`,
+`mall-manager`, `buy-script.js`, `ptrack.ash`, and player-created
+`maxorgan`, `yetibuff` / chow outfits are external.
+Missing/failing commands stop the relevant stage and are not silently
+installed. The scripts do not import `TimeTracking.ash` or
+`ProfitTracking.ash`: those belong to the external ptrack package.
+
+**Not live-tested:** verify syntax and inspect status before any live run.
+
 ## Compatibility notes
 
 - The master library supplies shared helpers such as `needToAcquireItem`, `getanduse`, `save_outfit`, `trainfam`, `FindWand`, `WandUseable`, `WaitMinutes`, `Day`, `MinutesToRollover`, the `don_*` state helpers, output helpers, class predicates, and `saucegeyserAll`. They are **not redefined here**, avoiding ASH duplicate-function conflicts.

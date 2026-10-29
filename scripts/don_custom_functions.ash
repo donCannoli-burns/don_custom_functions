@@ -501,8 +501,12 @@ void stooperDis() {
     }
 }
 
-void getCool() {
-    outfit("maxo");
+// Return actual success so the post-run controller does not advance on a failed choice.
+boolean don_get_cool() {
+    if (!outfit("maxo")) {
+        don_warning("getCool: missing maxo outfit.");
+        return false;
+    }
     refresh_status();
     if (!get_property("_communismUsed").to_boolean() &&
         my_inebriety() == inebriety_limit() - 1)
@@ -512,35 +516,47 @@ void getCool() {
     familiar yeti = $familiar[cooler yeti];
     if (!have_familiar(yeti) || yeti.experience < 400) {
         don_warning("Cooler Yeti missing or below 400 XP.");
-        return;
+        return false;
     }
     if (!use_familiar(yeti)) {
         don_error("Unable to equip Cooler Yeti.");
-        return;
+        return false;
     }
-    cli_execute("cast ode to booze");
+    if (!cli_execute("cast ode to booze")) {
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
 
-    // Explicit choice validation: do not submit unrelated choice options.
     buffer page = visit_url("main.php?talktoyeti=1", false, true);
     buffer_to_file(page, "_yeti_talk2.html");
     string[int] choices = available_choice_options();
     if (!handling_choice() || choices[2] == "") {
         don_error("Cooler Yeti did not offer expected first option 2.");
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(2);
     choices = available_choice_options();
     if (!handling_choice() || choices[1] == "") {
         don_error("Cooler Yeti did not offer expected follow-up option 1.");
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(1);
-
+    if (handling_choice()) {
+        don_error("Cooler Yeti follow-up choice remains open.");
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
     if (previous != $familiar[none]) use_familiar(previous);
     don_good("Yeti drink enhancement sequence submitted.");
+    return true;
 }
+
+// Preserve the original public callable signature.
+void getCool() { don_get_cool(); }
+void get_cool() { don_get_cool(); }
+
 
 void shrugAT() {
     cli_execute("shrug Stevedave's Shanty of Superiority");
@@ -849,25 +865,84 @@ void Baseline() {
     }
 }
 
-void nightcap() {
-    // A drink must be in inventory before use. Owned items in the closet
-    // may be retrievable; inaccessible Hagnk's storage is not consumable.
-    if (item_amount(night_cap) < 1 && available_amount(night_cap) > 0) {
-        if (!retrieve_item(1, night_cap))
-            don_warning("Could not retrieve owned " + night_cap + ".");
-    }
-
-    if (item_amount(night_cap) < 1)
-        buy(1, night_cap, 175000);
-
-    if (item_amount(night_cap) < 1) {
-        don_error("Nightcap unavailable in inventory within 175000 meat limit.");
-        return;
-    }
-
-    if (!overdrink(1, night_cap))
-        don_error("Could not drink " + night_cap);
+// Nightcap prices are KoLmafia mall_price estimates (usually fifth-lowest).
+// No import-time preference writes; 5227 is the fallback item ID.
+int don_nightcap_configured_id(string preference_name) {
+    int chosen_id = get_property(preference_name).to_int();
+    if (chosen_id <= 0) return 5227;
+    return chosen_id;
 }
+
+int don_nightcap_price_limit() {
+    int stored = get_property("don_nightcap_buy_limit").to_int();
+    return stored > 0 ? stored : 175000;
+}
+
+item don_nightcap_pick() {
+    string selector = get_property("don_event");
+    if (!selector.to_boolean())
+        return to_item(don_nightcap_configured_id("don_defaultNightcap"));
+
+    item first = to_item(8553);
+    item second = to_item(8554);
+    int price_first = first == $item[none] ? 0 : mall_price(first);
+    int price_second = second == $item[none] ? 0 : mall_price(second);
+    int limit_price = don_nightcap_price_limit();
+
+    // Owned items have no new purchase cost; prefer them before mall shopping.
+    if (first != $item[none] && (item_amount(first) > 0 || closet_amount(first) > 0))
+        return first;
+    if (second != $item[none] && (item_amount(second) > 0 || closet_amount(second) > 0))
+        return second;
+
+    if (price_first > 0 && price_first <= limit_price &&
+        (price_second <= 0 || price_first <= price_second))
+        return first;
+    if (price_second > 0 && price_second <= limit_price) return second;
+
+    don_warning("Neither event item 8553 nor 8554 has an acceptable mall estimate; using don_eventNightcap fallback.");
+    return to_item(don_nightcap_configured_id("don_eventNightcap"));
+}
+
+boolean don_nightcap() {
+    if (my_inebriety() > inebriety_limit()) {
+        don_log("Already overdrunk: will not consume a second nightcap.");
+        return true;
+    }
+    item selected = don_nightcap_pick();
+    if (selected == $item[none]) {
+        don_error("Configured nightcap item ID is invalid.");
+        return false;
+    }
+    int cap = don_nightcap_price_limit();
+    don_log("Nightcap selection: " + selected + " (item " + selected.id + "; buy limit " + cap + ").");
+    if (item_amount(selected) < 1 && closet_amount(selected) > 0 &&
+        !take_closet(1, selected)) {
+        don_error("Could not retrieve nightcap from closet.");
+        return false;
+    }
+    if (item_amount(selected) < 1) {
+        int estimate = mall_price(selected);
+        if (estimate <= 0 || estimate > cap) {
+            don_error("Nightcap mall estimate unavailable or above cap: " + estimate);
+            return false;
+        }
+        if (buy(1, selected, cap) < 1) {
+            don_error("Could not buy nightcap within configured cap.");
+            return false;
+        }
+    }
+    int before_inebriety = my_inebriety();
+    if (!overdrink(1, selected) || my_inebriety() <= before_inebriety) {
+        don_error("Nightcap did not increase inebriety.");
+        return false;
+    }
+    don_good("Nightcap completed: " + selected + ".");
+    return true;
+}
+
+void nightcap() { don_nightcap(); }
+
 
 void don_dpills() {
     cli_execute("ccs don_default");
@@ -936,3 +1011,265 @@ void newstuff() {
     }
     don_warning("Maid / butler options are all outside price range.");
 }
+
+
+// -------------------------------------------------------------------------
+// Don post-run: explicit, resumable workflow; none of this runs on import.
+// The prior Yeti functions remain directly callable; this workflow keeps
+// a separate 20-adventure floor to protect the later WaterSheep transition.
+// -------------------------------------------------------------------------
+void don_post_run_sync_date() {
+    string today = today_to_string();
+    if (get_property("don_post_run_date") == today) return;
+    set_property("don_post_run_date", today);
+    set_property("don_post_run_stage", "new");
+    set_property("don_post_run_eod_step", "0");
+}
+
+boolean don_post_run_step_done(string step_name) {
+    return get_property("don_post_run_stage") == step_name;
+}
+
+void don_post_run_track(string label) {
+    // Optional, non-authoritative telemetry; never a required import.
+    if (!get_property("don_post_run_ptrack").to_boolean()) return;
+    if (!cli_execute("call ptrack.ash add " + label))
+        don_warning("ptrack checkpoint unavailable: " + label);
+}
+
+void don_post_run_status() {
+    print("don_post_run_date = " + get_property("don_post_run_date"));
+    print("don_post_run_stage = " + get_property("don_post_run_stage"));
+    print("don_post_run_eod_step = " + get_property("don_post_run_eod_step"));
+    print("don_defaultNightcap = " + don_nightcap_configured_id("don_defaultNightcap") +
+          " (" + to_item(don_nightcap_configured_id("don_defaultNightcap")) + ")");
+    print("don_event = " + get_property("don_event").to_boolean());
+    print("don_eventNightcap = " + don_nightcap_configured_id("don_eventNightcap") +
+          " (" + to_item(don_nightcap_configured_id("don_eventNightcap")) + ")");
+    print("don_nightcap_buy_limit = " + don_nightcap_price_limit());
+    print("don_post_run_philter = " + get_property("don_post_run_philter").to_boolean());
+    print("don_post_run_ptrack = " + get_property("don_post_run_ptrack").to_boolean());
+    print("Yeti XP = " + $familiar[cooler yeti].experience + "/400");
+    print("Adventures = " + my_adventures());
+    print("Fullness = " + my_fullness() + "/" + fullness_limit() +
+          "; spleen = " + my_spleen_use() + "/" + spleen_limit() +
+          "; inebriety = " + my_inebriety() + "/" + inebriety_limit());
+}
+
+boolean don_post_run_prepare() {
+    don_post_run_sync_date();
+    if (!get_property("_don_famMax").to_boolean() &&
+        my_inebriety() <= inebriety_limit()) {
+        if (!cli_execute("maximize familiar exp")) {
+            don_error("Familiar experience maximizer failed.");
+            return false;
+        }
+        set_property("_don_famMax", "true");
+    }
+    if (!outfit("maxorgan")) {
+        don_error("Missing required maxorgan outfit.");
+        return false;
+    }
+    stooperDis();
+    if (!cli_execute("CONSUME ALL VALUE 6500")) {
+        don_error("CONSUME ALL VALUE 6500 failed.");
+        return false;
+    }
+    set_property("don_post_run_stage", "prepared");
+    don_post_run_track("postrun_prepared");
+    return true;
+}
+
+// Alternative to legacy yetiAdv(): stop with at least 20 adventures unspent.
+boolean don_post_run_yeti_stage() {
+    don_post_run_sync_date();
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti)) {
+        don_error("No Cooler Yeti owned.");
+        return false;
+    }
+    don_log("Cooler Yeti XP: " + yeti.experience + "/400.");
+    if (yeti.experience >= 400) {
+        set_property("don_post_run_stage", "yeti_ready");
+        return true;
+    }
+    if (my_adventures() <= 20) {
+        don_warning("Yeti is below 400 XP and no adventures remain above the 20-turn reserve.");
+        return false;
+    }
+    if (get_property("don_post_run_chow").to_boolean()) {
+        if (have_outfit("chowDown")) chowDown();
+        if (have_outfit("chowDown2")) chowDown2();
+    }
+    item bow = $item[toy cupid bow];
+    if (available_amount(bow) > 0 || have_equipped(bow)) {
+        foreach other in $familiars[] {
+            if (other != yeti && familiar_equipped_equipment(other) == bow)
+                if (!equip(other, $item[none])) {
+                    don_error("Cannot release toy cupid bow from " + other);
+                    return false;
+                }
+        }
+        if (familiar_equipped_equipment(yeti) != bow && !equip(yeti, bow)) {
+            don_error("Cannot equip toy cupid bow on Cooler Yeti.");
+            return false;
+        }
+    } else {
+        don_warning("Toy cupid bow unavailable; training without it.");
+    }
+    if (!can_adventure($location[The Dungeons of Doom])) {
+        openDungeon();
+        if (!can_adventure($location[The Dungeons of Doom])) {
+            don_error("Dungeons of Doom unavailable; run DOD()/EGTS()/openDungeon() separately if needed.");
+            return false;
+        }
+    }
+    if (!outfit("yetibuff") || !use_familiar(yeti)) {
+        don_error("Could not prepare Yeti outfit/familiar.");
+        return false;
+    }
+    while (my_adventures() > 20 && yeti.experience < 400) {
+        if (!adventure(1, $location[The Dungeons of Doom])) {
+            don_error("Yeti training adventure failed.");
+            return false;
+        }
+    }
+    don_log("Cooler Yeti XP now " + yeti.experience + "/400.");
+    if (yeti.experience < 400) return false;
+    set_property("don_post_run_stage", "yeti_ready");
+    don_post_run_track("postrun_yeti_ready");
+    return true;
+}
+
+// Useful independent ASH entrypoint. Does not call the legacy 2-turn drain.
+void don_yeti_adv() { don_post_run_yeti_stage(); }
+
+boolean don_post_run_combo_stage() {
+    don_post_run_sync_date();
+    if ($familiar[cooler yeti].experience < 400) {
+        don_error("Cooler Yeti below 400 XP: refusing to start WaterSheep.");
+        return false;
+    }
+    string stage_name = get_property("don_post_run_stage");
+    if (stage_name == "combo_done" || stage_name == "done") return true;
+    int turns = my_adventures();
+    if (turns > 2) {
+        if (!cli_execute("combo watersheep-" + turns)) {
+            don_error("WaterSheep combo command failed.");
+            return false;
+        }
+    } else don_log("At two or fewer adventures; no WaterSheep turns needed.");
+    set_property("don_post_run_stage", "combo_done");
+    don_post_run_track("postrun_combo_done");
+    return true;
+}
+
+boolean don_post_run_eod_ready() {
+    if (my_adventures() > 2) return false;
+    if (my_fullness() < fullness_limit()) return false;
+    if (my_spleen_use() < spleen_limit()) return false;
+    if (my_inebriety() < inebriety_limit()) return false;
+    if (my_familiar() != $familiar[Stooper]) return false;
+    if (!is_wearing_outfit("maxorgan")) return false;
+    return true;
+}
+
+boolean don_eod_process() {
+    don_post_run_sync_date();
+    if (get_property("don_post_run_stage") == "done") {
+        don_log("Post-run already completed for " + today_to_string());
+        return true;
+    }
+    if (!don_post_run_eod_ready()) {
+        don_warning("EOD gate: need maxorgan, Stooper, full stomach/spleen/liver and <=2 adventures.");
+        don_post_run_status();
+        return false;
+    }
+    int checkpoint = get_property("don_post_run_eod_step").to_int();
+    if (checkpoint < 1) {
+        if ($familiar[cooler yeti].experience >= 400 && !don_get_cool()) return false;
+        set_property("don_post_run_eod_step", "1");
+    }
+    if (checkpoint < 2) {
+        if (!don_nightcap()) return false;
+        set_property("don_post_run_eod_step", "2");
+    }
+    if (checkpoint < 3) {
+        familiar lefty = $familiar[Left-Hand Man];
+        if (!have_familiar(lefty) || !use_familiar(lefty)) {
+            don_warning("Left-Hand Man unavailable. Re-run EOD to resume.");
+            return false;
+        }
+        if (!cli_execute("genie effect offhand remarkable")) return false;
+        if (!cli_execute("max adv")) return false;
+        set_property("don_post_run_eod_step", "3");
+    }
+    if (checkpoint < 4) {
+        // Philter may prompt for unknown items; no unsupported auto-response.
+        if (get_property("don_post_run_philter").to_boolean()) {
+            if (!cli_execute("philter")) {
+                don_error("Philter failed or was cancelled.");
+                return false;
+            }
+        } else don_log("Philter skipped: set don_post_run_philter=true to enable.");
+        set_property("don_post_run_eod_step", "4");
+    }
+    if (checkpoint < 5) {
+        if (!cli_execute("mall-manager reprice")) return false;
+        set_property("don_post_run_eod_step", "5");
+    }
+    if (checkpoint < 6) {
+        if (!cli_execute("call buy-script.js")) return false;
+        set_property("don_post_run_eod_step", "6");
+    }
+    if (checkpoint < 7) {
+        int have_tickets = don_owned_amount($item[raffle ticket]);
+        int need_tickets = max(0, 111 - have_tickets);
+        if (need_tickets > 0 && !cli_execute("raffle " + need_tickets)) return false;
+        set_property("don_post_run_eod_step", "7");
+    }
+    don_post_run_track("postrun_eod_complete");
+    set_property("don_post_run_eod_step", "8");
+    set_property("don_post_run_stage", "done");
+    don_good("Don post-run EOD complete.");
+    return true;
+}
+
+// Keep the requested spelling and offer the corrected spelling as well.
+boolean eod_proccess() { return don_eod_process(); }
+boolean eod_process() { return don_eod_process(); }
+
+boolean don_post_run_from(string entry_stage) {
+    don_post_run_sync_date();
+    if (entry_stage == "nightcap") return don_nightcap();
+    if (entry_stage == "eod") return eod_proccess();
+    if (entry_stage == "cool") return don_get_cool() && eod_proccess();
+    if (entry_stage == "yeti") {
+        if (!don_post_run_yeti_stage()) return false;
+    } else if (entry_stage == "" || entry_stage == "start") {
+        if (get_property("don_post_run_stage") == "done") return true;
+        if (get_property("don_post_run_stage") == "new") {
+            if (!don_post_run_prepare()) return false;
+        }
+        if (get_property("don_post_run_stage") == "prepared") {
+            if (!don_post_run_yeti_stage()) return false;
+        }
+    } else {
+        don_warning("Unknown post-run stage: " + entry_stage);
+        return false;
+    }
+
+    if (!don_post_run_combo_stage()) return false;
+    // Reapply the EOD gate setup after the Yeti and farming stages.
+    if (!outfit("maxorgan")) return false;
+    if (have_familiar($familiar[Stooper]) &&
+        !use_familiar($familiar[Stooper])) return false;
+    if (!don_post_run_eod_ready()) {
+        don_warning("WaterSheep returned; EOD requirements not met. Resume later with don-post-run eod.");
+        return false;
+    }
+    return eod_proccess();
+}
+
+void don_post_run() { don_post_run_from("start"); }
+

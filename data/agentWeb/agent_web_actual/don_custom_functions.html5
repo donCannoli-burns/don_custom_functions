@@ -397,8 +397,11 @@
         cli_execute(&quot;drink stillsuit distillate&quot;);
     }
 }</code></pre></article>
-<article id="actual-11-25"><h2>getCool <small>[11.25]</small></h2><p><code>void getCool()</code></p><p>scripts/don_custom_functions.ash:504–543</p><p>function_actual11.25.2</p><pre><code>void getCool() {
-    outfit(&quot;maxo&quot;);
+<article id="actual-11-25"><h2>don_get_cool <small>[11.25]</small></h2><p><code>boolean don_get_cool()</code></p><p>scripts/don_custom_functions.ash:505–554</p><p>function_actual11.25.2</p><pre><code>boolean don_get_cool() {
+    if (!outfit(&quot;maxo&quot;)) {
+        don_warning(&quot;getCool: missing maxo outfit.&quot;);
+        return false;
+    }
     refresh_status();
     if (!get_property(&quot;_communismUsed&quot;).to_boolean() &amp;&amp;
         my_inebriety() == inebriety_limit() - 1)
@@ -408,36 +411,45 @@
     familiar yeti = $familiar[cooler yeti];
     if (!have_familiar(yeti) || yeti.experience &lt; 400) {
         don_warning(&quot;Cooler Yeti missing or below 400 XP.&quot;);
-        return;
+        return false;
     }
     if (!use_familiar(yeti)) {
         don_error(&quot;Unable to equip Cooler Yeti.&quot;);
-        return;
+        return false;
     }
-    cli_execute(&quot;cast ode to booze&quot;);
+    if (!cli_execute(&quot;cast ode to booze&quot;)) {
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
 
-    // Explicit choice validation: do not submit unrelated choice options.
     buffer page = visit_url(&quot;main.php?talktoyeti=1&quot;, false, true);
     buffer_to_file(page, &quot;_yeti_talk2.html&quot;);
     string[int] choices = available_choice_options();
     if (!handling_choice() || choices[2] == &quot;&quot;) {
         don_error(&quot;Cooler Yeti did not offer expected first option 2.&quot;);
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(2);
     choices = available_choice_options();
     if (!handling_choice() || choices[1] == &quot;&quot;) {
         don_error(&quot;Cooler Yeti did not offer expected follow-up option 1.&quot;);
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(1);
-
+    if (handling_choice()) {
+        don_error(&quot;Cooler Yeti follow-up choice remains open.&quot;);
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
     if (previous != $familiar[none]) use_familiar(previous);
     don_good(&quot;Yeti drink enhancement sequence submitted.&quot;);
+    return true;
 }</code></pre></article>
-<article id="actual-11-26"><h2>shrugAT <small>[11.26]</small></h2><p><code>void shrugAT()</code></p><p>scripts/don_custom_functions.ash:545–553</p><p>function_actual11.26.2</p><pre><code>void shrugAT() {
+<article id="actual-11-26"><h2>getCool <small>[11.26]</small></h2><p><code>void getCool()</code></p><p>scripts/don_custom_functions.ash:557–557</p><p>function_actual11.26.2</p><pre><code>void getCool() { don_get_cool(); }</code></pre></article>
+<article id="actual-11-27"><h2>get_cool <small>[11.27]</small></h2><p><code>void get_cool()</code></p><p>scripts/don_custom_functions.ash:558–558</p><p>function_actual11.27.2</p><pre><code>void get_cool() { don_get_cool(); }</code></pre></article>
+<article id="actual-11-28"><h2>shrugAT <small>[11.28]</small></h2><p><code>void shrugAT()</code></p><p>scripts/don_custom_functions.ash:561–569</p><p>function_actual11.28.2</p><pre><code>void shrugAT() {
     cli_execute(&quot;shrug Stevedave&#39;s Shanty of Superiority&quot;);
     cli_execute(&quot;shrug Power Ballad of the Arrowsmith&quot;);
     cli_execute(&quot;shrug The Moxious Madrigal&quot;);
@@ -446,7 +458,7 @@
     cli_execute(&quot;shrug Jackasses&#39; Symphony of Destruction&quot;);
     cli_execute(&quot;shrug Brawnee&#39;s Anthem of Absorption&quot;);
 }</code></pre></article>
-<article id="actual-11-27"><h2>don_mayam <small>[11.27]</small></h2><p><code>void don_mayam()</code></p><p>scripts/don_custom_functions.ash:555–581</p><p>function_actual11.27.2</p><pre><code>void don_mayam() {
+<article id="actual-11-29"><h2>don_mayam <small>[11.29]</small></h2><p><code>void don_mayam()</code></p><p>scripts/don_custom_functions.ash:571–597</p><p>function_actual11.29.2</p><pre><code>void don_mayam() {
     if (available_amount($item[Mayam Calendar]) == 0 ||
         get_property(&quot;_don_mayam_done&quot;).to_boolean()) return;
 
@@ -473,7 +485,7 @@
         don_error(&quot;Mayam command failed; completion pref unchanged.&quot;);
     }
 }</code></pre></article>
-<article id="actual-11-28"><h2>cockroach_fight_prep <small>[11.28]</small></h2><p><code>boolean cockroach_fight_prep()</code></p><p>scripts/don_custom_functions.ash:586–604</p><p>function_actual11.28.2</p><pre><code>boolean cockroach_fight_prep() {
+<article id="actual-11-30"><h2>cockroach_fight_prep <small>[11.30]</small></h2><p><code>boolean cockroach_fight_prep()</code></p><p>scripts/don_custom_functions.ash:602–620</p><p>function_actual11.30.2</p><pre><code>boolean cockroach_fight_prep() {
     if (get_property(&quot;_lastPirateRealmIsland&quot;) == &quot;Trash Island&quot;) {
         don_log(&quot;PirateRealm already points to Trash Island.&quot;);
         return true;
@@ -492,14 +504,14 @@
     if (!done) don_warning(&quot;Cockroach preparation incomplete; review router logs.&quot;);
     return done;
 }</code></pre></article>
-<article id="actual-11-29"><h2>don_breakfast_is_pastamancer <small>[11.29]</small></h2><p><code>boolean don_breakfast_is_pastamancer(class character_class)</code></p><p>scripts/don_custom_functions.ash:609–611</p><p>function_actual11.29.2</p><pre><code>boolean don_breakfast_is_pastamancer(class character_class) {
+<article id="actual-11-31"><h2>don_breakfast_is_pastamancer <small>[11.31]</small></h2><p><code>boolean don_breakfast_is_pastamancer(class character_class)</code></p><p>scripts/don_custom_functions.ash:625–627</p><p>function_actual11.31.2</p><pre><code>boolean don_breakfast_is_pastamancer(class character_class) {
     return character_class == $class[Pastamancer];
 }</code></pre></article>
-<article id="actual-11-30"><h2>don_breakfast_combo_turns <small>[11.30]</small></h2><p><code>int don_breakfast_combo_turns(int adventures_available)</code></p><p>scripts/don_custom_functions.ash:613–616</p><p>function_actual11.30.2</p><pre><code>int don_breakfast_combo_turns(int adventures_available) {
+<article id="actual-11-32"><h2>don_breakfast_combo_turns <small>[11.32]</small></h2><p><code>int don_breakfast_combo_turns(int adventures_available)</code></p><p>scripts/don_custom_functions.ash:629–632</p><p>function_actual11.32.2</p><pre><code>int don_breakfast_combo_turns(int adventures_available) {
     if (adventures_available &lt;= 15) return 0;
     return adventures_available - 15;
 }</code></pre></article>
-<article id="actual-11-31"><h2>don_breakfast_legacy_preference <small>[11.31]</small></h2><p><code>string don_breakfast_legacy_preference(string canonical)</code></p><p>scripts/don_custom_functions.ash:620–627</p><p>function_actual11.31.2</p><pre><code>string don_breakfast_legacy_preference(string canonical) {
+<article id="actual-11-33"><h2>don_breakfast_legacy_preference <small>[11.33]</small></h2><p><code>string don_breakfast_legacy_preference(string canonical)</code></p><p>scripts/don_custom_functions.ash:636–643</p><p>function_actual11.33.2</p><pre><code>string don_breakfast_legacy_preference(string canonical) {
     if (canonical == &quot;don_breakfast_barf&quot;) return &quot;donBreakfastBarf&quot;;
     if (canonical == &quot;don_breakfast_nobarf&quot;) return &quot;donBreakfastNobarf&quot;;
     if (canonical == &quot;don_breakfast_cowo&quot;) return &quot;donBreakfastCowo&quot;;
@@ -507,7 +519,7 @@
     if (canonical == &quot;don_breakfast_cockroach&quot;) return &quot;don_breakfastCockroach&quot;;
     return &quot;&quot;;
 }</code></pre></article>
-<article id="actual-11-32"><h2>don_breakfast_preference_enabled <small>[11.32]</small></h2><p><code>boolean don_breakfast_preference_enabled(string canonical)</code></p><p>scripts/don_custom_functions.ash:629–636</p><p>function_actual11.32.2</p><pre><code>boolean don_breakfast_preference_enabled(string canonical) {
+<article id="actual-11-34"><h2>don_breakfast_preference_enabled <small>[11.34]</small></h2><p><code>boolean don_breakfast_preference_enabled(string canonical)</code></p><p>scripts/don_custom_functions.ash:645–652</p><p>function_actual11.34.2</p><pre><code>boolean don_breakfast_preference_enabled(string canonical) {
     string saved_value = get_property(canonical);
     if (saved_value == &quot;&quot;) {
         string legacy_name = don_breakfast_legacy_preference(canonical);
@@ -515,7 +527,7 @@
     }
     return saved_value.to_boolean();
 }</code></pre></article>
-<article id="actual-11-33"><h2>don_breakfast_migrate_one <small>[11.33]</small></h2><p><code>void don_breakfast_migrate_one(string canonical)</code></p><p>scripts/don_custom_functions.ash:638–645</p><p>function_actual11.33.2</p><pre><code>void don_breakfast_migrate_one(string canonical) {
+<article id="actual-11-35"><h2>don_breakfast_migrate_one <small>[11.35]</small></h2><p><code>void don_breakfast_migrate_one(string canonical)</code></p><p>scripts/don_custom_functions.ash:654–661</p><p>function_actual11.35.2</p><pre><code>void don_breakfast_migrate_one(string canonical) {
     if (get_property(canonical) != &quot;&quot;) return;
     string legacy_name = don_breakfast_legacy_preference(canonical);
     if (legacy_name == &quot;&quot;) return;
@@ -523,14 +535,14 @@
     if (legacy_value == &quot;&quot;) return;
     set_property(canonical, legacy_value.to_boolean() ? &quot;true&quot; : &quot;false&quot;);
 }</code></pre></article>
-<article id="actual-11-34"><h2>don_breakfast_migrate_preferences <small>[11.34]</small></h2><p><code>void don_breakfast_migrate_preferences()</code></p><p>scripts/don_custom_functions.ash:647–653</p><p>function_actual11.34.2</p><pre><code>void don_breakfast_migrate_preferences() {
+<article id="actual-11-36"><h2>don_breakfast_migrate_preferences <small>[11.36]</small></h2><p><code>void don_breakfast_migrate_preferences()</code></p><p>scripts/don_custom_functions.ash:663–669</p><p>function_actual11.36.2</p><pre><code>void don_breakfast_migrate_preferences() {
     don_breakfast_migrate_one(&quot;don_breakfast_barf&quot;);
     don_breakfast_migrate_one(&quot;don_breakfast_nobarf&quot;);
     don_breakfast_migrate_one(&quot;don_breakfast_cowo&quot;);
     don_breakfast_migrate_one(&quot;don_breakfast_nobarf_combo&quot;);
     don_breakfast_migrate_one(&quot;don_breakfast_cockroach&quot;);
 }</code></pre></article>
-<article id="actual-11-35"><h2>don_breakfast_active_modes <small>[11.35]</small></h2><p><code>int don_breakfast_active_modes()</code></p><p>scripts/don_custom_functions.ash:655–662</p><p>function_actual11.35.2</p><pre><code>int don_breakfast_active_modes() {
+<article id="actual-11-37"><h2>don_breakfast_active_modes <small>[11.37]</small></h2><p><code>int don_breakfast_active_modes()</code></p><p>scripts/don_custom_functions.ash:671–678</p><p>function_actual11.37.2</p><pre><code>int don_breakfast_active_modes() {
     int active = 0;
     if (get_property(&quot;don_breakfast_barf&quot;).to_boolean()) active += 1;
     if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean()) active += 1;
@@ -538,7 +550,7 @@
     if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) active += 1;
     return active;
 }</code></pre></article>
-<article id="actual-11-36"><h2>don_breakfast_mode_preference <small>[11.36]</small></h2><p><code>string don_breakfast_mode_preference(string mode_name)</code></p><p>scripts/don_custom_functions.ash:664–673</p><p>function_actual11.36.2</p><pre><code>string don_breakfast_mode_preference(string mode_name) {
+<article id="actual-11-38"><h2>don_breakfast_mode_preference <small>[11.38]</small></h2><p><code>string don_breakfast_mode_preference(string mode_name)</code></p><p>scripts/don_custom_functions.ash:680–689</p><p>function_actual11.38.2</p><pre><code>string don_breakfast_mode_preference(string mode_name) {
     if (mode_name == &quot;barf&quot;) return &quot;don_breakfast_barf&quot;;
     if (mode_name == &quot;nobarf&quot;) return &quot;don_breakfast_nobarf&quot;;
     if (mode_name == &quot;cowo&quot;) return &quot;don_breakfast_cowo&quot;;
@@ -548,7 +560,7 @@
         return &quot;don_breakfast_cockroach&quot;;
     return &quot;&quot;;
 }</code></pre></article>
-<article id="actual-11-37"><h2>don_breakfast_set_mode <small>[11.37]</small></h2><p><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled)</code></p><p>scripts/don_custom_functions.ash:676–713</p><p>function_actual11.37.2</p><pre><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
+<article id="actual-11-39"><h2>don_breakfast_set_mode <small>[11.39]</small></h2><p><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled)</code></p><p>scripts/don_custom_functions.ash:692–729</p><p>function_actual11.39.2</p><pre><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
     string preference_name = don_breakfast_mode_preference(mode_name);
     if (preference_name == &quot;&quot;) {
         don_warning(&quot;Unknown breakfast mode: &quot; + mode_name);
@@ -586,7 +598,7 @@
     }
     return true;
 }</code></pre></article>
-<article id="actual-11-38"><h2>don_breakfast_help <small>[11.38]</small></h2><p><code>void don_breakfast_help()</code></p><p>scripts/don_custom_functions.ash:716–736</p><p>function_actual11.38.2</p><pre><code>void don_breakfast_help() {
+<article id="actual-11-40"><h2>don_breakfast_help <small>[11.40]</small></h2><p><code>void don_breakfast_help()</code></p><p>scripts/don_custom_functions.ash:732–752</p><p>function_actual11.40.2</p><pre><code>void don_breakfast_help() {
     don_header(&quot;donBreakfast preferences&quot;);
     print(&quot;don_breakfast_barf = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_barf&quot;));
     print(&quot;don_breakfast_nobarf = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_nobarf&quot;));
@@ -607,7 +619,7 @@
     print(&quot;Using &#39;on&#39; disables competing farming modes and enables cockroach prep.&quot;);
     print(&quot;Direct CLI &#39;set&#39; changes are validated when breakfast runs.&quot;);
 }</code></pre></article>
-<article id="actual-11-39"><h2>don_breakfast_validate_modes <small>[11.39]</small></h2><p><code>boolean don_breakfast_validate_modes()</code></p><p>scripts/don_custom_functions.ash:740–757</p><p>function_actual11.39.2</p><pre><code>boolean don_breakfast_validate_modes() {
+<article id="actual-11-41"><h2>don_breakfast_validate_modes <small>[11.41]</small></h2><p><code>boolean don_breakfast_validate_modes()</code></p><p>scripts/don_custom_functions.ash:756–773</p><p>function_actual11.41.2</p><pre><code>boolean don_breakfast_validate_modes() {
     don_breakfast_migrate_preferences();
     if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean() &amp;&amp;
         !don_breakfast_is_pastamancer(my_class())) {
@@ -625,7 +637,7 @@
     }
     return true;
 }</code></pre></article>
-<article id="actual-11-40"><h2>don_breakfast_run_farming_mode <small>[11.40]</small></h2><p><code>void don_breakfast_run_farming_mode()</code></p><p>scripts/don_custom_functions.ash:759–795</p><p>function_actual11.40.2</p><pre><code>void don_breakfast_run_farming_mode() {
+<article id="actual-11-42"><h2>don_breakfast_run_farming_mode <small>[11.42]</small></h2><p><code>void don_breakfast_run_farming_mode()</code></p><p>scripts/don_custom_functions.ash:775–811</p><p>function_actual11.42.2</p><pre><code>void don_breakfast_run_farming_mode() {
     if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) {
         if (!don_breakfast_is_pastamancer(my_class())) {
             set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
@@ -662,7 +674,7 @@
     if (get_property(&quot;don_breakfast_barf&quot;).to_boolean() &amp;&amp;
         !cli_execute(&quot;barf&quot;)) don_error(&quot;barf CLI command failed.&quot;);
 }</code></pre></article>
-<article id="actual-11-41"><h2>augmentBreakfast <small>[11.41]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:799–832</p><p>function_actual11.41.2</p><pre><code>void augmentBreakfast() {
+<article id="actual-11-43"><h2>augmentBreakfast <small>[11.43]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:815–848</p><p>function_actual11.43.2</p><pre><code>void augmentBreakfast() {
     if (!don_breakfast_validate_modes()) return;
 
     if (!get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
@@ -696,7 +708,7 @@
 
     don_breakfast_run_farming_mode();
 }</code></pre></article>
-<article id="actual-11-42"><h2>Baseline <small>[11.42]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:834–850</p><p>function_actual11.42.2</p><pre><code>void Baseline() {
+<article id="actual-11-44"><h2>Baseline <small>[11.44]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:850–866</p><p>function_actual11.44.2</p><pre><code>void Baseline() {
     shrugAT();
     cli_execute(&quot;hagnk all&quot;);
     cli_execute(&quot;refresh all&quot;);
@@ -713,26 +725,78 @@
         cli_execute(&quot;uneffect &quot; + sparky);
     }
 }</code></pre></article>
-<article id="actual-11-43"><h2>nightcap <small>[11.43]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:852–870</p><p>function_actual11.43.2</p><pre><code>void nightcap() {
-    // A drink must be in inventory before use. Owned items in the closet
-    // may be retrievable; inaccessible Hagnk&#39;s storage is not consumable.
-    if (item_amount(night_cap) &lt; 1 &amp;&amp; available_amount(night_cap) &gt; 0) {
-        if (!retrieve_item(1, night_cap))
-            don_warning(&quot;Could not retrieve owned &quot; + night_cap + &quot;.&quot;);
-    }
-
-    if (item_amount(night_cap) &lt; 1)
-        buy(1, night_cap, 175000);
-
-    if (item_amount(night_cap) &lt; 1) {
-        don_error(&quot;Nightcap unavailable in inventory within 175000 meat limit.&quot;);
-        return;
-    }
-
-    if (!overdrink(1, night_cap))
-        don_error(&quot;Could not drink &quot; + night_cap);
+<article id="actual-11-45"><h2>don_nightcap_configured_id <small>[11.45]</small></h2><p><code>int don_nightcap_configured_id(string preference_name)</code></p><p>scripts/don_custom_functions.ash:870–874</p><p>function_actual11.45.2</p><pre><code>int don_nightcap_configured_id(string preference_name) {
+    int chosen_id = get_property(preference_name).to_int();
+    if (chosen_id &lt;= 0) return 5227;
+    return chosen_id;
 }</code></pre></article>
-<article id="actual-11-44"><h2>don_dpills <small>[11.44]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:872–881</p><p>function_actual11.44.2</p><pre><code>void don_dpills() {
+<article id="actual-11-46"><h2>don_nightcap_price_limit <small>[11.46]</small></h2><p><code>int don_nightcap_price_limit()</code></p><p>scripts/don_custom_functions.ash:876–879</p><p>function_actual11.46.2</p><pre><code>int don_nightcap_price_limit() {
+    int stored = get_property(&quot;don_nightcap_buy_limit&quot;).to_int();
+    return stored &gt; 0 ? stored : 175000;
+}</code></pre></article>
+<article id="actual-11-47"><h2>don_nightcap_pick <small>[11.47]</small></h2><p><code>item don_nightcap_pick()</code></p><p>scripts/don_custom_functions.ash:881–905</p><p>function_actual11.47.2</p><pre><code>item don_nightcap_pick() {
+    string selector = get_property(&quot;don_event&quot;);
+    if (!selector.to_boolean())
+        return to_item(don_nightcap_configured_id(&quot;don_defaultNightcap&quot;));
+
+    item first = to_item(8553);
+    item second = to_item(8554);
+    int price_first = first == $item[none] ? 0 : mall_price(first);
+    int price_second = second == $item[none] ? 0 : mall_price(second);
+    int limit_price = don_nightcap_price_limit();
+
+    // Owned items have no new purchase cost; prefer them before mall shopping.
+    if (first != $item[none] &amp;&amp; (item_amount(first) &gt; 0 || closet_amount(first) &gt; 0))
+        return first;
+    if (second != $item[none] &amp;&amp; (item_amount(second) &gt; 0 || closet_amount(second) &gt; 0))
+        return second;
+
+    if (price_first &gt; 0 &amp;&amp; price_first &lt;= limit_price &amp;&amp;
+        (price_second &lt;= 0 || price_first &lt;= price_second))
+        return first;
+    if (price_second &gt; 0 &amp;&amp; price_second &lt;= limit_price) return second;
+
+    don_warning(&quot;Neither event item 8553 nor 8554 has an acceptable mall estimate; using don_eventNightcap fallback.&quot;);
+    return to_item(don_nightcap_configured_id(&quot;don_eventNightcap&quot;));
+}</code></pre></article>
+<article id="actual-11-48"><h2>don_nightcap <small>[11.48]</small></h2><p><code>boolean don_nightcap()</code></p><p>scripts/don_custom_functions.ash:907–942</p><p>function_actual11.48.2</p><pre><code>boolean don_nightcap() {
+    if (my_inebriety() &gt; inebriety_limit()) {
+        don_log(&quot;Already overdrunk: will not consume a second nightcap.&quot;);
+        return true;
+    }
+    item selected = don_nightcap_pick();
+    if (selected == $item[none]) {
+        don_error(&quot;Configured nightcap item ID is invalid.&quot;);
+        return false;
+    }
+    int cap = don_nightcap_price_limit();
+    don_log(&quot;Nightcap selection: &quot; + selected + &quot; (item &quot; + selected.id + &quot;; buy limit &quot; + cap + &quot;).&quot;);
+    if (item_amount(selected) &lt; 1 &amp;&amp; closet_amount(selected) &gt; 0 &amp;&amp;
+        !take_closet(1, selected)) {
+        don_error(&quot;Could not retrieve nightcap from closet.&quot;);
+        return false;
+    }
+    if (item_amount(selected) &lt; 1) {
+        int estimate = mall_price(selected);
+        if (estimate &lt;= 0 || estimate &gt; cap) {
+            don_error(&quot;Nightcap mall estimate unavailable or above cap: &quot; + estimate);
+            return false;
+        }
+        if (buy(1, selected, cap) &lt; 1) {
+            don_error(&quot;Could not buy nightcap within configured cap.&quot;);
+            return false;
+        }
+    }
+    int before_inebriety = my_inebriety();
+    if (!overdrink(1, selected) || my_inebriety() &lt;= before_inebriety) {
+        don_error(&quot;Nightcap did not increase inebriety.&quot;);
+        return false;
+    }
+    don_good(&quot;Nightcap completed: &quot; + selected + &quot;.&quot;);
+    return true;
+}</code></pre></article>
+<article id="actual-11-49"><h2>nightcap <small>[11.49]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:944–944</p><p>function_actual11.49.2</p><pre><code>void nightcap() { don_nightcap(); }</code></pre></article>
+<article id="actual-11-50"><h2>don_dpills <small>[11.50]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:947–956</p><p>function_actual11.50.2</p><pre><code>void don_dpills() {
     cli_execute(&quot;ccs don_default&quot;);
     cli_execute(&quot;outfit wineglass&quot;);
     cli_execute(&quot;mood apathetic&quot;);
@@ -742,7 +806,7 @@
     }
     set_property(&quot;_don_dailyPills&quot;, my_adventures() &lt; 5 ? &quot;true&quot; : &quot;false&quot;);
 }</code></pre></article>
-<article id="actual-11-45"><h2>don_Midcap <small>[11.45]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:883–899</p><p>function_actual11.45.2</p><pre><code>void don_Midcap() {
+<article id="actual-11-51"><h2>don_Midcap <small>[11.51]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:958–974</p><p>function_actual11.51.2</p><pre><code>void don_Midcap() {
     item midcap = $item[bucket of wine];
     if (needToAcquireItem(midcap)) buy(1, midcap, 15000);
     if (available_amount(midcap) == 0) {
@@ -759,7 +823,7 @@
     if (!overdrink(1, midcap)) don_error(&quot;Overdrink failed.&quot;);
     if (previous != $familiar[none]) use_familiar(previous);
 }</code></pre></article>
-<article id="actual-11-46"><h2>don_Midcap_Pills <small>[11.46]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:901–910</p><p>function_actual11.46.2</p><pre><code>void don_Midcap_Pills() {
+<article id="actual-11-52"><h2>don_Midcap_Pills <small>[11.52]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:976–985</p><p>function_actual11.52.2</p><pre><code>void don_Midcap_Pills() {
     if (!don_is_overdrunk() &amp;&amp; my_adventures() &gt;= 50) {
         int spare = my_adventures() - 50;
         if (spare &gt; 0 &amp;&amp; !cli_execute(&quot;combo &quot; + spare)) {
@@ -769,7 +833,7 @@
     }
     don_dpills();
 }</code></pre></article>
-<article id="actual-11-47"><h2>newstuff <small>[11.47]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:912–938</p><p>function_actual11.47.2</p><pre><code>void newstuff() {
+<article id="actual-11-53"><h2>newstuff <small>[11.53]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:987–1013</p><p>function_actual11.53.2</p><pre><code>void newstuff() {
     int profitOffset = 100;
     string page = visit_url(&quot;campground.php?action=inspectdwelling&quot;);
     if (contains_text(page, &quot;Clockwork Maid&quot;) ||
@@ -795,4 +859,243 @@
         return;
     }
     don_warning(&quot;Maid / butler options are all outside price range.&quot;);
-}</code></pre></article></body></html>
+}</code></pre></article>
+<article id="actual-11-54"><h2>don_post_run_sync_date <small>[11.54]</small></h2><p><code>void don_post_run_sync_date()</code></p><p>scripts/don_custom_functions.ash:1021–1027</p><p>function_actual11.54.2</p><pre><code>void don_post_run_sync_date() {
+    string today = today_to_string();
+    if (get_property(&quot;don_post_run_date&quot;) == today) return;
+    set_property(&quot;don_post_run_date&quot;, today);
+    set_property(&quot;don_post_run_stage&quot;, &quot;new&quot;);
+    set_property(&quot;don_post_run_eod_step&quot;, &quot;0&quot;);
+}</code></pre></article>
+<article id="actual-11-55"><h2>don_post_run_step_done <small>[11.55]</small></h2><p><code>boolean don_post_run_step_done(string step_name)</code></p><p>scripts/don_custom_functions.ash:1029–1031</p><p>function_actual11.55.2</p><pre><code>boolean don_post_run_step_done(string step_name) {
+    return get_property(&quot;don_post_run_stage&quot;) == step_name;
+}</code></pre></article>
+<article id="actual-11-56"><h2>don_post_run_track <small>[11.56]</small></h2><p><code>void don_post_run_track(string label)</code></p><p>scripts/don_custom_functions.ash:1033–1038</p><p>function_actual11.56.2</p><pre><code>void don_post_run_track(string label) {
+    // Optional, non-authoritative telemetry; never a required import.
+    if (!get_property(&quot;don_post_run_ptrack&quot;).to_boolean()) return;
+    if (!cli_execute(&quot;call ptrack.ash add &quot; + label))
+        don_warning(&quot;ptrack checkpoint unavailable: &quot; + label);
+}</code></pre></article>
+<article id="actual-11-57"><h2>don_post_run_status <small>[11.57]</small></h2><p><code>void don_post_run_status()</code></p><p>scripts/don_custom_functions.ash:1040–1057</p><p>function_actual11.57.2</p><pre><code>void don_post_run_status() {
+    print(&quot;don_post_run_date = &quot; + get_property(&quot;don_post_run_date&quot;));
+    print(&quot;don_post_run_stage = &quot; + get_property(&quot;don_post_run_stage&quot;));
+    print(&quot;don_post_run_eod_step = &quot; + get_property(&quot;don_post_run_eod_step&quot;));
+    print(&quot;don_defaultNightcap = &quot; + don_nightcap_configured_id(&quot;don_defaultNightcap&quot;) +
+          &quot; (&quot; + to_item(don_nightcap_configured_id(&quot;don_defaultNightcap&quot;)) + &quot;)&quot;);
+    print(&quot;don_event = &quot; + get_property(&quot;don_event&quot;).to_boolean());
+    print(&quot;don_eventNightcap = &quot; + don_nightcap_configured_id(&quot;don_eventNightcap&quot;) +
+          &quot; (&quot; + to_item(don_nightcap_configured_id(&quot;don_eventNightcap&quot;)) + &quot;)&quot;);
+    print(&quot;don_nightcap_buy_limit = &quot; + don_nightcap_price_limit());
+    print(&quot;don_post_run_philter = &quot; + get_property(&quot;don_post_run_philter&quot;).to_boolean());
+    print(&quot;don_post_run_ptrack = &quot; + get_property(&quot;don_post_run_ptrack&quot;).to_boolean());
+    print(&quot;Yeti XP = &quot; + $familiar[cooler yeti].experience + &quot;/400&quot;);
+    print(&quot;Adventures = &quot; + my_adventures());
+    print(&quot;Fullness = &quot; + my_fullness() + &quot;/&quot; + fullness_limit() +
+          &quot;; spleen = &quot; + my_spleen_use() + &quot;/&quot; + spleen_limit() +
+          &quot;; inebriety = &quot; + my_inebriety() + &quot;/&quot; + inebriety_limit());
+}</code></pre></article>
+<article id="actual-11-58"><h2>don_post_run_prepare <small>[11.58]</small></h2><p><code>boolean don_post_run_prepare()</code></p><p>scripts/don_custom_functions.ash:1059–1081</p><p>function_actual11.58.2</p><pre><code>boolean don_post_run_prepare() {
+    don_post_run_sync_date();
+    if (!get_property(&quot;_don_famMax&quot;).to_boolean() &amp;&amp;
+        my_inebriety() &lt;= inebriety_limit()) {
+        if (!cli_execute(&quot;maximize familiar exp&quot;)) {
+            don_error(&quot;Familiar experience maximizer failed.&quot;);
+            return false;
+        }
+        set_property(&quot;_don_famMax&quot;, &quot;true&quot;);
+    }
+    if (!outfit(&quot;maxorgan&quot;)) {
+        don_error(&quot;Missing required maxorgan outfit.&quot;);
+        return false;
+    }
+    stooperDis();
+    if (!cli_execute(&quot;CONSUME ALL VALUE 6500&quot;)) {
+        don_error(&quot;CONSUME ALL VALUE 6500 failed.&quot;);
+        return false;
+    }
+    set_property(&quot;don_post_run_stage&quot;, &quot;prepared&quot;);
+    don_post_run_track(&quot;postrun_prepared&quot;);
+    return true;
+}</code></pre></article>
+<article id="actual-11-59"><h2>don_post_run_yeti_stage <small>[11.59]</small></h2><p><code>boolean don_post_run_yeti_stage()</code></p><p>scripts/don_custom_functions.ash:1084–1142</p><p>function_actual11.59.2</p><pre><code>boolean don_post_run_yeti_stage() {
+    don_post_run_sync_date();
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti)) {
+        don_error(&quot;No Cooler Yeti owned.&quot;);
+        return false;
+    }
+    don_log(&quot;Cooler Yeti XP: &quot; + yeti.experience + &quot;/400.&quot;);
+    if (yeti.experience &gt;= 400) {
+        set_property(&quot;don_post_run_stage&quot;, &quot;yeti_ready&quot;);
+        return true;
+    }
+    if (my_adventures() &lt;= 20) {
+        don_warning(&quot;Yeti is below 400 XP and no adventures remain above the 20-turn reserve.&quot;);
+        return false;
+    }
+    if (get_property(&quot;don_post_run_chow&quot;).to_boolean()) {
+        if (have_outfit(&quot;chowDown&quot;)) chowDown();
+        if (have_outfit(&quot;chowDown2&quot;)) chowDown2();
+    }
+    item bow = $item[toy cupid bow];
+    if (available_amount(bow) &gt; 0 || have_equipped(bow)) {
+        foreach other in $familiars[] {
+            if (other != yeti &amp;&amp; familiar_equipped_equipment(other) == bow)
+                if (!equip(other, $item[none])) {
+                    don_error(&quot;Cannot release toy cupid bow from &quot; + other);
+                    return false;
+                }
+        }
+        if (familiar_equipped_equipment(yeti) != bow &amp;&amp; !equip(yeti, bow)) {
+            don_error(&quot;Cannot equip toy cupid bow on Cooler Yeti.&quot;);
+            return false;
+        }
+    } else {
+        don_warning(&quot;Toy cupid bow unavailable; training without it.&quot;);
+    }
+    if (!can_adventure($location[The Dungeons of Doom])) {
+        openDungeon();
+        if (!can_adventure($location[The Dungeons of Doom])) {
+            don_error(&quot;Dungeons of Doom unavailable; run DOD()/EGTS()/openDungeon() separately if needed.&quot;);
+            return false;
+        }
+    }
+    if (!outfit(&quot;yetibuff&quot;) || !use_familiar(yeti)) {
+        don_error(&quot;Could not prepare Yeti outfit/familiar.&quot;);
+        return false;
+    }
+    while (my_adventures() &gt; 20 &amp;&amp; yeti.experience &lt; 400) {
+        if (!adventure(1, $location[The Dungeons of Doom])) {
+            don_error(&quot;Yeti training adventure failed.&quot;);
+            return false;
+        }
+    }
+    don_log(&quot;Cooler Yeti XP now &quot; + yeti.experience + &quot;/400.&quot;);
+    if (yeti.experience &lt; 400) return false;
+    set_property(&quot;don_post_run_stage&quot;, &quot;yeti_ready&quot;);
+    don_post_run_track(&quot;postrun_yeti_ready&quot;);
+    return true;
+}</code></pre></article>
+<article id="actual-11-60"><h2>don_yeti_adv <small>[11.60]</small></h2><p><code>void don_yeti_adv()</code></p><p>scripts/don_custom_functions.ash:1145–1145</p><p>function_actual11.60.2</p><pre><code>void don_yeti_adv() { don_post_run_yeti_stage(); }</code></pre></article>
+<article id="actual-11-61"><h2>don_post_run_combo_stage <small>[11.61]</small></h2><p><code>boolean don_post_run_combo_stage()</code></p><p>scripts/don_custom_functions.ash:1147–1165</p><p>function_actual11.61.2</p><pre><code>boolean don_post_run_combo_stage() {
+    don_post_run_sync_date();
+    if ($familiar[cooler yeti].experience &lt; 400) {
+        don_error(&quot;Cooler Yeti below 400 XP: refusing to start WaterSheep.&quot;);
+        return false;
+    }
+    string stage_name = get_property(&quot;don_post_run_stage&quot;);
+    if (stage_name == &quot;combo_done&quot; || stage_name == &quot;done&quot;) return true;
+    int turns = my_adventures();
+    if (turns &gt; 2) {
+        if (!cli_execute(&quot;combo watersheep-&quot; + turns)) {
+            don_error(&quot;WaterSheep combo command failed.&quot;);
+            return false;
+        }
+    } else don_log(&quot;At two or fewer adventures; no WaterSheep turns needed.&quot;);
+    set_property(&quot;don_post_run_stage&quot;, &quot;combo_done&quot;);
+    don_post_run_track(&quot;postrun_combo_done&quot;);
+    return true;
+}</code></pre></article>
+<article id="actual-11-62"><h2>don_post_run_eod_ready <small>[11.62]</small></h2><p><code>boolean don_post_run_eod_ready()</code></p><p>scripts/don_custom_functions.ash:1167–1175</p><p>function_actual11.62.2</p><pre><code>boolean don_post_run_eod_ready() {
+    if (my_adventures() &gt; 2) return false;
+    if (my_fullness() &lt; fullness_limit()) return false;
+    if (my_spleen_use() &lt; spleen_limit()) return false;
+    if (my_inebriety() &lt; inebriety_limit()) return false;
+    if (my_familiar() != $familiar[Stooper]) return false;
+    if (!is_wearing_outfit(&quot;maxorgan&quot;)) return false;
+    return true;
+}</code></pre></article>
+<article id="actual-11-63"><h2>don_eod_process <small>[11.63]</small></h2><p><code>boolean don_eod_process()</code></p><p>scripts/don_custom_functions.ash:1177–1236</p><p>function_actual11.63.2</p><pre><code>boolean don_eod_process() {
+    don_post_run_sync_date();
+    if (get_property(&quot;don_post_run_stage&quot;) == &quot;done&quot;) {
+        don_log(&quot;Post-run already completed for &quot; + today_to_string());
+        return true;
+    }
+    if (!don_post_run_eod_ready()) {
+        don_warning(&quot;EOD gate: need maxorgan, Stooper, full stomach/spleen/liver and &lt;=2 adventures.&quot;);
+        don_post_run_status();
+        return false;
+    }
+    int checkpoint = get_property(&quot;don_post_run_eod_step&quot;).to_int();
+    if (checkpoint &lt; 1) {
+        if ($familiar[cooler yeti].experience &gt;= 400 &amp;&amp; !don_get_cool()) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;1&quot;);
+    }
+    if (checkpoint &lt; 2) {
+        if (!don_nightcap()) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;2&quot;);
+    }
+    if (checkpoint &lt; 3) {
+        familiar lefty = $familiar[Left-Hand Man];
+        if (!have_familiar(lefty) || !use_familiar(lefty)) {
+            don_warning(&quot;Left-Hand Man unavailable. Re-run EOD to resume.&quot;);
+            return false;
+        }
+        if (!cli_execute(&quot;genie effect offhand remarkable&quot;)) return false;
+        if (!cli_execute(&quot;max adv&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;3&quot;);
+    }
+    if (checkpoint &lt; 4) {
+        // Philter may prompt for unknown items; no unsupported auto-response.
+        if (get_property(&quot;don_post_run_philter&quot;).to_boolean()) {
+            if (!cli_execute(&quot;philter&quot;)) {
+                don_error(&quot;Philter failed or was cancelled.&quot;);
+                return false;
+            }
+        } else don_log(&quot;Philter skipped: set don_post_run_philter=true to enable.&quot;);
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;4&quot;);
+    }
+    if (checkpoint &lt; 5) {
+        if (!cli_execute(&quot;mall-manager reprice&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;5&quot;);
+    }
+    if (checkpoint &lt; 6) {
+        if (!cli_execute(&quot;call buy-script.js&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;6&quot;);
+    }
+    if (checkpoint &lt; 7) {
+        int have_tickets = don_owned_amount($item[raffle ticket]);
+        int need_tickets = max(0, 111 - have_tickets);
+        if (need_tickets &gt; 0 &amp;&amp; !cli_execute(&quot;raffle &quot; + need_tickets)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;7&quot;);
+    }
+    don_post_run_track(&quot;postrun_eod_complete&quot;);
+    set_property(&quot;don_post_run_eod_step&quot;, &quot;8&quot;);
+    set_property(&quot;don_post_run_stage&quot;, &quot;done&quot;);
+    don_good(&quot;Don post-run EOD complete.&quot;);
+    return true;
+}</code></pre></article>
+<article id="actual-11-64"><h2>eod_proccess <small>[11.64]</small></h2><p><code>boolean eod_proccess()</code></p><p>scripts/don_custom_functions.ash:1239–1239</p><p>function_actual11.64.2</p><pre><code>boolean eod_proccess() { return don_eod_process(); }</code></pre></article>
+<article id="actual-11-65"><h2>eod_process <small>[11.65]</small></h2><p><code>boolean eod_process()</code></p><p>scripts/don_custom_functions.ash:1240–1240</p><p>function_actual11.65.2</p><pre><code>boolean eod_process() { return don_eod_process(); }</code></pre></article>
+<article id="actual-11-66"><h2>don_post_run_from <small>[11.66]</small></h2><p><code>boolean don_post_run_from(string entry_stage)</code></p><p>scripts/don_custom_functions.ash:1242–1272</p><p>function_actual11.66.2</p><pre><code>boolean don_post_run_from(string entry_stage) {
+    don_post_run_sync_date();
+    if (entry_stage == &quot;nightcap&quot;) return don_nightcap();
+    if (entry_stage == &quot;eod&quot;) return eod_proccess();
+    if (entry_stage == &quot;cool&quot;) return don_get_cool() &amp;&amp; eod_proccess();
+    if (entry_stage == &quot;yeti&quot;) {
+        if (!don_post_run_yeti_stage()) return false;
+    } else if (entry_stage == &quot;&quot; || entry_stage == &quot;start&quot;) {
+        if (get_property(&quot;don_post_run_stage&quot;) == &quot;done&quot;) return true;
+        if (get_property(&quot;don_post_run_stage&quot;) == &quot;new&quot;) {
+            if (!don_post_run_prepare()) return false;
+        }
+        if (get_property(&quot;don_post_run_stage&quot;) == &quot;prepared&quot;) {
+            if (!don_post_run_yeti_stage()) return false;
+        }
+    } else {
+        don_warning(&quot;Unknown post-run stage: &quot; + entry_stage);
+        return false;
+    }
+
+    if (!don_post_run_combo_stage()) return false;
+    // Reapply the EOD gate setup after the Yeti and farming stages.
+    if (!outfit(&quot;maxorgan&quot;)) return false;
+    if (have_familiar($familiar[Stooper]) &amp;&amp;
+        !use_familiar($familiar[Stooper])) return false;
+    if (!don_post_run_eod_ready()) {
+        don_warning(&quot;WaterSheep returned; EOD requirements not met. Resume later with don-post-run eod.&quot;);
+        return false;
+    }
+    return eod_proccess();
+}</code></pre></article>
+<article id="actual-11-67"><h2>don_post_run <small>[11.67]</small></h2><p><code>void don_post_run()</code></p><p>scripts/don_custom_functions.ash:1274–1274</p><p>function_actual11.67.2</p><pre><code>void don_post_run() { don_post_run_from(&quot;start&quot;); }</code></pre></article></body></html>

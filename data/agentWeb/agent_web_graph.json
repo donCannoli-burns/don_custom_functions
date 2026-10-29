@@ -572,27 +572,25 @@
         {
           "id": "11.25",
           "script": "don_custom_functions",
-          "name": "getCool",
-          "signature": "void getCool()",
-          "line_start": 504,
-          "line_end": 543,
+          "name": "don_get_cool",
+          "signature": "boolean don_get_cool()",
+          "line_start": 505,
+          "line_end": 554,
           "keywords": [
+            "don",
             "get",
             "cool",
-            "void",
-            "getcool",
+            "boolean",
             "outfit",
+            "warning",
             "refresh",
             "status",
             "property",
-            "boolean",
             "inebriety",
             "limit",
             "stooperdis",
             "familiar",
             "have",
-            "don",
-            "warning",
             "use",
             "error",
             "cli",
@@ -612,10 +610,39 @@
         {
           "id": "11.26",
           "script": "don_custom_functions",
+          "name": "getCool",
+          "signature": "void getCool()",
+          "line_start": 557,
+          "line_end": 557,
+          "keywords": [
+            "get",
+            "cool",
+            "void",
+            "getcool",
+            "don"
+          ]
+        },
+        {
+          "id": "11.27",
+          "script": "don_custom_functions",
+          "name": "get_cool",
+          "signature": "void get_cool()",
+          "line_start": 558,
+          "line_end": 558,
+          "keywords": [
+            "get",
+            "cool",
+            "void",
+            "don"
+          ]
+        },
+        {
+          "id": "11.28",
+          "script": "don_custom_functions",
           "name": "shrugAT",
           "signature": "void shrugAT()",
-          "line_start": 545,
-          "line_end": 553,
+          "line_start": 561,
+          "line_end": 569,
           "keywords": [
             "shrug",
             "void",
@@ -625,12 +652,12 @@
           ]
         },
         {
-          "id": "11.27",
+          "id": "11.29",
           "script": "don_custom_functions",
           "name": "don_mayam",
           "signature": "void don_mayam()",
-          "line_start": 555,
-          "line_end": 581,
+          "line_start": 571,
+          "line_end": 597,
           "keywords": [
             "don",
             "mayam",
@@ -652,12 +679,12 @@
           ]
         },
         {
-          "id": "11.28",
+          "id": "11.30",
           "script": "don_custom_functions",
           "name": "cockroach_fight_prep",
           "signature": "boolean cockroach_fight_prep()",
-          "line_start": 586,
-          "line_end": 604,
+          "line_start": 602,
+          "line_end": 620,
           "keywords": [
             "cockroach",
             "fight",
@@ -676,12 +703,12 @@
           ]
         },
         {
-          "id": "11.29",
+          "id": "11.31",
           "script": "don_custom_functions",
           "name": "don_breakfast_is_pastamancer",
           "signature": "boolean don_breakfast_is_pastamancer(class character_class)",
-          "line_start": 609,
-          "line_end": 611,
+          "line_start": 625,
+          "line_end": 627,
           "keywords": [
             "don",
             "breakfast",
@@ -692,12 +719,12 @@
           ]
         },
         {
-          "id": "11.30",
+          "id": "11.32",
           "script": "don_custom_functions",
           "name": "don_breakfast_combo_turns",
           "signature": "int don_breakfast_combo_turns(int adventures_available)",
-          "line_start": 613,
-          "line_end": 616,
+          "line_start": 629,
+          "line_end": 632,
           "keywords": [
             "don",
             "breakfast",
@@ -709,12 +736,12 @@
           ]
         },
         {
-          "id": "11.31",
+          "id": "11.33",
           "script": "don_custom_functions",
           "name": "don_breakfast_legacy_preference",
           "signature": "string don_breakfast_legacy_preference(string canonical)",
-          "line_start": 620,
-          "line_end": 627,
+          "line_start": 636,
+          "line_end": 643,
           "keywords": [
             "don",
             "breakfast",
@@ -725,12 +752,12 @@
           ]
         },
         {
-          "id": "11.32",
+          "id": "11.34",
           "script": "don_custom_functions",
           "name": "don_breakfast_preference_enabled",
           "signature": "boolean don_breakfast_preference_enabled(string canonical)",
-          "line_start": 629,
-          "line_end": 636,
+          "line_start": 645,
+          "line_end": 652,
           "keywords": [
             "don",
             "breakfast",
@@ -745,12 +772,12 @@
           ]
         },
         {
-          "id": "11.33",
+          "id": "11.35",
           "script": "don_custom_functions",
           "name": "don_breakfast_migrate_one",
           "signature": "void don_breakfast_migrate_one(string canonical)",
-          "line_start": 638,
-          "line_end": 645,
+          "line_start": 654,
+          "line_end": 661,
           "keywords": [
             "don",
             "breakfast",
@@ -768,12 +795,12 @@
           ]
         },
         {
-          "id": "11.34",
+          "id": "11.36",
           "script": "don_custom_functions",
           "name": "don_breakfast_migrate_preferences",
           "signature": "void don_breakfast_migrate_preferences()",
-          "line_start": 647,
-          "line_end": 653,
+          "line_start": 663,
+          "line_end": 669,
           "keywords": [
             "don",
             "breakfast",
@@ -784,12 +811,12 @@
           ]
         },
         {
-          "id": "11.35",
+          "id": "11.37",
           "script": "don_custom_functions",
           "name": "don_breakfast_active_modes",
           "signature": "int don_breakfast_active_modes()",
-          "line_start": 655,
-          "line_end": 662,
+          "line_start": 671,
+          "line_end": 678,
           "keywords": [
             "don",
             "breakfast",
@@ -802,12 +829,12 @@
           ]
         },
         {
-          "id": "11.36",
+          "id": "11.38",
           "script": "don_custom_functions",
           "name": "don_breakfast_mode_preference",
           "signature": "string don_breakfast_mode_preference(string mode_name)",
-          "line_start": 664,
-          "line_end": 673,
+          "line_start": 680,
+          "line_end": 689,
           "keywords": [
             "don",
             "breakfast",
@@ -818,12 +845,12 @@
           ]
         },
         {
-          "id": "11.37",
+          "id": "11.39",
           "script": "don_custom_functions",
           "name": "don_breakfast_set_mode",
           "signature": "boolean don_breakfast_set_mode(string mode_name, boolean enabled)",
-          "line_start": 676,
-          "line_end": 713,
+          "line_start": 692,
+          "line_end": 729,
           "keywords": [
             "don",
             "breakfast",
@@ -845,12 +872,12 @@
           ]
         },
         {
-          "id": "11.38",
+          "id": "11.40",
           "script": "don_custom_functions",
           "name": "don_breakfast_help",
           "signature": "void don_breakfast_help()",
-          "line_start": 716,
-          "line_end": 736,
+          "line_start": 732,
+          "line_end": 752,
           "keywords": [
             "don",
             "breakfast",
@@ -865,12 +892,12 @@
           ]
         },
         {
-          "id": "11.39",
+          "id": "11.41",
           "script": "don_custom_functions",
           "name": "don_breakfast_validate_modes",
           "signature": "boolean don_breakfast_validate_modes()",
-          "line_start": 740,
-          "line_end": 757,
+          "line_start": 756,
+          "line_end": 773,
           "keywords": [
             "don",
             "breakfast",
@@ -891,12 +918,12 @@
           ]
         },
         {
-          "id": "11.40",
+          "id": "11.42",
           "script": "don_custom_functions",
           "name": "don_breakfast_run_farming_mode",
           "signature": "void don_breakfast_run_farming_mode()",
-          "line_start": 759,
-          "line_end": 795,
+          "line_start": 775,
+          "line_end": 811,
           "keywords": [
             "don",
             "breakfast",
@@ -921,12 +948,12 @@
           ]
         },
         {
-          "id": "11.41",
+          "id": "11.43",
           "script": "don_custom_functions",
           "name": "augmentBreakfast",
           "signature": "void augmentBreakfast()",
-          "line_start": 799,
-          "line_end": 832,
+          "line_start": 815,
+          "line_end": 848,
           "keywords": [
             "augment",
             "breakfast",
@@ -957,12 +984,12 @@
           ]
         },
         {
-          "id": "11.42",
+          "id": "11.44",
           "script": "don_custom_functions",
           "name": "Baseline",
           "signature": "void Baseline()",
-          "line_start": 834,
-          "line_end": 850,
+          "line_start": 850,
+          "line_end": 866,
           "keywords": [
             "baseline",
             "void",
@@ -979,33 +1006,112 @@
           ]
         },
         {
-          "id": "11.43",
+          "id": "11.45",
           "script": "don_custom_functions",
-          "name": "nightcap",
-          "signature": "void nightcap()",
-          "line_start": 852,
-          "line_end": 870,
+          "name": "don_nightcap_configured_id",
+          "signature": "int don_nightcap_configured_id(string preference_name)",
+          "line_start": 870,
+          "line_end": 874,
           "keywords": [
-            "nightcap",
-            "void",
-            "item",
-            "amount",
-            "available",
-            "retrieve",
             "don",
-            "warning",
-            "buy",
-            "error",
-            "overdrink"
+            "nightcap",
+            "configured",
+            "int",
+            "string",
+            "preference",
+            "name",
+            "get",
+            "property"
           ]
         },
         {
-          "id": "11.44",
+          "id": "11.46",
+          "script": "don_custom_functions",
+          "name": "don_nightcap_price_limit",
+          "signature": "int don_nightcap_price_limit()",
+          "line_start": 876,
+          "line_end": 879,
+          "keywords": [
+            "don",
+            "nightcap",
+            "price",
+            "limit",
+            "int",
+            "get",
+            "property"
+          ]
+        },
+        {
+          "id": "11.47",
+          "script": "don_custom_functions",
+          "name": "don_nightcap_pick",
+          "signature": "item don_nightcap_pick()",
+          "line_start": 881,
+          "line_end": 905,
+          "keywords": [
+            "don",
+            "nightcap",
+            "pick",
+            "item",
+            "get",
+            "property",
+            "boolean",
+            "configured",
+            "mall",
+            "price",
+            "limit",
+            "amount",
+            "closet",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.48",
+          "script": "don_custom_functions",
+          "name": "don_nightcap",
+          "signature": "boolean don_nightcap()",
+          "line_start": 907,
+          "line_end": 942,
+          "keywords": [
+            "don",
+            "nightcap",
+            "boolean",
+            "inebriety",
+            "limit",
+            "log",
+            "pick",
+            "error",
+            "price",
+            "item",
+            "amount",
+            "closet",
+            "take",
+            "mall",
+            "buy",
+            "overdrink",
+            "good"
+          ]
+        },
+        {
+          "id": "11.49",
+          "script": "don_custom_functions",
+          "name": "nightcap",
+          "signature": "void nightcap()",
+          "line_start": 944,
+          "line_end": 944,
+          "keywords": [
+            "nightcap",
+            "void",
+            "don"
+          ]
+        },
+        {
+          "id": "11.50",
           "script": "don_custom_functions",
           "name": "don_dpills",
           "signature": "void don_dpills()",
-          "line_start": 872,
-          "line_end": 881,
+          "line_start": 947,
+          "line_end": 956,
           "keywords": [
             "don",
             "dpills",
@@ -1019,12 +1125,12 @@
           ]
         },
         {
-          "id": "11.45",
+          "id": "11.51",
           "script": "don_custom_functions",
           "name": "don_Midcap",
           "signature": "void don_Midcap()",
-          "line_start": 883,
-          "line_end": 899,
+          "line_start": 958,
+          "line_end": 974,
           "keywords": [
             "don",
             "midcap",
@@ -1042,12 +1148,12 @@
           ]
         },
         {
-          "id": "11.46",
+          "id": "11.52",
           "script": "don_custom_functions",
           "name": "don_Midcap_Pills",
           "signature": "void don_Midcap_Pills()",
-          "line_start": 901,
-          "line_end": 910,
+          "line_start": 976,
+          "line_end": 985,
           "keywords": [
             "don",
             "midcap",
@@ -1062,12 +1168,12 @@
           ]
         },
         {
-          "id": "11.47",
+          "id": "11.53",
           "script": "don_custom_functions",
           "name": "newstuff",
           "signature": "void newstuff()",
-          "line_start": 912,
-          "line_end": 938,
+          "line_start": 987,
+          "line_end": 1013,
           "keywords": [
             "newstuff",
             "void",
@@ -1087,6 +1193,356 @@
             "use",
             "error",
             "warning"
+          ]
+        },
+        {
+          "id": "11.54",
+          "script": "don_custom_functions",
+          "name": "don_post_run_sync_date",
+          "signature": "void don_post_run_sync_date()",
+          "line_start": 1021,
+          "line_end": 1027,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "sync",
+            "date",
+            "void",
+            "today",
+            "string",
+            "get",
+            "property",
+            "set"
+          ]
+        },
+        {
+          "id": "11.55",
+          "script": "don_custom_functions",
+          "name": "don_post_run_step_done",
+          "signature": "boolean don_post_run_step_done(string step_name)",
+          "line_start": 1029,
+          "line_end": 1031,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "step",
+            "done",
+            "boolean",
+            "string",
+            "name",
+            "get",
+            "property"
+          ]
+        },
+        {
+          "id": "11.56",
+          "script": "don_custom_functions",
+          "name": "don_post_run_track",
+          "signature": "void don_post_run_track(string label)",
+          "line_start": 1033,
+          "line_end": 1038,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "track",
+            "void",
+            "string",
+            "label",
+            "get",
+            "property",
+            "boolean",
+            "cli",
+            "execute",
+            "warning"
+          ]
+        },
+        {
+          "id": "11.57",
+          "script": "don_custom_functions",
+          "name": "don_post_run_status",
+          "signature": "void don_post_run_status()",
+          "line_start": 1040,
+          "line_end": 1057,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "status",
+            "void",
+            "print",
+            "get",
+            "property",
+            "nightcap",
+            "configured",
+            "item",
+            "boolean",
+            "price",
+            "limit",
+            "adventures",
+            "fullness",
+            "spleen",
+            "use",
+            "inebriety"
+          ]
+        },
+        {
+          "id": "11.58",
+          "script": "don_custom_functions",
+          "name": "don_post_run_prepare",
+          "signature": "boolean don_post_run_prepare()",
+          "line_start": 1059,
+          "line_end": 1081,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "prepare",
+            "boolean",
+            "sync",
+            "date",
+            "get",
+            "property",
+            "inebriety",
+            "limit",
+            "cli",
+            "execute",
+            "error",
+            "set",
+            "outfit",
+            "stooperdis",
+            "track"
+          ]
+        },
+        {
+          "id": "11.59",
+          "script": "don_custom_functions",
+          "name": "don_post_run_yeti_stage",
+          "signature": "boolean don_post_run_yeti_stage()",
+          "line_start": 1084,
+          "line_end": 1142,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "yeti",
+            "stage",
+            "boolean",
+            "sync",
+            "date",
+            "have",
+            "familiar",
+            "error",
+            "log",
+            "set",
+            "property",
+            "adventures",
+            "warning",
+            "get",
+            "outfit",
+            "chowdown",
+            "chowdown2",
+            "available",
+            "amount",
+            "equipped",
+            "equipment",
+            "equip",
+            "can",
+            "adventure",
+            "opendungeon",
+            "use",
+            "track"
+          ]
+        },
+        {
+          "id": "11.60",
+          "script": "don_custom_functions",
+          "name": "don_yeti_adv",
+          "signature": "void don_yeti_adv()",
+          "line_start": 1145,
+          "line_end": 1145,
+          "keywords": [
+            "don",
+            "yeti",
+            "adv",
+            "void",
+            "post",
+            "run",
+            "stage"
+          ]
+        },
+        {
+          "id": "11.61",
+          "script": "don_custom_functions",
+          "name": "don_post_run_combo_stage",
+          "signature": "boolean don_post_run_combo_stage()",
+          "line_start": 1147,
+          "line_end": 1165,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "combo",
+            "stage",
+            "boolean",
+            "sync",
+            "date",
+            "error",
+            "get",
+            "property",
+            "adventures",
+            "cli",
+            "execute",
+            "log",
+            "set",
+            "track"
+          ]
+        },
+        {
+          "id": "11.62",
+          "script": "don_custom_functions",
+          "name": "don_post_run_eod_ready",
+          "signature": "boolean don_post_run_eod_ready()",
+          "line_start": 1167,
+          "line_end": 1175,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "eod",
+            "ready",
+            "boolean",
+            "adventures",
+            "fullness",
+            "limit",
+            "spleen",
+            "use",
+            "inebriety",
+            "familiar",
+            "wearing",
+            "outfit"
+          ]
+        },
+        {
+          "id": "11.63",
+          "script": "don_custom_functions",
+          "name": "don_eod_process",
+          "signature": "boolean don_eod_process()",
+          "line_start": 1177,
+          "line_end": 1236,
+          "keywords": [
+            "don",
+            "eod",
+            "process",
+            "boolean",
+            "post",
+            "run",
+            "sync",
+            "date",
+            "get",
+            "property",
+            "log",
+            "today",
+            "string",
+            "ready",
+            "warning",
+            "status",
+            "int",
+            "cool",
+            "set",
+            "nightcap",
+            "have",
+            "familiar",
+            "use",
+            "cli",
+            "execute",
+            "error",
+            "owned",
+            "amount",
+            "max",
+            "track",
+            "good"
+          ]
+        },
+        {
+          "id": "11.64",
+          "script": "don_custom_functions",
+          "name": "eod_proccess",
+          "signature": "boolean eod_proccess()",
+          "line_start": 1239,
+          "line_end": 1239,
+          "keywords": [
+            "eod",
+            "proccess",
+            "boolean",
+            "don",
+            "process"
+          ]
+        },
+        {
+          "id": "11.65",
+          "script": "don_custom_functions",
+          "name": "eod_process",
+          "signature": "boolean eod_process()",
+          "line_start": 1240,
+          "line_end": 1240,
+          "keywords": [
+            "eod",
+            "process",
+            "boolean",
+            "don"
+          ]
+        },
+        {
+          "id": "11.66",
+          "script": "don_custom_functions",
+          "name": "don_post_run_from",
+          "signature": "boolean don_post_run_from(string entry_stage)",
+          "line_start": 1242,
+          "line_end": 1272,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "from",
+            "boolean",
+            "string",
+            "entry",
+            "stage",
+            "sync",
+            "date",
+            "nightcap",
+            "eod",
+            "proccess",
+            "get",
+            "cool",
+            "yeti",
+            "property",
+            "prepare",
+            "warning",
+            "combo",
+            "outfit",
+            "have",
+            "familiar",
+            "use",
+            "ready"
+          ]
+        },
+        {
+          "id": "11.67",
+          "script": "don_custom_functions",
+          "name": "don_post_run",
+          "signature": "void don_post_run()",
+          "line_start": 1274,
+          "line_end": 1274,
+          "keywords": [
+            "don",
+            "post",
+            "run",
+            "void",
+            "from"
           ]
         }
       ]
@@ -3399,6 +3855,16 @@
     },
     {
       "from": "11.25",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.25",
       "to": "11.24",
       "kind": "call",
       "state": "strong",
@@ -3409,16 +3875,6 @@
     },
     {
       "from": "11.25",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.25",
       "to": "12.5",
       "kind": "call",
       "state": "strong",
@@ -3438,7 +3894,27 @@
       "cross_ladder": true
     },
     {
+      "from": "11.26",
+      "to": "11.25",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
       "from": "11.27",
+      "to": "11.25",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.29",
       "to": "12.4",
       "kind": "call",
       "state": "strong",
@@ -3448,7 +3924,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.27",
+      "from": "11.29",
       "to": "12.5",
       "kind": "call",
       "state": "strong",
@@ -3458,7 +3934,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.27",
+      "from": "11.29",
       "to": "12.2",
       "kind": "call",
       "state": "strong",
@@ -3468,7 +3944,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.28",
+      "from": "11.30",
       "to": "12.1",
       "kind": "call",
       "state": "strong",
@@ -3478,7 +3954,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.28",
+      "from": "11.30",
       "to": "12.4",
       "kind": "call",
       "state": "strong",
@@ -3486,26 +3962,6 @@
       "capability": "bridge_thread",
       "filament": "agent_filament_strong_frame_bridge_thread",
       "cross_ladder": true
-    },
-    {
-      "from": "11.32",
-      "to": "11.31",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.33",
-      "to": "11.31",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
     },
     {
       "from": "11.34",
@@ -3518,7 +3974,47 @@
       "cross_ladder": false
     },
     {
-      "from": "11.37",
+      "from": "11.35",
+      "to": "11.33",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.36",
+      "to": "11.35",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.39",
+      "to": "11.38",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.39",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.39",
       "to": "11.36",
       "kind": "call",
       "state": "strong",
@@ -3528,18 +4024,8 @@
       "cross_ladder": false
     },
     {
-      "from": "11.37",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.37",
-      "to": "11.34",
+      "from": "11.39",
+      "to": "11.37",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3548,8 +4034,8 @@
       "cross_ladder": false
     },
     {
-      "from": "11.37",
-      "to": "11.35",
+      "from": "11.39",
+      "to": "11.31",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3558,17 +4044,7 @@
       "cross_ladder": false
     },
     {
-      "from": "11.37",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.38",
+      "from": "11.40",
       "to": "12.7",
       "kind": "call",
       "state": "strong",
@@ -3578,27 +4054,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.38",
-      "to": "11.32",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.38",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.39",
+      "from": "11.40",
       "to": "11.34",
       "kind": "call",
       "state": "strong",
@@ -3608,8 +4064,8 @@
       "cross_ladder": false
     },
     {
-      "from": "11.39",
-      "to": "11.29",
+      "from": "11.40",
+      "to": "11.31",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3618,7 +4074,27 @@
       "cross_ladder": false
     },
     {
-      "from": "11.39",
+      "from": "11.41",
+      "to": "11.36",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.41",
+      "to": "11.31",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.41",
       "to": "12.4",
       "kind": "call",
       "state": "strong",
@@ -3628,8 +4104,8 @@
       "cross_ladder": true
     },
     {
-      "from": "11.39",
-      "to": "11.35",
+      "from": "11.41",
+      "to": "11.37",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3638,7 +4114,7 @@
       "cross_ladder": false
     },
     {
-      "from": "11.39",
+      "from": "11.41",
       "to": "12.5",
       "kind": "call",
       "state": "strong",
@@ -3648,86 +4124,6 @@
       "cross_ladder": true
     },
     {
-      "from": "11.39",
-      "to": "12.1",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.40",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.40",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.40",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.40",
-      "to": "11.30",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.40",
-      "to": "12.1",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.41",
-      "to": "11.39",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.41",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
       "from": "11.41",
       "to": "12.1",
       "kind": "call",
@@ -3738,38 +4134,8 @@
       "cross_ladder": true
     },
     {
-      "from": "11.41",
-      "to": "11.15",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.41",
-      "to": "11.27",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.41",
-      "to": "11.28",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.41",
-      "to": "11.40",
+      "from": "11.42",
+      "to": "11.31",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3779,16 +4145,6 @@
     },
     {
       "from": "11.42",
-      "to": "11.26",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.43",
       "to": "12.4",
       "kind": "call",
       "state": "strong",
@@ -3798,7 +4154,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.43",
+      "from": "11.42",
       "to": "12.5",
       "kind": "call",
       "state": "strong",
@@ -3808,68 +4164,8 @@
       "cross_ladder": true
     },
     {
-      "from": "11.44",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.45",
-      "to": "12.88",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.45",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.45",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.46",
-      "to": "12.32",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.46",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.46",
-      "to": "11.44",
+      "from": "11.42",
+      "to": "11.32",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3878,7 +4174,7 @@
       "cross_ladder": false
     },
     {
-      "from": "11.47",
+      "from": "11.42",
       "to": "12.1",
       "kind": "call",
       "state": "strong",
@@ -3888,14 +4184,104 @@
       "cross_ladder": true
     },
     {
-      "from": "11.47",
-      "to": "12.5",
+      "from": "11.43",
+      "to": "11.41",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.43",
+      "to": "12.4",
       "kind": "call",
       "state": "strong",
       "position": "frame",
       "capability": "bridge_thread",
       "filament": "agent_filament_strong_frame_bridge_thread",
       "cross_ladder": true
+    },
+    {
+      "from": "11.43",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.43",
+      "to": "11.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.43",
+      "to": "11.29",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.43",
+      "to": "11.30",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.43",
+      "to": "11.42",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.44",
+      "to": "11.28",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.47",
+      "to": "11.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.47",
+      "to": "11.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
     },
     {
       "from": "11.47",
@@ -3906,6 +4292,606 @@
       "capability": "bridge_thread",
       "filament": "agent_filament_strong_frame_bridge_thread",
       "cross_ladder": true
+    },
+    {
+      "from": "11.48",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.48",
+      "to": "11.47",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.48",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.48",
+      "to": "11.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.48",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.49",
+      "to": "11.48",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.50",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.51",
+      "to": "12.88",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.51",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.51",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.52",
+      "to": "12.32",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.52",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.52",
+      "to": "11.50",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.53",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.53",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.53",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.56",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.57",
+      "to": "11.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.57",
+      "to": "11.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.58",
+      "to": "11.54",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.58",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.58",
+      "to": "11.24",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.58",
+      "to": "11.56",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.59",
+      "to": "11.54",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.59",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.59",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.59",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.59",
+      "to": "11.20",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.59",
+      "to": "11.21",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.59",
+      "to": "11.22",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.59",
+      "to": "11.56",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.60",
+      "to": "11.59",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.61",
+      "to": "11.54",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.61",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.61",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.61",
+      "to": "11.56",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "11.54",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.63",
+      "to": "11.62",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.63",
+      "to": "11.57",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "11.25",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "11.48",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.63",
+      "to": "12.45",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.63",
+      "to": "12.46",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.63",
+      "to": "11.56",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.63",
+      "to": "12.2",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.64",
+      "to": "11.63",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.65",
+      "to": "11.63",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.54",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.48",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.64",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.25",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.59",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.58",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.66",
+      "to": "11.61",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.66",
+      "to": "11.62",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.67",
+      "to": "11.66",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
     },
     {
       "from": "12.7",
@@ -4581,9 +5567,9 @@
   "ladder_metrics": [
     {
       "script": "don_custom_functions",
-      "resolved_outgoing": 107,
-      "cross_ladder_outgoing": 74,
-      "percent": 69.16,
+      "resolved_outgoing": 160,
+      "cross_ladder_outgoing": 90,
+      "percent": 56.25,
       "tier": "agent-web-strong"
     },
     {
