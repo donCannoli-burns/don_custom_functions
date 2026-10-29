@@ -100,3 +100,16 @@ scripts/
 ~~~
 
 No install hook runs arbitrary gameplay. KoLmafia handles the declared Git dependency and `git delete` lifecycle.
+
+## Shared legacy helpers (experimental)
+
+This repository now ships `scripts/don_lowerstats.ash` and `scripts/don_praccess.ash`, migrated from the pLooper helper scripts `lowerstats.ash` and `tapion_praccess.ash` (with credit to their original upstream authors/Tapion). These were previously duplicated in [dLooper](https://github.com/donCannoli-burns/dLooper) and are now provided here for reuse.
+
+The `don_praccess.ash` standalone command imports `don_lowerstats.ash` and runs PirateRealm setup and gameplay, including resource acquisition and adventuring. **Experimental, use at your own risk.** The existing optional `call don_praccess.ash` invocation in `don_custom_functions.ash` now has a matching installed script. This change does not automatically activate that call; it still runs only when the enclosing function is invoked.
+
+To check compilation without taking gameplay actions:
+
+```text
+verify don_lowerstats.ash
+verify don_praccess.ash
+```
