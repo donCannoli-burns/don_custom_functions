@@ -198,3 +198,6 @@ codMaster show spell
 \`\`\`
 
 The CI workflow tests compilation and an isolated disposable-profile file roundtrip; it does not perform actual gem equipment changes or touch the user's machine. Original [codMaster](https://github.com/donCannoli-burns/codMaster) repository remains available for historical recovery.
+
+
+The save-path API uses `cod_master/saves/<name>.txt` relative to KoLmafia's `data/` directory; this resolves to the preserved physical `~/.kolmafia/data/cod_master/saves/<name>.txt`. A fallback also reads old saves under an extra nested `data/` directory. Missing files are checked by map key count, not the permissive `file_to_map` Boolean.

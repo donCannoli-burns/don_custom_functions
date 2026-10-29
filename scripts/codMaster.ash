@@ -31,11 +31,9 @@ void codmaster_list() {
 }
 
 boolean codmaster_allow_overwrite(string name) {
-    string [string] current;
-    string savefile = don_cod_save_path(name);
-    if (savefile == "") return false;
-    // Ask BEFORE any write. Historical codMaster asked after overwriting.
-    if (file_to_map(savefile, current))
+    if (!don_cod_valid_name(name)) return false;
+    // Missing file_to_map returns true, so use the library's dual-path key census.
+    if (don_cod_exists(name))
         return user_confirm("Overwrite existing codMaster preset '" + name + "'?");
     return true;
 }

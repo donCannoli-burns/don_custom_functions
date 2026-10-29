@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p "$HOME/.kolmafia/scripts"
+          mkdir -p "$HOME/.kolmafia/scripts" "$HOME/.kolmafia/data/cod_master/saves"
           cp scripts/codMaster.ash "$HOME/.kolmafia/scripts/"
           cp _don-ash-lib/don-master-ash-lib/scripts/don_codmaster_*.ash "$HOME/.kolmafia/scripts/"
           cat > "$HOME/.kolmafia/scripts/__verify_codmaster.txt" <<'EOF'
