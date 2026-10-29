@@ -1118,11 +1118,10 @@ boolean don_post_run_yeti_stage() {
         don_warning("Toy cupid bow unavailable; training without it.");
     }
     if (!can_adventure($location[The Dungeons of Doom])) {
-        openDungeon();
-        if (!can_adventure($location[The Dungeons of Doom])) {
-            don_error("Dungeons of Doom unavailable; run DOD()/EGTS()/openDungeon() separately if needed.");
-            return false;
-        }
+        // The legacy dungeon unlockers may spend all remaining adventures.
+        // Never run them automatically under a 20-adventure reserve.
+        don_error("Dungeons of Doom locked. Run openDungeon()/EGTS()/DOD() independently before resuming.");
+        return false;
     }
     if (!outfit("yetibuff") || !use_familiar(yeti)) {
         don_error("Could not prepare Yeti outfit/familiar.");
@@ -1180,56 +1179,73 @@ boolean don_eod_process() {
         don_log("Post-run already completed for " + today_to_string());
         return true;
     }
-    if (!don_post_run_eod_ready()) {
+    int checkpoint = get_property("don_post_run_eod_step").to_int();
+    // The nightcap and later Left-Hand Man steps change the state used by
+    // the gate. Require original readiness only before the first EOD action.
+    if (checkpoint == 0 && !don_post_run_eod_ready()) {
         don_warning("EOD gate: need maxorgan, Stooper, full stomach/spleen/liver and <=2 adventures.");
         don_post_run_status();
         return false;
     }
-    int checkpoint = get_property("don_post_run_eod_step").to_int();
     if (checkpoint < 1) {
         if ($familiar[cooler yeti].experience >= 400 && !don_get_cool()) return false;
         set_property("don_post_run_eod_step", "1");
     }
     if (checkpoint < 2) {
+        // getCool() equips maxo and may change the current familiar.
+        if (!outfit("maxorgan")) {
+            don_error("Could not restore maxorgan before nightcap.");
+            return false;
+        }
+        if (my_familiar() != $familiar[Stooper] &&
+            !use_familiar($familiar[Stooper])) {
+            don_error("Could not restore Stooper before nightcap.");
+            return false;
+        }
         if (!don_nightcap()) return false;
         set_property("don_post_run_eod_step", "2");
     }
     if (checkpoint < 3) {
         familiar lefty = $familiar[Left-Hand Man];
         if (!have_familiar(lefty) || !use_familiar(lefty)) {
-            don_warning("Left-Hand Man unavailable. Re-run EOD to resume.");
+            don_warning("Left-Hand Man unavailable. Retry EOD later.");
             return false;
         }
-        if (!cli_execute("genie effect offhand remarkable")) return false;
-        if (!cli_execute("max adv")) return false;
         set_property("don_post_run_eod_step", "3");
     }
     if (checkpoint < 4) {
-        // Philter may prompt for unknown items; no unsupported auto-response.
-        if (get_property("don_post_run_philter").to_boolean()) {
-            if (!cli_execute("philter")) {
-                don_error("Philter failed or was cancelled.");
-                return false;
-            }
-        } else don_log("Philter skipped: set don_post_run_philter=true to enable.");
+        if (!cli_execute("genie effect offhand remarkable")) return false;
         set_property("don_post_run_eod_step", "4");
     }
     if (checkpoint < 5) {
-        if (!cli_execute("mall-manager reprice")) return false;
+        if (!cli_execute("max adv")) return false;
         set_property("don_post_run_eod_step", "5");
     }
     if (checkpoint < 6) {
-        if (!cli_execute("call buy-script.js")) return false;
+        // No auto-answer to Philter's uncategorized-item prompt is assumed.
+        if (get_property("don_post_run_philter").to_boolean()) {
+            if (!cli_execute("philter")) {
+                don_error("Philter failed or cancelled.");
+                return false;
+            }
+        } else don_log("Philter skipped: don_post_run_philter=false.");
         set_property("don_post_run_eod_step", "6");
     }
     if (checkpoint < 7) {
+        if (!cli_execute("mall-manager reprice")) return false;
+        set_property("don_post_run_eod_step", "7");
+    }
+    if (checkpoint < 8) {
+        if (!cli_execute("call buy-script.js")) return false;
+        set_property("don_post_run_eod_step", "8");
+    }
+    if (checkpoint < 9) {
         int have_tickets = don_owned_amount($item[raffle ticket]);
         int need_tickets = max(0, 111 - have_tickets);
         if (need_tickets > 0 && !cli_execute("raffle " + need_tickets)) return false;
-        set_property("don_post_run_eod_step", "7");
+        set_property("don_post_run_eod_step", "9");
     }
     don_post_run_track("postrun_eod_complete");
-    set_property("don_post_run_eod_step", "8");
     set_property("don_post_run_stage", "done");
     don_good("Don post-run EOD complete.");
     return true;

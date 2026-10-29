@@ -917,7 +917,7 @@
     don_post_run_track(&quot;postrun_prepared&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-59"><h2>don_post_run_yeti_stage <small>[11.59]</small></h2><p><code>boolean don_post_run_yeti_stage()</code></p><p>scripts/don_custom_functions.ash:1084–1142</p><p>function_actual11.59.2</p><pre><code>boolean don_post_run_yeti_stage() {
+<article id="actual-11-59"><h2>don_post_run_yeti_stage <small>[11.59]</small></h2><p><code>boolean don_post_run_yeti_stage()</code></p><p>scripts/don_custom_functions.ash:1084–1141</p><p>function_actual11.59.2</p><pre><code>boolean don_post_run_yeti_stage() {
     don_post_run_sync_date();
     familiar yeti = $familiar[cooler yeti];
     if (!have_familiar(yeti)) {
@@ -954,11 +954,10 @@
         don_warning(&quot;Toy cupid bow unavailable; training without it.&quot;);
     }
     if (!can_adventure($location[The Dungeons of Doom])) {
-        openDungeon();
-        if (!can_adventure($location[The Dungeons of Doom])) {
-            don_error(&quot;Dungeons of Doom unavailable; run DOD()/EGTS()/openDungeon() separately if needed.&quot;);
-            return false;
-        }
+        // The legacy dungeon unlockers may spend all remaining adventures.
+        // Never run them automatically under a 20-adventure reserve.
+        don_error(&quot;Dungeons of Doom locked. Run openDungeon()/EGTS()/DOD() independently before resuming.&quot;);
+        return false;
     }
     if (!outfit(&quot;yetibuff&quot;) || !use_familiar(yeti)) {
         don_error(&quot;Could not prepare Yeti outfit/familiar.&quot;);
@@ -976,8 +975,8 @@
     don_post_run_track(&quot;postrun_yeti_ready&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-60"><h2>don_yeti_adv <small>[11.60]</small></h2><p><code>void don_yeti_adv()</code></p><p>scripts/don_custom_functions.ash:1145–1145</p><p>function_actual11.60.2</p><pre><code>void don_yeti_adv() { don_post_run_yeti_stage(); }</code></pre></article>
-<article id="actual-11-61"><h2>don_post_run_combo_stage <small>[11.61]</small></h2><p><code>boolean don_post_run_combo_stage()</code></p><p>scripts/don_custom_functions.ash:1147–1165</p><p>function_actual11.61.2</p><pre><code>boolean don_post_run_combo_stage() {
+<article id="actual-11-60"><h2>don_yeti_adv <small>[11.60]</small></h2><p><code>void don_yeti_adv()</code></p><p>scripts/don_custom_functions.ash:1144–1144</p><p>function_actual11.60.2</p><pre><code>void don_yeti_adv() { don_post_run_yeti_stage(); }</code></pre></article>
+<article id="actual-11-61"><h2>don_post_run_combo_stage <small>[11.61]</small></h2><p><code>boolean don_post_run_combo_stage()</code></p><p>scripts/don_custom_functions.ash:1146–1164</p><p>function_actual11.61.2</p><pre><code>boolean don_post_run_combo_stage() {
     don_post_run_sync_date();
     if ($familiar[cooler yeti].experience &lt; 400) {
         don_error(&quot;Cooler Yeti below 400 XP: refusing to start WaterSheep.&quot;);
@@ -996,7 +995,7 @@
     don_post_run_track(&quot;postrun_combo_done&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-62"><h2>don_post_run_eod_ready <small>[11.62]</small></h2><p><code>boolean don_post_run_eod_ready()</code></p><p>scripts/don_custom_functions.ash:1167–1175</p><p>function_actual11.62.2</p><pre><code>boolean don_post_run_eod_ready() {
+<article id="actual-11-62"><h2>don_post_run_eod_ready <small>[11.62]</small></h2><p><code>boolean don_post_run_eod_ready()</code></p><p>scripts/don_custom_functions.ash:1166–1174</p><p>function_actual11.62.2</p><pre><code>boolean don_post_run_eod_ready() {
     if (my_adventures() &gt; 2) return false;
     if (my_fullness() &lt; fullness_limit()) return false;
     if (my_spleen_use() &lt; spleen_limit()) return false;
@@ -1005,69 +1004,86 @@
     if (!is_wearing_outfit(&quot;maxorgan&quot;)) return false;
     return true;
 }</code></pre></article>
-<article id="actual-11-63"><h2>don_eod_process <small>[11.63]</small></h2><p><code>boolean don_eod_process()</code></p><p>scripts/don_custom_functions.ash:1177–1236</p><p>function_actual11.63.2</p><pre><code>boolean don_eod_process() {
+<article id="actual-11-63"><h2>don_eod_process <small>[11.63]</small></h2><p><code>boolean don_eod_process()</code></p><p>scripts/don_custom_functions.ash:1176–1252</p><p>function_actual11.63.2</p><pre><code>boolean don_eod_process() {
     don_post_run_sync_date();
     if (get_property(&quot;don_post_run_stage&quot;) == &quot;done&quot;) {
         don_log(&quot;Post-run already completed for &quot; + today_to_string());
         return true;
     }
-    if (!don_post_run_eod_ready()) {
+    int checkpoint = get_property(&quot;don_post_run_eod_step&quot;).to_int();
+    // The nightcap and later Left-Hand Man steps change the state used by
+    // the gate. Require original readiness only before the first EOD action.
+    if (checkpoint == 0 &amp;&amp; !don_post_run_eod_ready()) {
         don_warning(&quot;EOD gate: need maxorgan, Stooper, full stomach/spleen/liver and &lt;=2 adventures.&quot;);
         don_post_run_status();
         return false;
     }
-    int checkpoint = get_property(&quot;don_post_run_eod_step&quot;).to_int();
     if (checkpoint &lt; 1) {
         if ($familiar[cooler yeti].experience &gt;= 400 &amp;&amp; !don_get_cool()) return false;
         set_property(&quot;don_post_run_eod_step&quot;, &quot;1&quot;);
     }
     if (checkpoint &lt; 2) {
+        // getCool() equips maxo and may change the current familiar.
+        if (!outfit(&quot;maxorgan&quot;)) {
+            don_error(&quot;Could not restore maxorgan before nightcap.&quot;);
+            return false;
+        }
+        if (my_familiar() != $familiar[Stooper] &amp;&amp;
+            !use_familiar($familiar[Stooper])) {
+            don_error(&quot;Could not restore Stooper before nightcap.&quot;);
+            return false;
+        }
         if (!don_nightcap()) return false;
         set_property(&quot;don_post_run_eod_step&quot;, &quot;2&quot;);
     }
     if (checkpoint &lt; 3) {
         familiar lefty = $familiar[Left-Hand Man];
         if (!have_familiar(lefty) || !use_familiar(lefty)) {
-            don_warning(&quot;Left-Hand Man unavailable. Re-run EOD to resume.&quot;);
+            don_warning(&quot;Left-Hand Man unavailable. Retry EOD later.&quot;);
             return false;
         }
-        if (!cli_execute(&quot;genie effect offhand remarkable&quot;)) return false;
-        if (!cli_execute(&quot;max adv&quot;)) return false;
         set_property(&quot;don_post_run_eod_step&quot;, &quot;3&quot;);
     }
     if (checkpoint &lt; 4) {
-        // Philter may prompt for unknown items; no unsupported auto-response.
-        if (get_property(&quot;don_post_run_philter&quot;).to_boolean()) {
-            if (!cli_execute(&quot;philter&quot;)) {
-                don_error(&quot;Philter failed or was cancelled.&quot;);
-                return false;
-            }
-        } else don_log(&quot;Philter skipped: set don_post_run_philter=true to enable.&quot;);
+        if (!cli_execute(&quot;genie effect offhand remarkable&quot;)) return false;
         set_property(&quot;don_post_run_eod_step&quot;, &quot;4&quot;);
     }
     if (checkpoint &lt; 5) {
-        if (!cli_execute(&quot;mall-manager reprice&quot;)) return false;
+        if (!cli_execute(&quot;max adv&quot;)) return false;
         set_property(&quot;don_post_run_eod_step&quot;, &quot;5&quot;);
     }
     if (checkpoint &lt; 6) {
-        if (!cli_execute(&quot;call buy-script.js&quot;)) return false;
+        // No auto-answer to Philter&#39;s uncategorized-item prompt is assumed.
+        if (get_property(&quot;don_post_run_philter&quot;).to_boolean()) {
+            if (!cli_execute(&quot;philter&quot;)) {
+                don_error(&quot;Philter failed or cancelled.&quot;);
+                return false;
+            }
+        } else don_log(&quot;Philter skipped: don_post_run_philter=false.&quot;);
         set_property(&quot;don_post_run_eod_step&quot;, &quot;6&quot;);
     }
     if (checkpoint &lt; 7) {
+        if (!cli_execute(&quot;mall-manager reprice&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;7&quot;);
+    }
+    if (checkpoint &lt; 8) {
+        if (!cli_execute(&quot;call buy-script.js&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;8&quot;);
+    }
+    if (checkpoint &lt; 9) {
         int have_tickets = don_owned_amount($item[raffle ticket]);
         int need_tickets = max(0, 111 - have_tickets);
         if (need_tickets &gt; 0 &amp;&amp; !cli_execute(&quot;raffle &quot; + need_tickets)) return false;
-        set_property(&quot;don_post_run_eod_step&quot;, &quot;7&quot;);
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;9&quot;);
     }
     don_post_run_track(&quot;postrun_eod_complete&quot;);
-    set_property(&quot;don_post_run_eod_step&quot;, &quot;8&quot;);
     set_property(&quot;don_post_run_stage&quot;, &quot;done&quot;);
     don_good(&quot;Don post-run EOD complete.&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-64"><h2>eod_proccess <small>[11.64]</small></h2><p><code>boolean eod_proccess()</code></p><p>scripts/don_custom_functions.ash:1239–1239</p><p>function_actual11.64.2</p><pre><code>boolean eod_proccess() { return don_eod_process(); }</code></pre></article>
-<article id="actual-11-65"><h2>eod_process <small>[11.65]</small></h2><p><code>boolean eod_process()</code></p><p>scripts/don_custom_functions.ash:1240–1240</p><p>function_actual11.65.2</p><pre><code>boolean eod_process() { return don_eod_process(); }</code></pre></article>
-<article id="actual-11-66"><h2>don_post_run_from <small>[11.66]</small></h2><p><code>boolean don_post_run_from(string entry_stage)</code></p><p>scripts/don_custom_functions.ash:1242–1272</p><p>function_actual11.66.2</p><pre><code>boolean don_post_run_from(string entry_stage) {
+<article id="actual-11-64"><h2>eod_proccess <small>[11.64]</small></h2><p><code>boolean eod_proccess()</code></p><p>scripts/don_custom_functions.ash:1255–1255</p><p>function_actual11.64.2</p><pre><code>boolean eod_proccess() { return don_eod_process(); }</code></pre></article>
+<article id="actual-11-65"><h2>eod_process <small>[11.65]</small></h2><p><code>boolean eod_process()</code></p><p>scripts/don_custom_functions.ash:1256–1256</p><p>function_actual11.65.2</p><pre><code>boolean eod_process() { return don_eod_process(); }</code></pre></article>
+<article id="actual-11-66"><h2>don_post_run_from <small>[11.66]</small></h2><p><code>boolean don_post_run_from(string entry_stage)</code></p><p>scripts/don_custom_functions.ash:1258–1288</p><p>function_actual11.66.2</p><pre><code>boolean don_post_run_from(string entry_stage) {
     don_post_run_sync_date();
     if (entry_stage == &quot;nightcap&quot;) return don_nightcap();
     if (entry_stage == &quot;eod&quot;) return eod_proccess();
@@ -1098,4 +1114,4 @@
     }
     return eod_proccess();
 }</code></pre></article>
-<article id="actual-11-67"><h2>don_post_run <small>[11.67]</small></h2><p><code>void don_post_run()</code></p><p>scripts/don_custom_functions.ash:1274–1274</p><p>function_actual11.67.2</p><pre><code>void don_post_run() { don_post_run_from(&quot;start&quot;); }</code></pre></article></body></html>
+<article id="actual-11-67"><h2>don_post_run <small>[11.67]</small></h2><p><code>void don_post_run()</code></p><p>scripts/don_custom_functions.ash:1290–1290</p><p>function_actual11.67.2</p><pre><code>void don_post_run() { don_post_run_from(&quot;start&quot;); }</code></pre></article></body></html>

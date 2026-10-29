@@ -318,6 +318,19 @@ Missing/failing commands stop the relevant stage and are not silently
 installed. The scripts do not import `TimeTracking.ash` or
 `ProfitTracking.ash`: those belong to the external ptrack package.
 
+### Resume and 20-turn protection
+
+The automated Yeti stage will **not** invoke legacy `openDungeon()`
+when Dungeons of Doom is locked: `DOD()` and `EGTS()` can use
+adventures without respecting the chain's 20-turn reserve.
+Unlock the dungeon independently, then rerun the stage.
+
+EOD checkpoints are recorded after each completed action.
+The full maxorgan/Stooper/full-organ/<=2-turn gate is required on
+initial EOD entry; later retries resume from the saved action rather
+than incorrectly reapplying the original gate after switching to
+Left-Hand Man or consuming the nightcap.
+
 **Not live-tested:** verify syntax and inspect status before any live run.
 
 ## Compatibility notes
