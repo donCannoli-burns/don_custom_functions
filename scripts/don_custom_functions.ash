@@ -615,23 +615,60 @@ int don_breakfast_combo_turns(int adventures_available) {
     return adventures_available - 15;
 }
 
+// Only the new don_breakfast_* names are written after migration.
+// Legacy values are consulted if the new name has not yet been saved.
+string don_breakfast_legacy_preference(string canonical) {
+    if (canonical == "don_breakfast_barf") return "donBreakfastBarf";
+    if (canonical == "don_breakfast_nobarf") return "donBreakfastNobarf";
+    if (canonical == "don_breakfast_cowo") return "donBreakfastCowo";
+    if (canonical == "don_breakfast_nobarf_combo") return "donBreakfastNobarfCombo";
+    if (canonical == "don_breakfast_cockroach") return "don_breakfastCockroach";
+    return "";
+}
+
+boolean don_breakfast_preference_enabled(string canonical) {
+    string saved_value = get_property(canonical);
+    if (saved_value == "") {
+        string legacy_name = don_breakfast_legacy_preference(canonical);
+        if (legacy_name != "") saved_value = get_property(legacy_name);
+    }
+    return saved_value.to_boolean();
+}
+
+void don_breakfast_migrate_one(string canonical) {
+    if (get_property(canonical) != "") return;
+    string legacy_name = don_breakfast_legacy_preference(canonical);
+    if (legacy_name == "") return;
+    string legacy_value = get_property(legacy_name);
+    if (legacy_value == "") return;
+    set_property(canonical, legacy_value.to_boolean() ? "true" : "false");
+}
+
+void don_breakfast_migrate_preferences() {
+    don_breakfast_migrate_one("don_breakfast_barf");
+    don_breakfast_migrate_one("don_breakfast_nobarf");
+    don_breakfast_migrate_one("don_breakfast_cowo");
+    don_breakfast_migrate_one("don_breakfast_nobarf_combo");
+    don_breakfast_migrate_one("don_breakfast_cockroach");
+}
+
 int don_breakfast_active_modes() {
     int active = 0;
-    if (get_property("donBreakfastBarf").to_boolean()) active += 1;
-    if (get_property("donBreakfastNobarf").to_boolean()) active += 1;
-    if (get_property("donBreakfastCowo").to_boolean()) active += 1;
-    if (get_property("donBreakfastNobarfCombo").to_boolean()) active += 1;
+    if (get_property("don_breakfast_barf").to_boolean()) active += 1;
+    if (get_property("don_breakfast_nobarf").to_boolean()) active += 1;
+    if (get_property("don_breakfast_cowo").to_boolean()) active += 1;
+    if (get_property("don_breakfast_nobarf_combo").to_boolean()) active += 1;
     return active;
 }
 
 string don_breakfast_mode_preference(string mode_name) {
-    if (mode_name == "barf") return "donBreakfastBarf";
-    if (mode_name == "nobarf") return "donBreakfastNobarf";
-    if (mode_name == "cowo") return "donBreakfastCowo";
+    if (mode_name == "barf") return "don_breakfast_barf";
+    if (mode_name == "nobarf") return "don_breakfast_nobarf";
+    if (mode_name == "cowo") return "don_breakfast_cowo";
     if (mode_name == "nobarfcombo" || mode_name == "nobarf-combo")
-        return "donBreakfastNobarfCombo";
+        return "don_breakfast_nobarf_combo";
     if (mode_name == "cockroach" || mode_name == "roaches")
-        return "don_breakfastCockroach";
+        return "don_breakfast_cockroach";
     return "";
 }
 
@@ -643,7 +680,9 @@ boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
         return false;
     }
 
-    if (preference_name == "don_breakfastCockroach") {
+    don_breakfast_migrate_preferences();
+
+    if (preference_name == "don_breakfast_cockroach") {
         if (!enabled && don_breakfast_active_modes() > 0) {
             don_warning("Cannot turn off cockroach prep while a farming mode is enabled.");
             return false;
@@ -652,21 +691,21 @@ boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
         return true;
     }
 
-    if (enabled && preference_name == "donBreakfastCowo" &&
+    if (enabled && preference_name == "don_breakfast_cowo" &&
         !don_breakfast_is_pastamancer(my_class())) {
-        set_property("donBreakfastCowo", "false");
-        don_warning("Cowo requires Pastamancer. donBreakfastCowo reset to false.");
+        set_property("don_breakfast_cowo", "false");
+        don_warning("Cowo requires Pastamancer. don_breakfast_cowo reset to false.");
         return false;
     }
 
     if (enabled) {
         // Only one farming mode may be active. Roach preparation is required.
-        set_property("donBreakfastBarf", "false");
-        set_property("donBreakfastNobarf", "false");
-        set_property("donBreakfastCowo", "false");
-        set_property("donBreakfastNobarfCombo", "false");
+        set_property("don_breakfast_barf", "false");
+        set_property("don_breakfast_nobarf", "false");
+        set_property("don_breakfast_cowo", "false");
+        set_property("don_breakfast_nobarf_combo", "false");
         set_property(preference_name, "true");
-        set_property("don_breakfastCockroach", "true");
+        set_property("don_breakfast_cockroach", "true");
     } else {
         set_property(preference_name, "false");
     }
@@ -676,18 +715,19 @@ boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
 // Read-only listing, including any settings supplied directly through 'set'.
 void don_breakfast_help() {
     don_header("donBreakfast preferences");
-    print("donBreakfastBarf = " + get_property("donBreakfastBarf").to_boolean());
-    print("donBreakfastNobarf = " + get_property("donBreakfastNobarf").to_boolean());
-    print("donBreakfastCowo = " + get_property("donBreakfastCowo").to_boolean() +
+    print("don_breakfast_barf = " + don_breakfast_preference_enabled("don_breakfast_barf"));
+    print("don_breakfast_nobarf = " + don_breakfast_preference_enabled("don_breakfast_nobarf"));
+    print("don_breakfast_cowo = " + don_breakfast_preference_enabled("don_breakfast_cowo") +
           " (Pastamancer only; eligible: " +
           don_breakfast_is_pastamancer(my_class()) + ")");
-    print("donBreakfastNobarfCombo = " +
-          get_property("donBreakfastNobarfCombo").to_boolean() +
+    print("don_breakfast_nobarf_combo = " +
+          don_breakfast_preference_enabled("don_breakfast_nobarf_combo") +
           " (nobarf, refresh all, combo with 15 adventures reserved)");
-    print("don_breakfastCockroach = " +
-          get_property("don_breakfastCockroach").to_boolean() +
+    print("don_breakfast_cockroach = " +
+          don_breakfast_preference_enabled("don_breakfast_cockroach") +
           " (required for every farming mode)");
     print("All modes default to false when their preference is unset.");
+    print("Old preference values appear until migrated during mode changes or run.");
     print("donBreakfast help | status | run");
     print("donBreakfast barf|nobarf|cowo|nobarfcombo on|off");
     print("donBreakfast cockroach on|off");
@@ -698,27 +738,28 @@ void don_breakfast_help() {
 // Ensures direct 'set' values cannot cause multiple farming commands to run.
 // Direct preference writes cannot be intercepted at the moment of assignment.
 boolean don_breakfast_validate_modes() {
-    if (get_property("donBreakfastCowo").to_boolean() &&
+    don_breakfast_migrate_preferences();
+    if (get_property("don_breakfast_cowo").to_boolean() &&
         !don_breakfast_is_pastamancer(my_class())) {
-        set_property("donBreakfastCowo", "false");
-        don_warning("Non-Pastamancer: donBreakfastCowo reset to false.");
+        set_property("don_breakfast_cowo", "false");
+        don_warning("Non-Pastamancer: don_breakfast_cowo reset to false.");
     }
     int active = don_breakfast_active_modes();
     if (active > 1) {
         don_error("Conflicting breakfast modes: no farming will run. Use donBreakfast <mode> on or turn the unwanted preferences off.");
         return false;
     }
-    if (active == 1 && !get_property("don_breakfastCockroach").to_boolean()) {
-        set_property("don_breakfastCockroach", "true");
+    if (active == 1 && !get_property("don_breakfast_cockroach").to_boolean()) {
+        set_property("don_breakfast_cockroach", "true");
         don_log("Enabled cockroach prep for the active breakfast farming mode.");
     }
     return true;
 }
 
 void don_breakfast_run_farming_mode() {
-    if (get_property("donBreakfastCowo").to_boolean()) {
+    if (get_property("don_breakfast_cowo").to_boolean()) {
         if (!don_breakfast_is_pastamancer(my_class())) {
-            set_property("donBreakfastCowo", "false");
+            set_property("don_breakfast_cowo", "false");
             don_warning("Cowo skipped: only Pastamancers may enable it.");
             return;
         }
@@ -726,7 +767,7 @@ void don_breakfast_run_farming_mode() {
         return;
     }
 
-    if (get_property("donBreakfastNobarfCombo").to_boolean()) {
+    if (get_property("don_breakfast_nobarf_combo").to_boolean()) {
         if (!cli_execute("nobarf")) {
             don_error("nobarf failed. Skipping refresh and combo.");
             return;
@@ -745,11 +786,11 @@ void don_breakfast_run_farming_mode() {
         return;
     }
 
-    if (get_property("donBreakfastNobarf").to_boolean()) {
+    if (get_property("don_breakfast_nobarf").to_boolean()) {
         if (!cli_execute("nobarf")) don_error("nobarf CLI command failed.");
         return;
     }
-    if (get_property("donBreakfastBarf").to_boolean() &&
+    if (get_property("don_breakfast_barf").to_boolean() &&
         !cli_execute("barf")) don_error("barf CLI command failed.");
 }
 
@@ -778,13 +819,13 @@ void augmentBreakfast() {
 
     don_mayam();
 
-    if (get_property("don_breakfastCockroach").to_boolean()) {
+    if (get_property("don_breakfast_cockroach").to_boolean()) {
         if (!cockroach_fight_prep()) {
             don_warning("Cockroach setup incomplete; any requested farming mode was NOT started.");
             return;
         }
     } else {
-        don_log("PirateRealm cockroach route skipped (don_breakfastCockroach=false).");
+        don_log("PirateRealm cockroach route skipped (don_breakfast_cockroach=false).");
     }
 
     don_breakfast_run_farming_mode();

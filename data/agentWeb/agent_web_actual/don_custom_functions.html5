@@ -499,32 +499,65 @@
     if (adventures_available &lt;= 15) return 0;
     return adventures_available - 15;
 }</code></pre></article>
-<article id="actual-11-31"><h2>don_breakfast_active_modes <small>[11.31]</small></h2><p><code>int don_breakfast_active_modes()</code></p><p>scripts/don_custom_functions.ash:618–625</p><p>function_actual11.31.2</p><pre><code>int don_breakfast_active_modes() {
-    int active = 0;
-    if (get_property(&quot;donBreakfastBarf&quot;).to_boolean()) active += 1;
-    if (get_property(&quot;donBreakfastNobarf&quot;).to_boolean()) active += 1;
-    if (get_property(&quot;donBreakfastCowo&quot;).to_boolean()) active += 1;
-    if (get_property(&quot;donBreakfastNobarfCombo&quot;).to_boolean()) active += 1;
-    return active;
-}</code></pre></article>
-<article id="actual-11-32"><h2>don_breakfast_mode_preference <small>[11.32]</small></h2><p><code>string don_breakfast_mode_preference(string mode_name)</code></p><p>scripts/don_custom_functions.ash:627–636</p><p>function_actual11.32.2</p><pre><code>string don_breakfast_mode_preference(string mode_name) {
-    if (mode_name == &quot;barf&quot;) return &quot;donBreakfastBarf&quot;;
-    if (mode_name == &quot;nobarf&quot;) return &quot;donBreakfastNobarf&quot;;
-    if (mode_name == &quot;cowo&quot;) return &quot;donBreakfastCowo&quot;;
-    if (mode_name == &quot;nobarfcombo&quot; || mode_name == &quot;nobarf-combo&quot;)
-        return &quot;donBreakfastNobarfCombo&quot;;
-    if (mode_name == &quot;cockroach&quot; || mode_name == &quot;roaches&quot;)
-        return &quot;don_breakfastCockroach&quot;;
+<article id="actual-11-31"><h2>don_breakfast_legacy_preference <small>[11.31]</small></h2><p><code>string don_breakfast_legacy_preference(string canonical)</code></p><p>scripts/don_custom_functions.ash:620–627</p><p>function_actual11.31.2</p><pre><code>string don_breakfast_legacy_preference(string canonical) {
+    if (canonical == &quot;don_breakfast_barf&quot;) return &quot;donBreakfastBarf&quot;;
+    if (canonical == &quot;don_breakfast_nobarf&quot;) return &quot;donBreakfastNobarf&quot;;
+    if (canonical == &quot;don_breakfast_cowo&quot;) return &quot;donBreakfastCowo&quot;;
+    if (canonical == &quot;don_breakfast_nobarf_combo&quot;) return &quot;donBreakfastNobarfCombo&quot;;
+    if (canonical == &quot;don_breakfast_cockroach&quot;) return &quot;don_breakfastCockroach&quot;;
     return &quot;&quot;;
 }</code></pre></article>
-<article id="actual-11-33"><h2>don_breakfast_set_mode <small>[11.33]</small></h2><p><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled)</code></p><p>scripts/don_custom_functions.ash:639–674</p><p>function_actual11.33.2</p><pre><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
+<article id="actual-11-32"><h2>don_breakfast_preference_enabled <small>[11.32]</small></h2><p><code>boolean don_breakfast_preference_enabled(string canonical)</code></p><p>scripts/don_custom_functions.ash:629–636</p><p>function_actual11.32.2</p><pre><code>boolean don_breakfast_preference_enabled(string canonical) {
+    string saved_value = get_property(canonical);
+    if (saved_value == &quot;&quot;) {
+        string legacy_name = don_breakfast_legacy_preference(canonical);
+        if (legacy_name != &quot;&quot;) saved_value = get_property(legacy_name);
+    }
+    return saved_value.to_boolean();
+}</code></pre></article>
+<article id="actual-11-33"><h2>don_breakfast_migrate_one <small>[11.33]</small></h2><p><code>void don_breakfast_migrate_one(string canonical)</code></p><p>scripts/don_custom_functions.ash:638–645</p><p>function_actual11.33.2</p><pre><code>void don_breakfast_migrate_one(string canonical) {
+    if (get_property(canonical) != &quot;&quot;) return;
+    string legacy_name = don_breakfast_legacy_preference(canonical);
+    if (legacy_name == &quot;&quot;) return;
+    string legacy_value = get_property(legacy_name);
+    if (legacy_value == &quot;&quot;) return;
+    set_property(canonical, legacy_value.to_boolean() ? &quot;true&quot; : &quot;false&quot;);
+}</code></pre></article>
+<article id="actual-11-34"><h2>don_breakfast_migrate_preferences <small>[11.34]</small></h2><p><code>void don_breakfast_migrate_preferences()</code></p><p>scripts/don_custom_functions.ash:647–653</p><p>function_actual11.34.2</p><pre><code>void don_breakfast_migrate_preferences() {
+    don_breakfast_migrate_one(&quot;don_breakfast_barf&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_nobarf&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_cowo&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_nobarf_combo&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_cockroach&quot;);
+}</code></pre></article>
+<article id="actual-11-35"><h2>don_breakfast_active_modes <small>[11.35]</small></h2><p><code>int don_breakfast_active_modes()</code></p><p>scripts/don_custom_functions.ash:655–662</p><p>function_actual11.35.2</p><pre><code>int don_breakfast_active_modes() {
+    int active = 0;
+    if (get_property(&quot;don_breakfast_barf&quot;).to_boolean()) active += 1;
+    if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean()) active += 1;
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) active += 1;
+    if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) active += 1;
+    return active;
+}</code></pre></article>
+<article id="actual-11-36"><h2>don_breakfast_mode_preference <small>[11.36]</small></h2><p><code>string don_breakfast_mode_preference(string mode_name)</code></p><p>scripts/don_custom_functions.ash:664–673</p><p>function_actual11.36.2</p><pre><code>string don_breakfast_mode_preference(string mode_name) {
+    if (mode_name == &quot;barf&quot;) return &quot;don_breakfast_barf&quot;;
+    if (mode_name == &quot;nobarf&quot;) return &quot;don_breakfast_nobarf&quot;;
+    if (mode_name == &quot;cowo&quot;) return &quot;don_breakfast_cowo&quot;;
+    if (mode_name == &quot;nobarfcombo&quot; || mode_name == &quot;nobarf-combo&quot;)
+        return &quot;don_breakfast_nobarf_combo&quot;;
+    if (mode_name == &quot;cockroach&quot; || mode_name == &quot;roaches&quot;)
+        return &quot;don_breakfast_cockroach&quot;;
+    return &quot;&quot;;
+}</code></pre></article>
+<article id="actual-11-37"><h2>don_breakfast_set_mode <small>[11.37]</small></h2><p><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled)</code></p><p>scripts/don_custom_functions.ash:676–713</p><p>function_actual11.37.2</p><pre><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
     string preference_name = don_breakfast_mode_preference(mode_name);
     if (preference_name == &quot;&quot;) {
         don_warning(&quot;Unknown breakfast mode: &quot; + mode_name);
         return false;
     }
 
-    if (preference_name == &quot;don_breakfastCockroach&quot;) {
+    don_breakfast_migrate_preferences();
+
+    if (preference_name == &quot;don_breakfast_cockroach&quot;) {
         if (!enabled &amp;&amp; don_breakfast_active_modes() &gt; 0) {
             don_warning(&quot;Cannot turn off cockroach prep while a farming mode is enabled.&quot;);
             return false;
@@ -533,67 +566,69 @@
         return true;
     }
 
-    if (enabled &amp;&amp; preference_name == &quot;donBreakfastCowo&quot; &amp;&amp;
+    if (enabled &amp;&amp; preference_name == &quot;don_breakfast_cowo&quot; &amp;&amp;
         !don_breakfast_is_pastamancer(my_class())) {
-        set_property(&quot;donBreakfastCowo&quot;, &quot;false&quot;);
-        don_warning(&quot;Cowo requires Pastamancer. donBreakfastCowo reset to false.&quot;);
+        set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+        don_warning(&quot;Cowo requires Pastamancer. don_breakfast_cowo reset to false.&quot;);
         return false;
     }
 
     if (enabled) {
         // Only one farming mode may be active. Roach preparation is required.
-        set_property(&quot;donBreakfastBarf&quot;, &quot;false&quot;);
-        set_property(&quot;donBreakfastNobarf&quot;, &quot;false&quot;);
-        set_property(&quot;donBreakfastCowo&quot;, &quot;false&quot;);
-        set_property(&quot;donBreakfastNobarfCombo&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_barf&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_nobarf&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_nobarf_combo&quot;, &quot;false&quot;);
         set_property(preference_name, &quot;true&quot;);
-        set_property(&quot;don_breakfastCockroach&quot;, &quot;true&quot;);
+        set_property(&quot;don_breakfast_cockroach&quot;, &quot;true&quot;);
     } else {
         set_property(preference_name, &quot;false&quot;);
     }
     return true;
 }</code></pre></article>
-<article id="actual-11-34"><h2>don_breakfast_help <small>[11.34]</small></h2><p><code>void don_breakfast_help()</code></p><p>scripts/don_custom_functions.ash:677–696</p><p>function_actual11.34.2</p><pre><code>void don_breakfast_help() {
+<article id="actual-11-38"><h2>don_breakfast_help <small>[11.38]</small></h2><p><code>void don_breakfast_help()</code></p><p>scripts/don_custom_functions.ash:716–736</p><p>function_actual11.38.2</p><pre><code>void don_breakfast_help() {
     don_header(&quot;donBreakfast preferences&quot;);
-    print(&quot;donBreakfastBarf = &quot; + get_property(&quot;donBreakfastBarf&quot;).to_boolean());
-    print(&quot;donBreakfastNobarf = &quot; + get_property(&quot;donBreakfastNobarf&quot;).to_boolean());
-    print(&quot;donBreakfastCowo = &quot; + get_property(&quot;donBreakfastCowo&quot;).to_boolean() +
+    print(&quot;don_breakfast_barf = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_barf&quot;));
+    print(&quot;don_breakfast_nobarf = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_nobarf&quot;));
+    print(&quot;don_breakfast_cowo = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_cowo&quot;) +
           &quot; (Pastamancer only; eligible: &quot; +
           don_breakfast_is_pastamancer(my_class()) + &quot;)&quot;);
-    print(&quot;donBreakfastNobarfCombo = &quot; +
-          get_property(&quot;donBreakfastNobarfCombo&quot;).to_boolean() +
+    print(&quot;don_breakfast_nobarf_combo = &quot; +
+          don_breakfast_preference_enabled(&quot;don_breakfast_nobarf_combo&quot;) +
           &quot; (nobarf, refresh all, combo with 15 adventures reserved)&quot;);
-    print(&quot;don_breakfastCockroach = &quot; +
-          get_property(&quot;don_breakfastCockroach&quot;).to_boolean() +
+    print(&quot;don_breakfast_cockroach = &quot; +
+          don_breakfast_preference_enabled(&quot;don_breakfast_cockroach&quot;) +
           &quot; (required for every farming mode)&quot;);
     print(&quot;All modes default to false when their preference is unset.&quot;);
+    print(&quot;Old preference values appear until migrated during mode changes or run.&quot;);
     print(&quot;donBreakfast help | status | run&quot;);
     print(&quot;donBreakfast barf|nobarf|cowo|nobarfcombo on|off&quot;);
     print(&quot;donBreakfast cockroach on|off&quot;);
     print(&quot;Using &#39;on&#39; disables competing farming modes and enables cockroach prep.&quot;);
     print(&quot;Direct CLI &#39;set&#39; changes are validated when breakfast runs.&quot;);
 }</code></pre></article>
-<article id="actual-11-35"><h2>don_breakfast_validate_modes <small>[11.35]</small></h2><p><code>boolean don_breakfast_validate_modes()</code></p><p>scripts/don_custom_functions.ash:700–716</p><p>function_actual11.35.2</p><pre><code>boolean don_breakfast_validate_modes() {
-    if (get_property(&quot;donBreakfastCowo&quot;).to_boolean() &amp;&amp;
+<article id="actual-11-39"><h2>don_breakfast_validate_modes <small>[11.39]</small></h2><p><code>boolean don_breakfast_validate_modes()</code></p><p>scripts/don_custom_functions.ash:740–757</p><p>function_actual11.39.2</p><pre><code>boolean don_breakfast_validate_modes() {
+    don_breakfast_migrate_preferences();
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean() &amp;&amp;
         !don_breakfast_is_pastamancer(my_class())) {
-        set_property(&quot;donBreakfastCowo&quot;, &quot;false&quot;);
-        don_warning(&quot;Non-Pastamancer: donBreakfastCowo reset to false.&quot;);
+        set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+        don_warning(&quot;Non-Pastamancer: don_breakfast_cowo reset to false.&quot;);
     }
     int active = don_breakfast_active_modes();
     if (active &gt; 1) {
         don_error(&quot;Conflicting breakfast modes: no farming will run. Use donBreakfast &lt;mode&gt; on or turn the unwanted preferences off.&quot;);
         return false;
     }
-    if (active == 1 &amp;&amp; !get_property(&quot;don_breakfastCockroach&quot;).to_boolean()) {
-        set_property(&quot;don_breakfastCockroach&quot;, &quot;true&quot;);
+    if (active == 1 &amp;&amp; !get_property(&quot;don_breakfast_cockroach&quot;).to_boolean()) {
+        set_property(&quot;don_breakfast_cockroach&quot;, &quot;true&quot;);
         don_log(&quot;Enabled cockroach prep for the active breakfast farming mode.&quot;);
     }
     return true;
 }</code></pre></article>
-<article id="actual-11-36"><h2>don_breakfast_run_farming_mode <small>[11.36]</small></h2><p><code>void don_breakfast_run_farming_mode()</code></p><p>scripts/don_custom_functions.ash:718–754</p><p>function_actual11.36.2</p><pre><code>void don_breakfast_run_farming_mode() {
-    if (get_property(&quot;donBreakfastCowo&quot;).to_boolean()) {
+<article id="actual-11-40"><h2>don_breakfast_run_farming_mode <small>[11.40]</small></h2><p><code>void don_breakfast_run_farming_mode()</code></p><p>scripts/don_custom_functions.ash:759–795</p><p>function_actual11.40.2</p><pre><code>void don_breakfast_run_farming_mode() {
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) {
         if (!don_breakfast_is_pastamancer(my_class())) {
-            set_property(&quot;donBreakfastCowo&quot;, &quot;false&quot;);
+            set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
             don_warning(&quot;Cowo skipped: only Pastamancers may enable it.&quot;);
             return;
         }
@@ -601,7 +636,7 @@
         return;
     }
 
-    if (get_property(&quot;donBreakfastNobarfCombo&quot;).to_boolean()) {
+    if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) {
         if (!cli_execute(&quot;nobarf&quot;)) {
             don_error(&quot;nobarf failed. Skipping refresh and combo.&quot;);
             return;
@@ -620,14 +655,14 @@
         return;
     }
 
-    if (get_property(&quot;donBreakfastNobarf&quot;).to_boolean()) {
+    if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean()) {
         if (!cli_execute(&quot;nobarf&quot;)) don_error(&quot;nobarf CLI command failed.&quot;);
         return;
     }
-    if (get_property(&quot;donBreakfastBarf&quot;).to_boolean() &amp;&amp;
+    if (get_property(&quot;don_breakfast_barf&quot;).to_boolean() &amp;&amp;
         !cli_execute(&quot;barf&quot;)) don_error(&quot;barf CLI command failed.&quot;);
 }</code></pre></article>
-<article id="actual-11-37"><h2>augmentBreakfast <small>[11.37]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:758–791</p><p>function_actual11.37.2</p><pre><code>void augmentBreakfast() {
+<article id="actual-11-41"><h2>augmentBreakfast <small>[11.41]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:799–832</p><p>function_actual11.41.2</p><pre><code>void augmentBreakfast() {
     if (!don_breakfast_validate_modes()) return;
 
     if (!get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
@@ -650,18 +685,18 @@
 
     don_mayam();
 
-    if (get_property(&quot;don_breakfastCockroach&quot;).to_boolean()) {
+    if (get_property(&quot;don_breakfast_cockroach&quot;).to_boolean()) {
         if (!cockroach_fight_prep()) {
             don_warning(&quot;Cockroach setup incomplete; any requested farming mode was NOT started.&quot;);
             return;
         }
     } else {
-        don_log(&quot;PirateRealm cockroach route skipped (don_breakfastCockroach=false).&quot;);
+        don_log(&quot;PirateRealm cockroach route skipped (don_breakfast_cockroach=false).&quot;);
     }
 
     don_breakfast_run_farming_mode();
 }</code></pre></article>
-<article id="actual-11-38"><h2>Baseline <small>[11.38]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:793–809</p><p>function_actual11.38.2</p><pre><code>void Baseline() {
+<article id="actual-11-42"><h2>Baseline <small>[11.42]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:834–850</p><p>function_actual11.42.2</p><pre><code>void Baseline() {
     shrugAT();
     cli_execute(&quot;hagnk all&quot;);
     cli_execute(&quot;refresh all&quot;);
@@ -678,7 +713,7 @@
         cli_execute(&quot;uneffect &quot; + sparky);
     }
 }</code></pre></article>
-<article id="actual-11-39"><h2>nightcap <small>[11.39]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:811–829</p><p>function_actual11.39.2</p><pre><code>void nightcap() {
+<article id="actual-11-43"><h2>nightcap <small>[11.43]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:852–870</p><p>function_actual11.43.2</p><pre><code>void nightcap() {
     // A drink must be in inventory before use. Owned items in the closet
     // may be retrievable; inaccessible Hagnk&#39;s storage is not consumable.
     if (item_amount(night_cap) &lt; 1 &amp;&amp; available_amount(night_cap) &gt; 0) {
@@ -697,7 +732,7 @@
     if (!overdrink(1, night_cap))
         don_error(&quot;Could not drink &quot; + night_cap);
 }</code></pre></article>
-<article id="actual-11-40"><h2>don_dpills <small>[11.40]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:831–840</p><p>function_actual11.40.2</p><pre><code>void don_dpills() {
+<article id="actual-11-44"><h2>don_dpills <small>[11.44]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:872–881</p><p>function_actual11.44.2</p><pre><code>void don_dpills() {
     cli_execute(&quot;ccs don_default&quot;);
     cli_execute(&quot;outfit wineglass&quot;);
     cli_execute(&quot;mood apathetic&quot;);
@@ -707,7 +742,7 @@
     }
     set_property(&quot;_don_dailyPills&quot;, my_adventures() &lt; 5 ? &quot;true&quot; : &quot;false&quot;);
 }</code></pre></article>
-<article id="actual-11-41"><h2>don_Midcap <small>[11.41]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:842–858</p><p>function_actual11.41.2</p><pre><code>void don_Midcap() {
+<article id="actual-11-45"><h2>don_Midcap <small>[11.45]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:883–899</p><p>function_actual11.45.2</p><pre><code>void don_Midcap() {
     item midcap = $item[bucket of wine];
     if (needToAcquireItem(midcap)) buy(1, midcap, 15000);
     if (available_amount(midcap) == 0) {
@@ -724,7 +759,7 @@
     if (!overdrink(1, midcap)) don_error(&quot;Overdrink failed.&quot;);
     if (previous != $familiar[none]) use_familiar(previous);
 }</code></pre></article>
-<article id="actual-11-42"><h2>don_Midcap_Pills <small>[11.42]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:860–869</p><p>function_actual11.42.2</p><pre><code>void don_Midcap_Pills() {
+<article id="actual-11-46"><h2>don_Midcap_Pills <small>[11.46]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:901–910</p><p>function_actual11.46.2</p><pre><code>void don_Midcap_Pills() {
     if (!don_is_overdrunk() &amp;&amp; my_adventures() &gt;= 50) {
         int spare = my_adventures() - 50;
         if (spare &gt; 0 &amp;&amp; !cli_execute(&quot;combo &quot; + spare)) {
@@ -734,7 +769,7 @@
     }
     don_dpills();
 }</code></pre></article>
-<article id="actual-11-43"><h2>newstuff <small>[11.43]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:871–897</p><p>function_actual11.43.2</p><pre><code>void newstuff() {
+<article id="actual-11-47"><h2>newstuff <small>[11.47]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:912–938</p><p>function_actual11.47.2</p><pre><code>void newstuff() {
     int profitOffset = 100;
     string page = visit_url(&quot;campground.php?action=inspectdwelling&quot;);
     if (contains_text(page, &quot;Clockwork Maid&quot;) ||

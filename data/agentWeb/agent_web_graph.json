@@ -711,10 +711,85 @@
         {
           "id": "11.31",
           "script": "don_custom_functions",
+          "name": "don_breakfast_legacy_preference",
+          "signature": "string don_breakfast_legacy_preference(string canonical)",
+          "line_start": 620,
+          "line_end": 627,
+          "keywords": [
+            "don",
+            "breakfast",
+            "legacy",
+            "preference",
+            "string",
+            "canonical"
+          ]
+        },
+        {
+          "id": "11.32",
+          "script": "don_custom_functions",
+          "name": "don_breakfast_preference_enabled",
+          "signature": "boolean don_breakfast_preference_enabled(string canonical)",
+          "line_start": 629,
+          "line_end": 636,
+          "keywords": [
+            "don",
+            "breakfast",
+            "preference",
+            "enabled",
+            "boolean",
+            "string",
+            "canonical",
+            "get",
+            "property",
+            "legacy"
+          ]
+        },
+        {
+          "id": "11.33",
+          "script": "don_custom_functions",
+          "name": "don_breakfast_migrate_one",
+          "signature": "void don_breakfast_migrate_one(string canonical)",
+          "line_start": 638,
+          "line_end": 645,
+          "keywords": [
+            "don",
+            "breakfast",
+            "migrate",
+            "one",
+            "void",
+            "string",
+            "canonical",
+            "get",
+            "property",
+            "legacy",
+            "preference",
+            "set",
+            "boolean"
+          ]
+        },
+        {
+          "id": "11.34",
+          "script": "don_custom_functions",
+          "name": "don_breakfast_migrate_preferences",
+          "signature": "void don_breakfast_migrate_preferences()",
+          "line_start": 647,
+          "line_end": 653,
+          "keywords": [
+            "don",
+            "breakfast",
+            "migrate",
+            "preferences",
+            "void",
+            "one"
+          ]
+        },
+        {
+          "id": "11.35",
+          "script": "don_custom_functions",
           "name": "don_breakfast_active_modes",
           "signature": "int don_breakfast_active_modes()",
-          "line_start": 618,
-          "line_end": 625,
+          "line_start": 655,
+          "line_end": 662,
           "keywords": [
             "don",
             "breakfast",
@@ -727,12 +802,12 @@
           ]
         },
         {
-          "id": "11.32",
+          "id": "11.36",
           "script": "don_custom_functions",
           "name": "don_breakfast_mode_preference",
           "signature": "string don_breakfast_mode_preference(string mode_name)",
-          "line_start": 627,
-          "line_end": 636,
+          "line_start": 664,
+          "line_end": 673,
           "keywords": [
             "don",
             "breakfast",
@@ -743,12 +818,12 @@
           ]
         },
         {
-          "id": "11.33",
+          "id": "11.37",
           "script": "don_custom_functions",
           "name": "don_breakfast_set_mode",
           "signature": "boolean don_breakfast_set_mode(string mode_name, boolean enabled)",
-          "line_start": 639,
-          "line_end": 674,
+          "line_start": 676,
+          "line_end": 713,
           "keywords": [
             "don",
             "breakfast",
@@ -760,6 +835,8 @@
             "enabled",
             "preference",
             "warning",
+            "migrate",
+            "preferences",
             "active",
             "modes",
             "property",
@@ -768,12 +845,12 @@
           ]
         },
         {
-          "id": "11.34",
+          "id": "11.38",
           "script": "don_custom_functions",
           "name": "don_breakfast_help",
           "signature": "void don_breakfast_help()",
-          "line_start": 677,
-          "line_end": 696,
+          "line_start": 716,
+          "line_end": 736,
           "keywords": [
             "don",
             "breakfast",
@@ -781,26 +858,27 @@
             "void",
             "header",
             "print",
-            "get",
-            "property",
-            "boolean",
+            "preference",
+            "enabled",
             "pastamancer",
             "class"
           ]
         },
         {
-          "id": "11.35",
+          "id": "11.39",
           "script": "don_custom_functions",
           "name": "don_breakfast_validate_modes",
           "signature": "boolean don_breakfast_validate_modes()",
-          "line_start": 700,
-          "line_end": 716,
+          "line_start": 740,
+          "line_end": 757,
           "keywords": [
             "don",
             "breakfast",
             "validate",
             "modes",
             "boolean",
+            "migrate",
+            "preferences",
             "get",
             "property",
             "pastamancer",
@@ -813,12 +891,12 @@
           ]
         },
         {
-          "id": "11.36",
+          "id": "11.40",
           "script": "don_custom_functions",
           "name": "don_breakfast_run_farming_mode",
           "signature": "void don_breakfast_run_farming_mode()",
-          "line_start": 718,
-          "line_end": 754,
+          "line_start": 759,
+          "line_end": 795,
           "keywords": [
             "don",
             "breakfast",
@@ -843,12 +921,12 @@
           ]
         },
         {
-          "id": "11.37",
+          "id": "11.41",
           "script": "don_custom_functions",
           "name": "augmentBreakfast",
           "signature": "void augmentBreakfast()",
-          "line_start": 758,
-          "line_end": 791,
+          "line_start": 799,
+          "line_end": 832,
           "keywords": [
             "augment",
             "breakfast",
@@ -879,12 +957,12 @@
           ]
         },
         {
-          "id": "11.38",
+          "id": "11.42",
           "script": "don_custom_functions",
           "name": "Baseline",
           "signature": "void Baseline()",
-          "line_start": 793,
-          "line_end": 809,
+          "line_start": 834,
+          "line_end": 850,
           "keywords": [
             "baseline",
             "void",
@@ -901,12 +979,12 @@
           ]
         },
         {
-          "id": "11.39",
+          "id": "11.43",
           "script": "don_custom_functions",
           "name": "nightcap",
           "signature": "void nightcap()",
-          "line_start": 811,
-          "line_end": 829,
+          "line_start": 852,
+          "line_end": 870,
           "keywords": [
             "nightcap",
             "void",
@@ -922,12 +1000,12 @@
           ]
         },
         {
-          "id": "11.40",
+          "id": "11.44",
           "script": "don_custom_functions",
           "name": "don_dpills",
           "signature": "void don_dpills()",
-          "line_start": 831,
-          "line_end": 840,
+          "line_start": 872,
+          "line_end": 881,
           "keywords": [
             "don",
             "dpills",
@@ -941,12 +1019,12 @@
           ]
         },
         {
-          "id": "11.41",
+          "id": "11.45",
           "script": "don_custom_functions",
           "name": "don_Midcap",
           "signature": "void don_Midcap()",
-          "line_start": 842,
-          "line_end": 858,
+          "line_start": 883,
+          "line_end": 899,
           "keywords": [
             "don",
             "midcap",
@@ -964,12 +1042,12 @@
           ]
         },
         {
-          "id": "11.42",
+          "id": "11.46",
           "script": "don_custom_functions",
           "name": "don_Midcap_Pills",
           "signature": "void don_Midcap_Pills()",
-          "line_start": 860,
-          "line_end": 869,
+          "line_start": 901,
+          "line_end": 910,
           "keywords": [
             "don",
             "midcap",
@@ -984,12 +1062,12 @@
           ]
         },
         {
-          "id": "11.43",
+          "id": "11.47",
           "script": "don_custom_functions",
           "name": "newstuff",
           "signature": "void newstuff()",
-          "line_start": 871,
-          "line_end": 897,
+          "line_start": 912,
+          "line_end": 938,
           "keywords": [
             "newstuff",
             "void",
@@ -3410,24 +3488,14 @@
       "cross_ladder": true
     },
     {
-      "from": "11.33",
-      "to": "11.32",
+      "from": "11.32",
+      "to": "11.31",
       "kind": "call",
       "state": "strong",
       "position": "frame",
       "capability": "bearing_guy",
       "filament": "agent_filament_strong_frame_bearing_guy",
       "cross_ladder": false
-    },
-    {
-      "from": "11.33",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
     },
     {
       "from": "11.33",
@@ -3440,188 +3508,8 @@
       "cross_ladder": false
     },
     {
-      "from": "11.33",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
       "from": "11.34",
-      "to": "12.7",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.34",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.35",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.35",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.35",
-      "to": "11.31",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.35",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.35",
-      "to": "12.1",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.36",
-      "to": "11.29",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.36",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.36",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.36",
-      "to": "11.30",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.36",
-      "to": "12.1",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.37",
-      "to": "11.35",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.37",
-      "to": "12.4",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.37",
-      "to": "12.1",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.37",
-      "to": "11.15",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.37",
-      "to": "11.27",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.37",
-      "to": "11.28",
+      "to": "11.33",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3640,8 +3528,88 @@
       "cross_ladder": false
     },
     {
+      "from": "11.37",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.37",
+      "to": "11.34",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.37",
+      "to": "11.35",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.37",
+      "to": "11.29",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
       "from": "11.38",
-      "to": "11.26",
+      "to": "12.7",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.38",
+      "to": "11.32",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.38",
+      "to": "11.29",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.39",
+      "to": "11.34",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.39",
+      "to": "11.29",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3661,7 +3629,47 @@
     },
     {
       "from": "11.39",
+      "to": "11.35",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.39",
       "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.39",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.40",
+      "to": "11.29",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.40",
+      "to": "12.4",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3680,8 +3688,18 @@
       "cross_ladder": true
     },
     {
-      "from": "11.41",
-      "to": "12.88",
+      "from": "11.40",
+      "to": "11.30",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.40",
+      "to": "12.1",
       "kind": "call",
       "state": "strong",
       "position": "frame",
@@ -3691,13 +3709,13 @@
     },
     {
       "from": "11.41",
-      "to": "12.5",
+      "to": "11.39",
       "kind": "call",
       "state": "strong",
       "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
     },
     {
       "from": "11.41",
@@ -3710,37 +3728,7 @@
       "cross_ladder": true
     },
     {
-      "from": "11.42",
-      "to": "12.32",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.42",
-      "to": "12.5",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bridge_thread",
-      "filament": "agent_filament_strong_frame_bridge_thread",
-      "cross_ladder": true
-    },
-    {
-      "from": "11.42",
-      "to": "11.40",
-      "kind": "call",
-      "state": "strong",
-      "position": "frame",
-      "capability": "bearing_guy",
-      "filament": "agent_filament_strong_frame_bearing_guy",
-      "cross_ladder": false
-    },
-    {
-      "from": "11.43",
+      "from": "11.41",
       "to": "12.1",
       "kind": "call",
       "state": "strong",
@@ -3750,6 +3738,66 @@
       "cross_ladder": true
     },
     {
+      "from": "11.41",
+      "to": "11.15",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.41",
+      "to": "11.27",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.41",
+      "to": "11.28",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.41",
+      "to": "11.40",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.42",
+      "to": "11.26",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.43",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
       "from": "11.43",
       "to": "12.5",
       "kind": "call",
@@ -3760,7 +3808,97 @@
       "cross_ladder": true
     },
     {
-      "from": "11.43",
+      "from": "11.44",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.45",
+      "to": "12.88",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.45",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.45",
+      "to": "12.4",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.46",
+      "to": "12.32",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.46",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.46",
+      "to": "11.44",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bearing_guy",
+      "filament": "agent_filament_strong_frame_bearing_guy",
+      "cross_ladder": false
+    },
+    {
+      "from": "11.47",
+      "to": "12.1",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.47",
+      "to": "12.5",
+      "kind": "call",
+      "state": "strong",
+      "position": "frame",
+      "capability": "bridge_thread",
+      "filament": "agent_filament_strong_frame_bridge_thread",
+      "cross_ladder": true
+    },
+    {
+      "from": "11.47",
       "to": "12.4",
       "kind": "call",
       "state": "strong",
@@ -4443,9 +4581,9 @@
   "ladder_metrics": [
     {
       "script": "don_custom_functions",
-      "resolved_outgoing": 101,
+      "resolved_outgoing": 107,
       "cross_ladder_outgoing": 74,
-      "percent": 73.27,
+      "percent": 69.16,
       "tier": "agent-web-strong"
     },
     {

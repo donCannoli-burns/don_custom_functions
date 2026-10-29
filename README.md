@@ -81,14 +81,31 @@ farming preferences. Each **defaults to false** when absent:
 
 | Preference | True behavior |
 | --- | --- |
-| `donBreakfastBarf` | `cli_execute("barf")` |
-| `donBreakfastNobarf` | `cli_execute("nobarf")` |
-| `donBreakfastCowo` | `cli_execute("cowo")` **only for Pastamancers** |
-| `donBreakfastNobarfCombo` | `cli_execute("nobarf")`, after success `refresh all`, then `combo N` where `N=max(0,my_adventures()-15)` |
-| `don_breakfastCockroach` | Existing opt-in PirateRealm cockroach preparation |
+| `don_breakfast_barf` | `cli_execute("barf")` |
+| `don_breakfast_nobarf` | `cli_execute("nobarf")` |
+| `don_breakfast_cowo` | `cli_execute("cowo")` **only for Pastamancers** |
+| `don_breakfast_nobarf_combo` | `cli_execute("nobarf")`, after success `refresh all`, then `combo N` where `N=max(0,my_adventures()-15)` |
+| `don_breakfast_cockroach` | Existing opt-in PirateRealm cockroach preparation |
+
+### Preference-name migration
+
+All custom breakfast preferences now use the uniform `don_breakfast_*` namespace.
+When `donBreakfast run` or `donBreakfast <mode> on|off` is used,
+an older saved value is copied to the new key **only if the new key is unset**.
+An explicit new value (including `false`) always wins; the old key is retained
+but is no longer consulted after the new one is set.
+
+Previously saved keys: `donBreakfastBarf`, `donBreakfastNobarf`,
+`donBreakfastCowo`, `donBreakfastNobarfCombo`, and
+`don_breakfastCockroach`. Use the new names in the table above for manual
+`set` commands. The native KoLmafia preference `breakfastCompleted`
+is not renamed.
+
+`donBreakfast help` remains read-only: before a migration it displays the
+effective old value if the new key is unset, without changing preferences.
 
 Use the gCLI wrapper to turn on a mode. This **switches off other farming
-modes** and automatically enables `don_breakfastCockroach=true`.
+modes** and automatically enables `don_breakfast_cockroach=true`.
 
 ~~~text
 donBreakfast help
@@ -106,7 +123,7 @@ donBreakfast run
 preferences without launching gameplay.
 
 **Safety:** Cowo is rejected and its preference set false for any
-non-Pastamancer. Direct KoLmafia `set donBreakfastCowo=true` commands
+non-Pastamancer. Direct KoLmafia `set don_breakfast_cowo=true` commands
 cannot be intercepted immediately; the value is corrected when breakfast
 next runs. If multiple farming modes are turned on manually using `set`,
 breakfast refuses to run until the conflict is resolved; the `on`
@@ -144,7 +161,7 @@ require Garbo. It also does not replicate Garbo's dynamic profit maximization,
 Dessert Island route selection, or encounter farming.
 
 The router is **not** executed when this library is imported. Breakfast only
-invokes it if **don_breakfastCockroach** is set to true (defaults to off).
+invokes it if **don_breakfast_cockroach** is set to true (defaults to off).
 
 In the KoLmafia CLI:
 
@@ -154,7 +171,7 @@ verify don_custom_functions.ash
 verify don_cockroach_router.ash
 verify lowerstats.ash
 call don_custom_smoke.ash
-set don_breakfastCockroach = true
+set don_breakfast_cockroach = true
 ~~~
 
 Then call your existing augmentBreakfast() entrypoint / don_breakfast alias,
@@ -170,7 +187,7 @@ void main() {
 To disable PirateRealm while retaining the other daily tasks:
 
 ~~~text
-set don_breakfastCockroach = false
+set don_breakfast_cockroach = false
 ~~~
 
 To run ONLY PirateRealm setup, use an ASH wrapper that calls
