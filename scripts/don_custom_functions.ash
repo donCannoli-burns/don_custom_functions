@@ -603,9 +603,161 @@ boolean cockroach_fight_prep() {
     return done;
 }
 
+// Don Breakfast modes are persistent preferences. Importing this file does
+// not set preferences or launch any farming commands.
+// A mode turned on with donBreakfast.ash turns the other modes off.
+boolean don_breakfast_is_pastamancer(class character_class) {
+    return character_class == $class[Pastamancer];
+}
+
+int don_breakfast_combo_turns(int adventures_available) {
+    if (adventures_available <= 15) return 0;
+    return adventures_available - 15;
+}
+
+int don_breakfast_active_modes() {
+    int active = 0;
+    if (get_property("donBreakfastBarf").to_boolean()) active += 1;
+    if (get_property("donBreakfastNobarf").to_boolean()) active += 1;
+    if (get_property("donBreakfastCowo").to_boolean()) active += 1;
+    if (get_property("donBreakfastNobarfCombo").to_boolean()) active += 1;
+    return active;
+}
+
+string don_breakfast_mode_preference(string mode_name) {
+    if (mode_name == "barf") return "donBreakfastBarf";
+    if (mode_name == "nobarf") return "donBreakfastNobarf";
+    if (mode_name == "cowo") return "donBreakfastCowo";
+    if (mode_name == "nobarfcombo" || mode_name == "nobarf-combo")
+        return "donBreakfastNobarfCombo";
+    if (mode_name == "cockroach" || mode_name == "roaches")
+        return "don_breakfastCockroach";
+    return "";
+}
+
+// Called by the command wrapper; changes only preferences, not gameplay state.
+boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
+    string preference_name = don_breakfast_mode_preference(mode_name);
+    if (preference_name == "") {
+        don_warning("Unknown breakfast mode: " + mode_name);
+        return false;
+    }
+
+    if (preference_name == "don_breakfastCockroach") {
+        if (!enabled && don_breakfast_active_modes() > 0) {
+            don_warning("Cannot turn off cockroach prep while a farming mode is enabled.");
+            return false;
+        }
+        set_property(preference_name, enabled ? "true" : "false");
+        return true;
+    }
+
+    if (enabled && preference_name == "donBreakfastCowo" &&
+        !don_breakfast_is_pastamancer(my_class())) {
+        set_property("donBreakfastCowo", "false");
+        don_warning("Cowo requires Pastamancer. donBreakfastCowo reset to false.");
+        return false;
+    }
+
+    if (enabled) {
+        // Only one farming mode may be active. Roach preparation is required.
+        set_property("donBreakfastBarf", "false");
+        set_property("donBreakfastNobarf", "false");
+        set_property("donBreakfastCowo", "false");
+        set_property("donBreakfastNobarfCombo", "false");
+        set_property(preference_name, "true");
+        set_property("don_breakfastCockroach", "true");
+    } else {
+        set_property(preference_name, "false");
+    }
+    return true;
+}
+
+// Read-only listing, including any settings supplied directly through 'set'.
+void don_breakfast_help() {
+    don_header("donBreakfast preferences");
+    print("donBreakfastBarf = " + get_property("donBreakfastBarf").to_boolean());
+    print("donBreakfastNobarf = " + get_property("donBreakfastNobarf").to_boolean());
+    print("donBreakfastCowo = " + get_property("donBreakfastCowo").to_boolean() +
+          " (Pastamancer only; eligible: " +
+          don_breakfast_is_pastamancer(my_class()) + ")");
+    print("donBreakfastNobarfCombo = " +
+          get_property("donBreakfastNobarfCombo").to_boolean() +
+          " (nobarf, refresh all, combo with 15 adventures reserved)");
+    print("don_breakfastCockroach = " +
+          get_property("don_breakfastCockroach").to_boolean() +
+          " (required for every farming mode)");
+    print("All modes default to false when their preference is unset.");
+    print("donBreakfast help | status | run");
+    print("donBreakfast barf|nobarf|cowo|nobarfcombo on|off");
+    print("donBreakfast cockroach on|off");
+    print("Using 'on' disables competing farming modes and enables cockroach prep.");
+    print("Direct CLI 'set' changes are validated when breakfast runs.");
+}
+
+// Ensures direct 'set' values cannot cause multiple farming commands to run.
+// Direct preference writes cannot be intercepted at the moment of assignment.
+boolean don_breakfast_validate_modes() {
+    if (get_property("donBreakfastCowo").to_boolean() &&
+        !don_breakfast_is_pastamancer(my_class())) {
+        set_property("donBreakfastCowo", "false");
+        don_warning("Non-Pastamancer: donBreakfastCowo reset to false.");
+    }
+    int active = don_breakfast_active_modes();
+    if (active > 1) {
+        don_error("Conflicting breakfast modes: no farming will run. Use donBreakfast <mode> on or turn the unwanted preferences off.");
+        return false;
+    }
+    if (active == 1 && !get_property("don_breakfastCockroach").to_boolean()) {
+        set_property("don_breakfastCockroach", "true");
+        don_log("Enabled cockroach prep for the active breakfast farming mode.");
+    }
+    return true;
+}
+
+void don_breakfast_run_farming_mode() {
+    if (get_property("donBreakfastCowo").to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) {
+            set_property("donBreakfastCowo", "false");
+            don_warning("Cowo skipped: only Pastamancers may enable it.");
+            return;
+        }
+        if (!cli_execute("cowo")) don_error("cowo CLI command failed.");
+        return;
+    }
+
+    if (get_property("donBreakfastNobarfCombo").to_boolean()) {
+        if (!cli_execute("nobarf")) {
+            don_error("nobarf failed. Skipping refresh and combo.");
+            return;
+        }
+        if (!cli_execute("refresh all")) {
+            don_error("refresh all failed. Skipping combo.");
+            return;
+        }
+        int combo_turns = don_breakfast_combo_turns(my_adventures());
+        if (combo_turns == 0) {
+            don_log("nobarf finished; 15-adventure reserve leaves no combo turns.");
+            return;
+        }
+        if (!cli_execute("combo " + combo_turns))
+            don_error("combo failed after nobarf and refresh.");
+        return;
+    }
+
+    if (get_property("donBreakfastNobarf").to_boolean()) {
+        if (!cli_execute("nobarf")) don_error("nobarf CLI command failed.");
+        return;
+    }
+    if (get_property("donBreakfastBarf").to_boolean() &&
+        !cli_execute("barf")) don_error("barf CLI command failed.");
+}
+
 // Breakfast's daily tasks are independent of KoLmafia's breakfastCompleted flag.
-// PirateRealm is deliberately opt-in: set don_breakfastCockroach = true.
+// PirateRealm runs when explicitly enabled or required by a farming mode.
 void augmentBreakfast() {
+    if (!don_breakfast_validate_modes()) return;
+
     if (!get_property("breakfastCompleted").to_boolean()) {
         if (!cli_execute("breakfast"))
             don_warning("Native breakfast command failed.");
@@ -627,11 +779,15 @@ void augmentBreakfast() {
     don_mayam();
 
     if (get_property("don_breakfastCockroach").to_boolean()) {
-        if (!cockroach_fight_prep())
-            don_warning("Breakfast continued, but cockroach setup did not finish.");
+        if (!cockroach_fight_prep()) {
+            don_warning("Cockroach setup incomplete; any requested farming mode was NOT started.");
+            return;
+        }
     } else {
         don_log("PirateRealm cockroach route skipped (don_breakfastCockroach=false).");
     }
+
+    don_breakfast_run_farming_mode();
 }
 
 void Baseline() {

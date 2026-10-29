@@ -74,6 +74,66 @@ void main() {
 
 The import itself does **not** call `visit_url`, `cli_execute`, `buy`, `adventure`, `set_property`, or choices. The legacy snapshot globals (`haveAdv`, `amFull`, `amBuzzed`, `amHigh`, `ascensionsToday`, etc.) exist for older callers but **do not update automatically**; prefer `my_adventures()`, `don_have_adv()`, `don_is_full()`, and related live-state functions from `don_master_lib.ash`.
 
+## donBreakfast farming modes (feature branch)
+
+The optional `donBreakfast.ash` gCLI entrypoint uses four persistent boolean
+farming preferences. Each **defaults to false** when absent:
+
+| Preference | True behavior |
+| --- | --- |
+| `donBreakfastBarf` | `cli_execute("barf")` |
+| `donBreakfastNobarf` | `cli_execute("nobarf")` |
+| `donBreakfastCowo` | `cli_execute("cowo")` **only for Pastamancers** |
+| `donBreakfastNobarfCombo` | `cli_execute("nobarf")`, after success `refresh all`, then `combo N` where `N=max(0,my_adventures()-15)` |
+| `don_breakfastCockroach` | Existing opt-in PirateRealm cockroach preparation |
+
+Use the gCLI wrapper to turn on a mode. This **switches off other farming
+modes** and automatically enables `don_breakfastCockroach=true`.
+
+~~~text
+donBreakfast help
+donBreakfast status
+donBreakfast cowo on
+donBreakfast nobarfcombo on
+donBreakfast nobarf on
+donBreakfast barf on
+donBreakfast cowo off
+donBreakfast run
+~~~
+
+`donBreakfast` with no arguments also runs `augmentBreakfast()`.
+`donBreakfast help` displays the current true/false value of all five
+preferences without launching gameplay.
+
+**Safety:** Cowo is rejected and its preference set false for any
+non-Pastamancer. Direct KoLmafia `set donBreakfastCowo=true` commands
+cannot be intercepted immediately; the value is corrected when breakfast
+next runs. If multiple farming modes are turned on manually using `set`,
+breakfast refuses to run until the conflict is resolved; the `on`
+wrapper is the recommended way to select one. Farming never begins if
+required cockroach routing fails. This is significant because that
+router spends turns and may need `lowerstats.ash`.
+
+For NobarfCombo, no `combo` command is issued if `nobarf` fails,
+`refresh all` fails, or fewer than 16 adventures remain. The 15-turn
+reserve is calculated **after** `nobarf` and refresh, not before.
+If the `nobarf`, `barf`, `cowo`, or `combo` gCLI commands/aliases
+are missing or error, the helper reports failure; it does not provide
+those external scripts.
+
+Run read-only parser checks:
+
+~~~text
+verify don_custom_functions.ash
+verify donBreakfast.ash
+verify don_breakfast_modes_smoke.ash
+call don_breakfast_modes_smoke.ash
+donBreakfast help
+~~~
+
+Do not run `donBreakfast run` as a smoke check: it invokes live
+daily and potentially farming gameplay.
+
 ## Cockroach / PirateRealm breakfast integration (opt-in)
 
 The ASH library now exposes a callable **cockroach_fight_prep()** just above
