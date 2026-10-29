@@ -24,7 +24,11 @@ jobs:
       - name: Install pinned TypeScript (no runtime dependencies)
         run: npm install --global typescript@5.8.3
       - name: Typecheck import registry
-        run: tsc --noEmit --strict --target es2020 --lib es2020 tools/don-state-engine/registry.ts
+        run: tsc --noEmit --strict --target es2020 --lib es2020 tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts
+      - name: Compile pure planner for offline tests
+        run: tsc --strict --target es2020 --lib es2020 --module commonjs --outDir .state-build tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts
+      - name: Run synthetic no-execution scenarios
+        run: node tests/state-engine-planner.test.cjs
       - name: Verify no unapproved source-level execution primitives
         run: |
           node - <<'NODE'
