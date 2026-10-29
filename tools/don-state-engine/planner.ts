@@ -33,6 +33,7 @@ const LOOP_ONLY = [
 ] as const;
 const HALLOWEEN_MODES = ["trick_or_treat", "trick_or_treat_nobarf"] as const;
 const FLAG_SET: ReadonlyArray<string> = FLAGS as unknown as ReadonlyArray<string>;
+const NONLINEAR = ["organ_maxing", "overdrink", "max_adv", "mall_managed"] as const;
 
 function result(kind: DecisionKind, flag: string | null,
                 reason: string, capability: string | null = null,
@@ -78,6 +79,7 @@ export function planNext(input: PlannerInput): Decision {
       return result("stop", id, "Previous phase failed; explicit repair is required");
     if (status !== FLAG_CODE.pending)
       return result("stop", id, "Invalid flag code");
+    if (includes(NONLINEAR, id)) continue; // observed sub-state, not a mandatory linear gate
     if (policy.nextExpectedFlag && id !== policy.nextExpectedFlag)
       return result("blocked", id, "Expected flag and journal phase disagree");
 
