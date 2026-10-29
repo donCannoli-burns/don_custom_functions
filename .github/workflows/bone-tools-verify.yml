@@ -1,0 +1,50 @@
+name: Bone tools KoLmafia compile
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify-bone-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the installable functions
+        uses: actions/checkout@v4
+      - name: Check out shared ASH library
+        uses: actions/checkout@v4
+        with:
+          repository: donCannoli-burns/don-ash-lib
+          ref: main
+          path: _don-ash-lib
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Download KoLmafia r29334
+        run: |
+          curl -L --fail --silent --show-error -o KoLmafia-29334.jar \
+            https://github.com/kolmafia/kolmafia/releases/download/r29334/KoLmafia-29334.jar
+      - name: Compile all absorbed scripts without running gameplay
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.kolmafia/scripts" "$HOME/.kolmafia/relay"
+          cp scripts/boneFarm.ash scripts/boneTrack.ash "$HOME/.kolmafia/scripts/"
+          cp relay/relay_BoneTrack.ash "$HOME/.kolmafia/relay/"
+          cp _don-ash-lib/don-master-ash-lib/scripts/don_bone_lib.ash "$HOME/.kolmafia/scripts/"
+          cp _don-ash-lib/don-master-ash-lib/scripts/don_bone_smoke.ash "$HOME/.kolmafia/scripts/"
+          cat > "$HOME/.kolmafia/scripts/__verify_bones.txt" <<'EOF'
+          verify don_bone_lib.ash
+          verify don_bone_smoke.ash
+          verify boneFarm.ash
+          verify boneTrack.ash
+          verify relay_BoneTrack.ash
+          exit
+          EOF
+          cd "$HOME/.kolmafia"
+          timeout 90s java -jar "$GITHUB_WORKSPACE/KoLmafia-29334.jar" --CLI __verify_bones.txt > "$GITHUB_WORKSPACE/verify-bones.log" 2>&1 || true
+          cat "$GITHUB_WORKSPACE/verify-bones.log"
+          verified="$(grep -Fc 'Script verification complete.' "$GITHUB_WORKSPACE/verify-bones.log" || true)"
+          test "$verified" -eq 5
