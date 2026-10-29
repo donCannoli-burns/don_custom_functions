@@ -501,8 +501,12 @@ void stooperDis() {
     }
 }
 
-void getCool() {
-    outfit("maxo");
+// Return actual success so the post-run controller does not advance on a failed choice.
+boolean don_get_cool() {
+    if (!outfit("maxo")) {
+        don_warning("getCool: missing maxo outfit.");
+        return false;
+    }
     refresh_status();
     if (!get_property("_communismUsed").to_boolean() &&
         my_inebriety() == inebriety_limit() - 1)
@@ -512,35 +516,47 @@ void getCool() {
     familiar yeti = $familiar[cooler yeti];
     if (!have_familiar(yeti) || yeti.experience < 400) {
         don_warning("Cooler Yeti missing or below 400 XP.");
-        return;
+        return false;
     }
     if (!use_familiar(yeti)) {
         don_error("Unable to equip Cooler Yeti.");
-        return;
+        return false;
     }
-    cli_execute("cast ode to booze");
+    if (!cli_execute("cast ode to booze")) {
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
 
-    // Explicit choice validation: do not submit unrelated choice options.
     buffer page = visit_url("main.php?talktoyeti=1", false, true);
     buffer_to_file(page, "_yeti_talk2.html");
     string[int] choices = available_choice_options();
     if (!handling_choice() || choices[2] == "") {
         don_error("Cooler Yeti did not offer expected first option 2.");
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(2);
     choices = available_choice_options();
     if (!handling_choice() || choices[1] == "") {
         don_error("Cooler Yeti did not offer expected follow-up option 1.");
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(1);
-
+    if (handling_choice()) {
+        don_error("Cooler Yeti follow-up choice remains open.");
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
     if (previous != $familiar[none]) use_familiar(previous);
     don_good("Yeti drink enhancement sequence submitted.");
+    return true;
 }
+
+// Preserve the original public callable signature.
+void getCool() { don_get_cool(); }
+void get_cool() { don_get_cool(); }
+
 
 void shrugAT() {
     cli_execute("shrug Stevedave's Shanty of Superiority");
@@ -580,21 +596,246 @@ void don_mayam() {
     }
 }
 
-void augmentBreakfast() {
-    if (get_property("breakfastCompleted").to_boolean()) {
-        don_log("Breakfast already completed.");
+// Explicitly called integration: stages PirateRealm until Trash Island is
+// selected. It does not start Garbo or initiate any cockroach combats itself.
+// See don_cockroach_router.ash for its bounded, resumable route.
+boolean cockroach_fight_prep() {
+    if (get_property("_lastPirateRealmIsland") == "Trash Island") {
+        don_log("PirateRealm already points to Trash Island.");
+        return true;
+    }
+    if (my_inebriety() > inebriety_limit()) {
+        don_warning("Cockroach prep skipped: character is overdrunk.");
+        return false;
+    }
+    set_property("_don_cockroachRouteResult", "not-run");
+    if (!cli_execute("call don_cockroach_router.ash")) {
+        don_warning("Cockroach router failed or is unavailable.");
+        return false;
+    }
+    boolean done = get_property("_don_cockroachRouteResult") == "success" &&
+                   get_property("_lastPirateRealmIsland") == "Trash Island";
+    if (!done) don_warning("Cockroach preparation incomplete; review router logs.");
+    return done;
+}
+
+// Don Breakfast modes are persistent preferences. Importing this file does
+// not set preferences or launch any farming commands.
+// A mode turned on with donBreakfast.ash turns the other modes off.
+boolean don_breakfast_is_pastamancer(class character_class) {
+    return character_class == $class[Pastamancer];
+}
+
+int don_breakfast_combo_turns(int adventures_available) {
+    if (adventures_available <= 15) return 0;
+    return adventures_available - 15;
+}
+
+// Only the new don_breakfast_* names are written after migration.
+// Legacy values are consulted if the new name has not yet been saved.
+string don_breakfast_legacy_preference(string canonical) {
+    if (canonical == "don_breakfast_barf") return "donBreakfastBarf";
+    if (canonical == "don_breakfast_nobarf") return "donBreakfastNobarf";
+    if (canonical == "don_breakfast_cowo") return "donBreakfastCowo";
+    if (canonical == "don_breakfast_nobarf_combo") return "donBreakfastNobarfCombo";
+    if (canonical == "don_breakfast_cockroach") return "don_breakfastCockroach";
+    return "";
+}
+
+boolean don_breakfast_preference_enabled(string canonical) {
+    string saved_value = get_property(canonical);
+    if (saved_value == "") {
+        string legacy_name = don_breakfast_legacy_preference(canonical);
+        if (legacy_name != "") saved_value = get_property(legacy_name);
+    }
+    return saved_value.to_boolean();
+}
+
+void don_breakfast_migrate_one(string canonical) {
+    if (get_property(canonical) != "") return;
+    string legacy_name = don_breakfast_legacy_preference(canonical);
+    if (legacy_name == "") return;
+    string legacy_value = get_property(legacy_name);
+    if (legacy_value == "") return;
+    set_property(canonical, legacy_value.to_boolean() ? "true" : "false");
+}
+
+void don_breakfast_migrate_preferences() {
+    don_breakfast_migrate_one("don_breakfast_barf");
+    don_breakfast_migrate_one("don_breakfast_nobarf");
+    don_breakfast_migrate_one("don_breakfast_cowo");
+    don_breakfast_migrate_one("don_breakfast_nobarf_combo");
+    don_breakfast_migrate_one("don_breakfast_cockroach");
+}
+
+int don_breakfast_active_modes() {
+    int active = 0;
+    if (get_property("don_breakfast_barf").to_boolean()) active += 1;
+    if (get_property("don_breakfast_nobarf").to_boolean()) active += 1;
+    if (get_property("don_breakfast_cowo").to_boolean()) active += 1;
+    if (get_property("don_breakfast_nobarf_combo").to_boolean()) active += 1;
+    return active;
+}
+
+string don_breakfast_mode_preference(string mode_name) {
+    if (mode_name == "barf") return "don_breakfast_barf";
+    if (mode_name == "nobarf") return "don_breakfast_nobarf";
+    if (mode_name == "cowo") return "don_breakfast_cowo";
+    if (mode_name == "nobarfcombo" || mode_name == "nobarf-combo")
+        return "don_breakfast_nobarf_combo";
+    if (mode_name == "cockroach" || mode_name == "roaches")
+        return "don_breakfast_cockroach";
+    return "";
+}
+
+// Called by the command wrapper; changes only preferences, not gameplay state.
+boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
+    string preference_name = don_breakfast_mode_preference(mode_name);
+    if (preference_name == "") {
+        don_warning("Unknown breakfast mode: " + mode_name);
+        return false;
+    }
+
+    don_breakfast_migrate_preferences();
+
+    if (preference_name == "don_breakfast_cockroach") {
+        if (!enabled && don_breakfast_active_modes() > 0) {
+            don_warning("Cannot turn off cockroach prep while a farming mode is enabled.");
+            return false;
+        }
+        set_property(preference_name, enabled ? "true" : "false");
+        return true;
+    }
+
+    if (enabled && preference_name == "don_breakfast_cowo" &&
+        !don_breakfast_is_pastamancer(my_class())) {
+        set_property("don_breakfast_cowo", "false");
+        don_warning("Cowo requires Pastamancer. don_breakfast_cowo reset to false.");
+        return false;
+    }
+
+    if (enabled) {
+        // Only one farming mode may be active. Roach preparation is required.
+        set_property("don_breakfast_barf", "false");
+        set_property("don_breakfast_nobarf", "false");
+        set_property("don_breakfast_cowo", "false");
+        set_property("don_breakfast_nobarf_combo", "false");
+        set_property(preference_name, "true");
+        set_property("don_breakfast_cockroach", "true");
+    } else {
+        set_property(preference_name, "false");
+    }
+    return true;
+}
+
+// Read-only listing, including any settings supplied directly through 'set'.
+void don_breakfast_help() {
+    don_header("donBreakfast preferences");
+    print("don_breakfast_barf = " + don_breakfast_preference_enabled("don_breakfast_barf"));
+    print("don_breakfast_nobarf = " + don_breakfast_preference_enabled("don_breakfast_nobarf"));
+    print("don_breakfast_cowo = " + don_breakfast_preference_enabled("don_breakfast_cowo") +
+          " (Pastamancer only; eligible: " +
+          don_breakfast_is_pastamancer(my_class()) + ")");
+    print("don_breakfast_nobarf_combo = " +
+          don_breakfast_preference_enabled("don_breakfast_nobarf_combo") +
+          " (nobarf, refresh all, combo with 15 adventures reserved)");
+    print("don_breakfast_cockroach = " +
+          don_breakfast_preference_enabled("don_breakfast_cockroach") +
+          " (required for every farming mode)");
+    print("All modes default to false when their preference is unset.");
+    print("Old preference values appear until migrated during mode changes or run.");
+    print("donBreakfast help | status | run");
+    print("donBreakfast barf|nobarf|cowo|nobarfcombo on|off");
+    print("donBreakfast cockroach on|off");
+    print("Using 'on' disables competing farming modes and enables cockroach prep.");
+    print("Direct CLI 'set' changes are validated when breakfast runs.");
+}
+
+// Ensures direct 'set' values cannot cause multiple farming commands to run.
+// Direct preference writes cannot be intercepted at the moment of assignment.
+boolean don_breakfast_validate_modes() {
+    don_breakfast_migrate_preferences();
+    if (get_property("don_breakfast_cowo").to_boolean() &&
+        !don_breakfast_is_pastamancer(my_class())) {
+        set_property("don_breakfast_cowo", "false");
+        don_warning("Non-Pastamancer: don_breakfast_cowo reset to false.");
+    }
+    int active = don_breakfast_active_modes();
+    if (active > 1) {
+        don_error("Conflicting breakfast modes: no farming will run. Use donBreakfast <mode> on or turn the unwanted preferences off.");
+        return false;
+    }
+    if (active == 1 && !get_property("don_breakfast_cockroach").to_boolean()) {
+        set_property("don_breakfast_cockroach", "true");
+        don_log("Enabled cockroach prep for the active breakfast farming mode.");
+    }
+    return true;
+}
+
+void don_breakfast_run_farming_mode() {
+    if (get_property("don_breakfast_cowo").to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) {
+            set_property("don_breakfast_cowo", "false");
+            don_warning("Cowo skipped: only Pastamancers may enable it.");
+            return;
+        }
+        if (!cli_execute("cowo")) don_error("cowo CLI command failed.");
         return;
     }
-    if (!cli_execute("breakfast")) don_warning("Native breakfast command failed.");
+
+    if (get_property("don_breakfast_nobarf_combo").to_boolean()) {
+        if (!cli_execute("nobarf")) {
+            don_error("nobarf failed. Skipping refresh and combo.");
+            return;
+        }
+        if (!cli_execute("refresh all")) {
+            don_error("refresh all failed. Skipping combo.");
+            return;
+        }
+        int combo_turns = don_breakfast_combo_turns(my_adventures());
+        if (combo_turns == 0) {
+            don_log("nobarf finished; 15-adventure reserve leaves no combo turns.");
+            return;
+        }
+        if (!cli_execute("combo " + combo_turns))
+            don_error("combo failed after nobarf and refresh.");
+        return;
+    }
+
+    if (get_property("don_breakfast_nobarf").to_boolean()) {
+        if (!cli_execute("nobarf")) don_error("nobarf CLI command failed.");
+        return;
+    }
+    if (get_property("don_breakfast_barf").to_boolean() &&
+        !cli_execute("barf")) don_error("barf CLI command failed.");
+}
+
+// Breakfast's daily tasks are independent of KoLmafia's breakfastCompleted flag.
+// PirateRealm runs when explicitly enabled or required by a farming mode.
+boolean don_breakfast_prepare_daily() {
+    if (!don_breakfast_validate_modes()) return false;
+    if (!get_property("breakfastCompleted").to_boolean()) {
+        if (!cli_execute("breakfast")) return false;
+    } else don_log("Native breakfast already completed; checking Don daily tasks.");
     raffle();
-    if (!get_property("_aprilShower").to_boolean())
-        cli_execute("shower ice");
+    if (!get_property("_aprilShower").to_boolean() &&
+        !cli_execute("shower ice")) don_warning("Shower ice command failed.");
     if (get_property("bankedKarma").to_int() > 2000 &&
-        available_amount($item[The Big Book of Every Skill]) > 0)
-        use(1, $item[The Big Book of Every Skill]);
+        available_amount($item[The Big Book of Every Skill]) > 0 &&
+        !use(1, $item[The Big Book of Every Skill]))
+        don_warning("Could not use Big Book of Every Skill.");
     don_mayam();
-    if (!cli_execute("call don_praccess.ash"))
-        don_warning("Optional don_praccess.ash failed or is not installed.");
+    if (get_property("don_breakfast_cockroach").to_boolean() &&
+        !cockroach_fight_prep()) {
+        don_warning("Cockroach route failed; stopping before farming.");
+        return false;
+    }
+    return true;
+}
+
+void augmentBreakfast() {
+    if (!don_breakfast_prepare_daily()) return;
+    don_breakfast_run_farming_mode();
 }
 
 void Baseline() {
@@ -615,25 +856,84 @@ void Baseline() {
     }
 }
 
-void nightcap() {
-    // A drink must be in inventory before use. Owned items in the closet
-    // may be retrievable; inaccessible Hagnk's storage is not consumable.
-    if (item_amount(night_cap) < 1 && available_amount(night_cap) > 0) {
-        if (!retrieve_item(1, night_cap))
-            don_warning("Could not retrieve owned " + night_cap + ".");
-    }
-
-    if (item_amount(night_cap) < 1)
-        buy(1, night_cap, 175000);
-
-    if (item_amount(night_cap) < 1) {
-        don_error("Nightcap unavailable in inventory within 175000 meat limit.");
-        return;
-    }
-
-    if (!overdrink(1, night_cap))
-        don_error("Could not drink " + night_cap);
+// Nightcap prices are KoLmafia mall_price estimates (usually fifth-lowest).
+// No import-time preference writes; 5227 is the fallback item ID.
+int don_nightcap_configured_id(string preference_name) {
+    int chosen_id = get_property(preference_name).to_int();
+    if (chosen_id <= 0) return 5227;
+    return chosen_id;
 }
+
+int don_nightcap_price_limit() {
+    int stored = get_property("don_nightcap_buy_limit").to_int();
+    return stored > 0 ? stored : 175000;
+}
+
+item don_nightcap_pick() {
+    string selector = get_property("don_event");
+    if (!selector.to_boolean())
+        return to_item(don_nightcap_configured_id("don_defaultNightcap"));
+
+    item first = to_item(8553);
+    item second = to_item(8554);
+    int price_first = first == $item[none] ? 0 : mall_price(first);
+    int price_second = second == $item[none] ? 0 : mall_price(second);
+    int limit_price = don_nightcap_price_limit();
+
+    // Owned items have no new purchase cost; prefer them before mall shopping.
+    if (first != $item[none] && (item_amount(first) > 0 || closet_amount(first) > 0))
+        return first;
+    if (second != $item[none] && (item_amount(second) > 0 || closet_amount(second) > 0))
+        return second;
+
+    if (price_first > 0 && price_first <= limit_price &&
+        (price_second <= 0 || price_first <= price_second))
+        return first;
+    if (price_second > 0 && price_second <= limit_price) return second;
+
+    don_warning("Neither event item 8553 nor 8554 has an acceptable mall estimate; using don_eventNightcap fallback.");
+    return to_item(don_nightcap_configured_id("don_eventNightcap"));
+}
+
+boolean don_nightcap() {
+    if (my_inebriety() > inebriety_limit()) {
+        don_log("Already overdrunk: will not consume a second nightcap.");
+        return true;
+    }
+    item selected = don_nightcap_pick();
+    if (selected == $item[none]) {
+        don_error("Configured nightcap item ID is invalid.");
+        return false;
+    }
+    int cap = don_nightcap_price_limit();
+    don_log("Nightcap selection: " + selected + " (item " + selected.id + "; buy limit " + cap + ").");
+    if (item_amount(selected) < 1 && closet_amount(selected) > 0 &&
+        !take_closet(1, selected)) {
+        don_error("Could not retrieve nightcap from closet.");
+        return false;
+    }
+    if (item_amount(selected) < 1) {
+        int estimate = mall_price(selected);
+        if (estimate <= 0 || estimate > cap) {
+            don_error("Nightcap mall estimate unavailable or above cap: " + estimate);
+            return false;
+        }
+        if (buy(1, selected, cap) < 1) {
+            don_error("Could not buy nightcap within configured cap.");
+            return false;
+        }
+    }
+    int before_inebriety = my_inebriety();
+    if (!overdrink(1, selected) || my_inebriety() <= before_inebriety) {
+        don_error("Nightcap did not increase inebriety.");
+        return false;
+    }
+    don_good("Nightcap completed: " + selected + ".");
+    return true;
+}
+
+void nightcap() { don_nightcap(); }
+
 
 void don_dpills() {
     cli_execute("ccs don_default");
@@ -702,3 +1002,513 @@ void newstuff() {
     }
     don_warning("Maid / butler options are all outside price range.");
 }
+
+
+// -------------------------------------------------------------------------
+// Don post-run: explicit, resumable workflow; none of this runs on import.
+// The prior Yeti functions remain directly callable; this workflow keeps
+// a separate 20-adventure floor to protect the later WaterSheep transition.
+// -------------------------------------------------------------------------
+void don_post_run_sync_date() {
+    string today = today_to_string();
+    if (get_property("don_post_run_date") == today) return;
+    set_property("don_post_run_date", today);
+    set_property("don_post_run_stage", "new");
+    set_property("don_post_run_eod_step", "0");
+}
+
+boolean don_post_run_step_done(string step_name) {
+    return get_property("don_post_run_stage") == step_name;
+}
+
+void don_post_run_track(string label) {
+    // Optional, non-authoritative telemetry; never a required import.
+    if (!get_property("don_post_run_ptrack").to_boolean()) return;
+    if (!cli_execute("call ptrack.ash add " + label))
+        don_warning("ptrack checkpoint unavailable: " + label);
+}
+
+void don_post_run_status() {
+    print("don_post_run_date = " + get_property("don_post_run_date"));
+    print("don_post_run_stage = " + get_property("don_post_run_stage"));
+    print("don_post_run_eod_step = " + get_property("don_post_run_eod_step"));
+    print("don_defaultNightcap = " + don_nightcap_configured_id("don_defaultNightcap") +
+          " (" + to_item(don_nightcap_configured_id("don_defaultNightcap")) + ")");
+    print("don_event = " + get_property("don_event").to_boolean());
+    print("don_eventNightcap = " + don_nightcap_configured_id("don_eventNightcap") +
+          " (" + to_item(don_nightcap_configured_id("don_eventNightcap")) + ")");
+    print("don_nightcap_buy_limit = " + don_nightcap_price_limit());
+    print("don_post_run_philter = " + get_property("don_post_run_philter").to_boolean());
+    print("don_post_run_ptrack = " + get_property("don_post_run_ptrack").to_boolean());
+    print("Yeti XP = " + $familiar[cooler yeti].experience + "/400");
+    print("Adventures = " + my_adventures());
+    print("Fullness = " + my_fullness() + "/" + fullness_limit() +
+          "; spleen = " + my_spleen_use() + "/" + spleen_limit() +
+          "; inebriety = " + my_inebriety() + "/" + inebriety_limit());
+}
+
+boolean don_post_run_prepare() {
+    don_post_run_sync_date();
+    if (!get_property("_don_famMax").to_boolean() &&
+        my_inebriety() <= inebriety_limit()) {
+        if (!cli_execute("maximize familiar exp")) {
+            don_error("Familiar experience maximizer failed.");
+            return false;
+        }
+        set_property("_don_famMax", "true");
+    }
+    if (!outfit("maxorgan")) {
+        don_error("Missing required maxorgan outfit.");
+        return false;
+    }
+    stooperDis();
+    if (!cli_execute("CONSUME ALL VALUE 6500")) {
+        don_error("CONSUME ALL VALUE 6500 failed.");
+        return false;
+    }
+    set_property("don_post_run_stage", "prepared");
+    don_post_run_track("postrun_prepared");
+    return true;
+}
+
+// Alternative to legacy yetiAdv(): stop with at least 20 adventures unspent.
+boolean don_post_run_yeti_stage() {
+    don_post_run_sync_date();
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti)) {
+        don_error("No Cooler Yeti owned.");
+        return false;
+    }
+    don_log("Cooler Yeti XP: " + yeti.experience + "/400.");
+    if (yeti.experience >= 400) {
+        set_property("don_post_run_stage", "yeti_ready");
+        return true;
+    }
+    if (my_adventures() <= 20) {
+        don_warning("Yeti is below 400 XP and no adventures remain above the 20-turn reserve.");
+        return false;
+    }
+    if (get_property("don_post_run_chow").to_boolean()) {
+        if (have_outfit("chowDown")) chowDown();
+        if (have_outfit("chowDown2")) chowDown2();
+    }
+    item bow = $item[toy cupid bow];
+    if (available_amount(bow) > 0 || have_equipped(bow)) {
+        foreach other in $familiars[] {
+            if (other != yeti && familiar_equipped_equipment(other) == bow)
+                if (!equip(other, $item[none])) {
+                    don_error("Cannot release toy cupid bow from " + other);
+                    return false;
+                }
+        }
+        if (familiar_equipped_equipment(yeti) != bow && !equip(yeti, bow)) {
+            don_error("Cannot equip toy cupid bow on Cooler Yeti.");
+            return false;
+        }
+    } else {
+        don_warning("Toy cupid bow unavailable; training without it.");
+    }
+    if (!can_adventure($location[The Dungeons of Doom])) {
+        // The legacy dungeon unlockers may spend all remaining adventures.
+        // Never run them automatically under a 20-adventure reserve.
+        don_error("Dungeons of Doom locked. Run openDungeon()/EGTS()/DOD() independently before resuming.");
+        return false;
+    }
+    if (!outfit("yetibuff") || !use_familiar(yeti)) {
+        don_error("Could not prepare Yeti outfit/familiar.");
+        return false;
+    }
+    while (my_adventures() > 20 && yeti.experience < 400) {
+        if (!adventure(1, $location[The Dungeons of Doom])) {
+            don_error("Yeti training adventure failed.");
+            return false;
+        }
+    }
+    don_log("Cooler Yeti XP now " + yeti.experience + "/400.");
+    if (yeti.experience < 400) return false;
+    set_property("don_post_run_stage", "yeti_ready");
+    don_post_run_track("postrun_yeti_ready");
+    return true;
+}
+
+// Useful independent ASH entrypoint. Does not call the legacy 2-turn drain.
+void don_yeti_adv() { don_post_run_yeti_stage(); }
+
+boolean don_post_run_combo_stage() {
+    don_post_run_sync_date();
+    if ($familiar[cooler yeti].experience < 400) {
+        don_error("Cooler Yeti below 400 XP: refusing to start WaterSheep.");
+        return false;
+    }
+    string stage_name = get_property("don_post_run_stage");
+    if (stage_name == "combo_done" || stage_name == "done") return true;
+    int turns = my_adventures();
+    if (turns > 2) {
+        if (!cli_execute("combo watersheep-" + turns)) {
+            don_error("WaterSheep combo command failed.");
+            return false;
+        }
+    } else don_log("At two or fewer adventures; no WaterSheep turns needed.");
+    set_property("don_post_run_stage", "combo_done");
+    don_post_run_track("postrun_combo_done");
+    return true;
+}
+
+boolean don_post_run_eod_ready() {
+    if (my_adventures() > 2) return false;
+    if (my_fullness() < fullness_limit()) return false;
+    if (my_spleen_use() < spleen_limit()) return false;
+    if (my_inebriety() < inebriety_limit()) return false;
+    if (my_familiar() != $familiar[Stooper]) return false;
+    if (!is_wearing_outfit("maxorgan")) return false;
+    return true;
+}
+
+boolean don_eod_process() {
+    don_post_run_sync_date();
+    if (get_property("don_post_run_stage") == "done") {
+        don_log("Post-run already completed for " + today_to_string());
+        return true;
+    }
+    int checkpoint = get_property("don_post_run_eod_step").to_int();
+    // The nightcap and later Left-Hand Man steps change the state used by
+    // the gate. Require original readiness only before the first EOD action.
+    if (checkpoint == 0 && !don_post_run_eod_ready()) {
+        don_warning("EOD gate: need maxorgan, Stooper, full stomach/spleen/liver and <=2 adventures.");
+        don_post_run_status();
+        return false;
+    }
+    if (checkpoint < 1) {
+        if ($familiar[cooler yeti].experience >= 400 && !don_get_cool()) return false;
+        set_property("don_post_run_eod_step", "1");
+    }
+    if (checkpoint < 2) {
+        // getCool() equips maxo and may change the current familiar.
+        if (!outfit("maxorgan")) {
+            don_error("Could not restore maxorgan before nightcap.");
+            return false;
+        }
+        if (my_familiar() != $familiar[Stooper] &&
+            !use_familiar($familiar[Stooper])) {
+            don_error("Could not restore Stooper before nightcap.");
+            return false;
+        }
+        if (!don_nightcap()) return false;
+        set_property("don_post_run_eod_step", "2");
+    }
+    if (checkpoint < 3) {
+        familiar lefty = $familiar[Left-Hand Man];
+        if (!have_familiar(lefty) || !use_familiar(lefty)) {
+            don_warning("Left-Hand Man unavailable. Retry EOD later.");
+            return false;
+        }
+        set_property("don_post_run_eod_step", "3");
+    }
+    if (checkpoint < 4) {
+        if (!cli_execute("genie effect offhand remarkable")) return false;
+        set_property("don_post_run_eod_step", "4");
+    }
+    if (checkpoint < 5) {
+        if (!cli_execute("max adv")) return false;
+        set_property("don_post_run_eod_step", "5");
+    }
+    if (checkpoint < 6) {
+        // No auto-answer to Philter's uncategorized-item prompt is assumed.
+        if (get_property("don_post_run_philter").to_boolean()) {
+            if (!cli_execute("philter")) {
+                don_error("Philter failed or cancelled.");
+                return false;
+            }
+        } else don_log("Philter skipped: don_post_run_philter=false.");
+        set_property("don_post_run_eod_step", "6");
+    }
+    if (checkpoint < 7) {
+        if (!cli_execute("mall-manager reprice")) return false;
+        set_property("don_post_run_eod_step", "7");
+    }
+    if (checkpoint < 8) {
+        if (!cli_execute("call buy-script.js")) return false;
+        set_property("don_post_run_eod_step", "8");
+    }
+    if (checkpoint < 9) {
+        int have_tickets = don_owned_amount($item[raffle ticket]);
+        int need_tickets = max(0, 111 - have_tickets);
+        if (need_tickets > 0 && !cli_execute("raffle " + need_tickets)) return false;
+        set_property("don_post_run_eod_step", "9");
+    }
+    don_post_run_track("postrun_eod_complete");
+    set_property("don_post_run_stage", "done");
+    don_good("Don post-run EOD complete.");
+    return true;
+}
+
+// Keep the requested spelling and offer the corrected spelling as well.
+boolean eod_proccess() { return don_eod_process(); }
+boolean eod_process() { return don_eod_process(); }
+
+boolean don_post_run_from(string entry_stage) {
+    don_post_run_sync_date();
+    if (entry_stage == "nightcap") return don_nightcap();
+    if (entry_stage == "eod") return eod_proccess();
+    if (entry_stage == "cool") return don_get_cool() && eod_proccess();
+    if (entry_stage == "yeti") {
+        if (!don_post_run_yeti_stage()) return false;
+    } else if (entry_stage == "" || entry_stage == "start") {
+        if (get_property("don_post_run_stage") == "done") return true;
+        if (get_property("don_post_run_stage") == "new") {
+            if (!don_post_run_prepare()) return false;
+        }
+        if (get_property("don_post_run_stage") == "prepared") {
+            if (!don_post_run_yeti_stage()) return false;
+        }
+    } else {
+        don_warning("Unknown post-run stage: " + entry_stage);
+        return false;
+    }
+
+    if (!don_post_run_combo_stage()) return false;
+    // Reapply the EOD gate setup after the Yeti and farming stages.
+    if (!outfit("maxorgan")) return false;
+    if (have_familiar($familiar[Stooper]) &&
+        !use_familiar($familiar[Stooper])) return false;
+    if (!don_post_run_eod_ready()) {
+        don_warning("WaterSheep returned; EOD requirements not met. Resume later with don-post-run eod.");
+        return false;
+    }
+    return eod_proccess();
+}
+
+void don_post_run() { don_post_run_from("start"); }
+
+
+
+/*
+ * DON LOGIN: companion to don_post_run().
+ * No gameplay, preferences, CLI calls, or aliases execute upon import.
+ * 'breakfast_1' is the morning stage; 'breakfast_2' is post ascension.
+ */
+boolean don_login_default_true(string pref_name) {
+    string raw_value = get_property(pref_name);
+    return raw_value == "" || raw_value.to_boolean();
+}
+
+boolean don_login_second_allowed(int daily_ascensions) {
+    return daily_ascensions > 0;
+}
+
+void don_login_sync_date() {
+    string date_now = today_to_string();
+    if (get_property("don_login_date") == date_now) return;
+    set_property("don_login_date", date_now);
+    set_property("don_login_stage", "new");
+    set_property("don_login_holiday", "none");
+    set_property("don_login_breakfast2_ascensions", "0");
+}
+
+void don_login_track(string label) {
+    if (!get_property("don_login_ptrack").to_boolean()) return;
+    if (!cli_execute("call ptrack.ash add " + label))
+        don_warning("Optional ptrack checkpoint failed: " + label);
+}
+
+boolean don_login_install_aliases() {
+    boolean good = cli_execute("alias don-login => call don_login.ash %%");
+    if (!cli_execute("alias don-breakfast-1 => call don_login.ash breakfast_1")) good = false;
+    if (!cli_execute("alias don-breakfast-2 => call don_login.ash breakfast_2")) good = false;
+    if (!cli_execute("alias don-login-eod => call don_login.ash eod")) good = false;
+    return good;
+}
+
+void don_login_status() {
+    print("don_login_date = " + get_property("don_login_date"));
+    print("don_login_stage = " + get_property("don_login_stage"));
+    print("don_login_holiday = " + get_property("don_login_holiday"));
+    print("ascensionsToday = " + get_property("ascensionsToday").to_int());
+    print("don_login_breakfast2_ascensions = " + get_property("don_login_breakfast2_ascensions"));
+    print("breakfastCompleted = " + get_property("breakfastCompleted").to_boolean());
+    print("kingLiberated = " + get_property("kingLiberated").to_boolean());
+}
+
+void don_login_help() {
+    don_header("Don Login / breakfast_1 / breakfast_2");
+    print("don-login help | status | breakfast_1 | breakfast_2 | postascend | eod | install");
+    print("breakfast_1: combo watersheep-free, git update, tracking, raffle, holiday, breakfast, boneFarm, farming.");
+    print("breakfast_2: requires ascensionsToday > 0 and kingLiberated=true.");
+    print("don_login_bone_farm = " + don_login_default_true("don_login_bone_farm") + " (default true)");
+    print("don_login_default_garbo = " + don_login_default_true("don_login_default_garbo") + " (default true)");
+    print("don_login_holidays = " + don_login_default_true("don_login_holidays") + " (default true)");
+    print("don_login_ptrack = " + get_property("don_login_ptrack").to_boolean());
+    print("don_login_auto_eod = " + get_property("don_login_auto_eod").to_boolean());
+    don_breakfast_help();
+}
+
+boolean don_login_raffle_topup() {
+    if (available_amount($item[134]) == 0 &&
+        available_amount($item[pumpkin carriage]) == 0 &&
+        available_amount($item[Desert Bus pass]) == 0) {
+        don_log("Raffle access not detected; skipping top-up.");
+        return true;
+    }
+    int needed = max(0, 111 - don_owned_amount($item[raffle ticket]));
+    if (needed <= 0) return true;
+    return cli_execute("raffle " + needed);
+}
+
+string don_login_detect_holiday() {
+    if (!don_login_default_true("don_login_holidays")) return "none";
+    string page_html = visit_url("main.php");
+    if (contains_text(page_html, "Halloween")) return "halloween";
+    if (contains_text(page_html, "Time Tower")) return "time_tower";
+    if (contains_text(page_html, "Crimbo")) return "crimbo";
+    if (contains_text(page_html, "Feast of Boris"))
+        don_log("Feast of Boris: regular farming route remains selected.");
+    return "none";
+}
+
+boolean don_login_bone_farm() {
+    if (!don_login_default_true("don_login_bone_farm")) return true;
+    return cli_execute("call boneFarm.ash");
+}
+
+boolean don_login_farming() {
+    if (!don_breakfast_validate_modes()) return false;
+    if (get_property("don_breakfast_cowo").to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) return false;
+        return cli_execute("cowo");
+    }
+    if (get_property("don_breakfast_nobarf_combo").to_boolean()) {
+        if (!cli_execute("nobarf")) return false;
+        if (!cli_execute("refresh all")) return false;
+        int turns_remaining = don_breakfast_combo_turns(my_adventures());
+        return turns_remaining < 1 || cli_execute("combo " + turns_remaining);
+    }
+    if (get_property("don_breakfast_nobarf").to_boolean())
+        return cli_execute("nobarf");
+    if (get_property("don_breakfast_barf").to_boolean())
+        return cli_execute("barf");
+    if (!don_login_default_true("don_login_default_garbo")) return true;
+    return cli_execute("barf1");
+}
+
+// Ambiguous in-progress stages remain blocked; do not replay
+// adventures or purchases when a previous invocation was interrupted.
+boolean don_login_breakfast_1() {
+    don_login_sync_date();
+    string stage_name = get_property("don_login_stage");
+    if (stage_name == "done" || stage_name == "in_run_done" ||
+        stage_name == "already_breakfast") {
+        don_log("breakfast_1 already handled today.");
+        return true;
+    }
+    // Required first and second CLI actions, in this exact order.
+    if (stage_name == "new") {
+        set_property("don_login_stage", "free_running");
+        if (!cli_execute("combo watersheep-free")) return false;
+        set_property("don_login_stage", "free_done");
+        stage_name = "free_done";
+    }
+    if (stage_name == "free_done") {
+        set_property("don_login_stage", "update_running");
+        if (!cli_execute("git update")) return false;
+        set_property("don_login_stage", "update_done");
+        stage_name = "update_done";
+    }
+    if (stage_name == "update_done") {
+        if (!don_login_install_aliases())
+            don_warning("Could not install every don-login alias.");
+        set_property("don_login_stage", "aliases_done");
+        stage_name = "aliases_done";
+    }
+    if (stage_name == "aliases_done") {
+        set_property("don_login_stage", "checks_running");
+        don_header("Don login: " + Day() + " " + today_to_string());
+        don_log("Bounty item: " + to_item(get_property("currentBountyItem")));
+        if (!cli_execute("counters")) don_warning("Counters report unavailable.");
+        if (!cli_execute("conditions")) don_warning("Conditions report unavailable.");
+        don_login_track("login_start");
+        if (!don_login_raffle_topup()) return false;
+        set_property("don_login_holiday", don_login_detect_holiday());
+        set_property("don_login_stage", "checks_done");
+        stage_name = "checks_done";
+    }
+    if (stage_name == "checks_done") {
+        if (get_property("breakfastCompleted").to_boolean()) {
+            don_warning("Native breakfast was completed before breakfast_1; no automatic Garbo.");
+            set_property("don_login_stage", "already_breakfast");
+            return true;
+        }
+        if (!get_property("kingLiberated").to_boolean()) {
+            set_property("don_login_stage", "in_run_running");
+            if (!cli_execute("breakfast")) return false;
+            set_property("don_login_stage", "in_run_done");
+            return true;
+        }
+        set_property("don_login_stage", "breakfast_running");
+        if (!don_breakfast_prepare_daily()) return false;
+        set_property("don_login_stage", "breakfast_done");
+        don_login_track("breakfast_1_done");
+        stage_name = "breakfast_done";
+    }
+    if (stage_name == "breakfast_done") {
+        string holiday_name = get_property("don_login_holiday");
+        if (holiday_name != "" && holiday_name != "none") {
+            set_property("don_login_stage", "holiday_running");
+            if (holiday_name == "halloween" && !cli_execute("freecandy"))
+                return false;
+            if ((holiday_name == "time_tower" || holiday_name == "crimbo") &&
+                !cli_execute("nobarf")) return false;
+            set_property("don_login_stage", "done");
+            return true;
+        }
+        set_property("don_login_stage", "bone_running");
+        if (!don_login_bone_farm()) return false;
+        set_property("don_login_stage", "bone_done");
+        stage_name = "bone_done";
+    }
+    if (stage_name == "bone_done") {
+        set_property("don_login_stage", "farm_running");
+        if (!don_login_farming()) return false;
+        set_property("don_login_stage", "done");
+        don_login_track("login_farm_done");
+        if (get_property("don_login_auto_eod").to_boolean())
+            return don_post_run_from("start");
+        return true;
+    }
+    don_warning("don_login paused at stage " + get_property("don_login_stage") +
+                "; inspect actions before manually repairing the checkpoint.");
+    return false;
+}
+
+// Daily count, not my_ascensions() lifetime count. Once per ascension value.
+boolean don_login_breakfast_2() {
+    int daily_count = get_property("ascensionsToday").to_int();
+    if (!don_login_second_allowed(daily_count)) {
+        don_warning("breakfast_2 requires ascensionsToday > 0.");
+        return false;
+    }
+    if (!get_property("kingLiberated").to_boolean()) {
+        don_warning("breakfast_2 requires kingLiberated=true.");
+        return false;
+    }
+    don_login_sync_date();
+    if (get_property("don_login_breakfast2_ascensions").to_int() >= daily_count) {
+        don_log("breakfast_2 already attempted for ascension #" + daily_count);
+        return true;
+    }
+    set_property("don_login_breakfast2_ascensions", daily_count);
+    don_login_track("breakfast_2_start");
+    if (!don_breakfast_prepare_daily()) return false;
+    if (!don_login_bone_farm()) return false;
+    if (!don_login_farming()) return false;
+    don_login_track("breakfast_2_done");
+    if (get_property("don_login_auto_eod").to_boolean())
+        return don_post_run_from("start");
+    return true;
+}
+
+boolean don_login_eod() {
+    don_login_track("login_eod_start");
+    return don_post_run_from("eod");
+}
+
+void don_login() { don_login_breakfast_1(); }

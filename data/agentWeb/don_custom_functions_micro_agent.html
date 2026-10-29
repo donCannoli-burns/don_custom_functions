@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>don_custom_functions · micro-agent</title><style>body{max-width:1050px;margin:20px auto;padding:18px;font:15px/1.5 system-ui;color:#000;background:#fcfcff}header{background:#abd1f3;border:2px solid black;padding:15px}article{padding:14px;border:1px solid #444;background:white;margin:12px 0;overflow-wrap:anywhere}article:target{outline:3px solid #4a94c6}a{color:#14537a}code,pre{font-family:monospace}pre{padding:12px;background:#dff7fa;white-space:pre-wrap;overflow-wrap:anywhere;max-height:600px;overflow:auto}input{box-sizing:border-box;width:100%;padding:10px;border:2px solid #000}details{padding:5px}small{color:#444}</style></head><body><header><h1>don_custom_functions · micro-agent</h1><p>Agent Web v0.1 — read-only static source index, no model embeddings or executable functions</p></header><p>34 function definitions, 64/80 resolved outgoing calls crossing ladders (80%, agent-web-review-for-merge). Static lexical estimate; import link not included in percentage.</p><p><a href="agent_web_index/don_custom_functions.html5">Index</a> · <a href="agent_web_actual/don_custom_functions.html5">Actual</a> · <a href="don_master_lib_micro_agent.html">Other ladder</a></p><label for="search">Search by name, signature, keyword or link</label><input id="search" type="search" placeholder="item, familiar, consume, quest"><p id="count">34 matching functions</p><article class="entry" id="fn-11-1" data-search="possessitem boolean possessitem(item thingy) possess item boolean possessitem thingy amount closet have equipped cli execute don warning  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>possessItem <small>[11.1]</small></h2><p><code>boolean possessItem(item thingy)</code></p><p>scripts/don_custom_functions.ash:69–78</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-1">function_index11.1.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-1">function_actual11.1.2</a></p><p><strong>Keywords:</strong> possess, item, boolean, possessitem, thingy, amount, closet, have, equipped, cli, execute, don, warning</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean possessItem(item thingy) {
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>don_custom_functions · micro-agent</title><style>body{max-width:1050px;margin:20px auto;padding:18px;font:15px/1.5 system-ui;color:#000;background:#fcfcff}header{background:#abd1f3;border:2px solid black;padding:15px}article{padding:14px;border:1px solid #444;background:white;margin:12px 0;overflow-wrap:anywhere}article:target{outline:3px solid #4a94c6}a{color:#14537a}code,pre{font-family:monospace}pre{padding:12px;background:#dff7fa;white-space:pre-wrap;overflow-wrap:anywhere;max-height:600px;overflow:auto}input{box-sizing:border-box;width:100%;padding:10px;border:2px solid #000}details{padding:5px}small{color:#444}</style></head><body><header><h1>don_custom_functions · micro-agent</h1><p>Agent Web v0.1 — read-only static source index, no model embeddings or executable functions</p></header><p>83 function definitions, 102/199 resolved outgoing calls crossing ladders (51.26%, agent-web-strong). Static lexical estimate; import link not included in percentage.</p><p><a href="agent_web_index/don_custom_functions.html5">Index</a> · <a href="agent_web_actual/don_custom_functions.html5">Actual</a> · <a href="don_master_lib_micro_agent.html">Other ladder</a></p><label for="search">Search by name, signature, keyword or link</label><input id="search" type="search" placeholder="item, familiar, consume, quest"><p id="count">83 matching functions</p><article class="entry" id="fn-11-1" data-search="possessitem boolean possessitem(item thingy) possess item boolean possessitem thingy amount closet have equipped cli execute don warning  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>possessItem <small>[11.1]</small></h2><p><code>boolean possessItem(item thingy)</code></p><p>scripts/don_custom_functions.ash:69–78</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-1">function_index11.1.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-1">function_actual11.1.2</a></p><p><strong>Keywords:</strong> possess, item, boolean, possessitem, thingy, amount, closet, have, equipped, cli, execute, don, warning</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean possessItem(item thingy) {
     // Historically this function unequipped matching equipment; retain that
     // behavior for callers relying on it. For a pure test, use don_have().
     if (item_amount(thingy) &gt; 0 || closet_amount(thingy) &gt; 0) return true;
@@ -397,8 +397,11 @@
         cli_execute(&quot;drink stillsuit distillate&quot;);
     }
 }</code></pre></details></article>
-<article class="entry" id="fn-11-25" data-search="getcool void getcool() get cool void getcool outfit refresh status property boolean inebriety limit stooperdis familiar have don warning use error cli execute visit url buffer file available choice options handling run good  stooperdis   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_good   (agent_filament_strong_frame_bridge_thread) "><h2>getCool <small>[11.25]</small></h2><p><code>void getCool()</code></p><p>scripts/don_custom_functions.ash:504–543</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-25">function_index11.25.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-25">function_actual11.25.2</a></p><p><strong>Keywords:</strong> get, cool, void, getcool, outfit, refresh, status, property, boolean, inebriety, limit, stooperdis, familiar, have, don, warning, use, error, cli, execute, visit, url, buffer, file, available, choice, options, handling, run, good</p><p><strong>Filaments:</strong> <a href="#fn-11-24">stooperDis</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-2">don_good</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void getCool() {
-    outfit(&quot;maxo&quot;);
+<article class="entry" id="fn-11-25" data-search="don_get_cool boolean don_get_cool() don get cool boolean outfit warning refresh status property inebriety limit stooperdis familiar have use error cli execute visit url buffer file available choice options handling run good  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  stooperdis   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_good   (agent_filament_strong_frame_bridge_thread) "><h2>don_get_cool <small>[11.25]</small></h2><p><code>boolean don_get_cool()</code></p><p>scripts/don_custom_functions.ash:505–554</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-25">function_index11.25.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-25">function_actual11.25.2</a></p><p><strong>Keywords:</strong> don, get, cool, boolean, outfit, warning, refresh, status, property, inebriety, limit, stooperdis, familiar, have, use, error, cli, execute, visit, url, buffer, file, available, choice, options, handling, run, good</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-24">stooperDis</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-2">don_good</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_get_cool() {
+    if (!outfit(&quot;maxo&quot;)) {
+        don_warning(&quot;getCool: missing maxo outfit.&quot;);
+        return false;
+    }
     refresh_status();
     if (!get_property(&quot;_communismUsed&quot;).to_boolean() &amp;&amp;
         my_inebriety() == inebriety_limit() - 1)
@@ -408,36 +411,45 @@
     familiar yeti = $familiar[cooler yeti];
     if (!have_familiar(yeti) || yeti.experience &lt; 400) {
         don_warning(&quot;Cooler Yeti missing or below 400 XP.&quot;);
-        return;
+        return false;
     }
     if (!use_familiar(yeti)) {
         don_error(&quot;Unable to equip Cooler Yeti.&quot;);
-        return;
+        return false;
     }
-    cli_execute(&quot;cast ode to booze&quot;);
+    if (!cli_execute(&quot;cast ode to booze&quot;)) {
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
 
-    // Explicit choice validation: do not submit unrelated choice options.
     buffer page = visit_url(&quot;main.php?talktoyeti=1&quot;, false, true);
     buffer_to_file(page, &quot;_yeti_talk2.html&quot;);
     string[int] choices = available_choice_options();
     if (!handling_choice() || choices[2] == &quot;&quot;) {
         don_error(&quot;Cooler Yeti did not offer expected first option 2.&quot;);
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(2);
     choices = available_choice_options();
     if (!handling_choice() || choices[1] == &quot;&quot;) {
         don_error(&quot;Cooler Yeti did not offer expected follow-up option 1.&quot;);
         if (previous != $familiar[none]) use_familiar(previous);
-        return;
+        return false;
     }
     run_choice(1);
-
+    if (handling_choice()) {
+        don_error(&quot;Cooler Yeti follow-up choice remains open.&quot;);
+        if (previous != $familiar[none]) use_familiar(previous);
+        return false;
+    }
     if (previous != $familiar[none]) use_familiar(previous);
     don_good(&quot;Yeti drink enhancement sequence submitted.&quot;);
+    return true;
 }</code></pre></details></article>
-<article class="entry" id="fn-11-26" data-search="shrugat void shrugat() shrug void shrugat cli execute no resolved project calls"><h2>shrugAT <small>[11.26]</small></h2><p><code>void shrugAT()</code></p><p>scripts/don_custom_functions.ash:545–553</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-26">function_index11.26.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-26">function_actual11.26.2</a></p><p><strong>Keywords:</strong> shrug, void, shrugat, cli, execute</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>void shrugAT() {
+<article class="entry" id="fn-11-26" data-search="getcool void getcool() get cool void getcool don  don_get_cool   (agent_filament_strong_frame_bearing_guy) "><h2>getCool <small>[11.26]</small></h2><p><code>void getCool()</code></p><p>scripts/don_custom_functions.ash:557–557</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-26">function_index11.26.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-26">function_actual11.26.2</a></p><p><strong>Keywords:</strong> get, cool, void, getcool, don</p><p><strong>Filaments:</strong> <a href="#fn-11-25">don_get_cool</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void getCool() { don_get_cool(); }</code></pre></details></article>
+<article class="entry" id="fn-11-27" data-search="get_cool void get_cool() get cool void don  don_get_cool   (agent_filament_strong_frame_bearing_guy) "><h2>get_cool <small>[11.27]</small></h2><p><code>void get_cool()</code></p><p>scripts/don_custom_functions.ash:558–558</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-27">function_index11.27.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-27">function_actual11.27.2</a></p><p><strong>Keywords:</strong> get, cool, void, don</p><p><strong>Filaments:</strong> <a href="#fn-11-25">don_get_cool</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void get_cool() { don_get_cool(); }</code></pre></details></article>
+<article class="entry" id="fn-11-28" data-search="shrugat void shrugat() shrug void shrugat cli execute no resolved project calls"><h2>shrugAT <small>[11.28]</small></h2><p><code>void shrugAT()</code></p><p>scripts/don_custom_functions.ash:561–569</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-28">function_index11.28.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-28">function_actual11.28.2</a></p><p><strong>Keywords:</strong> shrug, void, shrugat, cli, execute</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>void shrugAT() {
     cli_execute(&quot;shrug Stevedave&#39;s Shanty of Superiority&quot;);
     cli_execute(&quot;shrug Power Ballad of the Arrowsmith&quot;);
     cli_execute(&quot;shrug The Moxious Madrigal&quot;);
@@ -446,7 +458,7 @@
     cli_execute(&quot;shrug Jackasses&#39; Symphony of Destruction&quot;);
     cli_execute(&quot;shrug Brawnee&#39;s Anthem of Absorption&quot;);
 }</code></pre></details></article>
-<article class="entry" id="fn-11-27" data-search="don_mayam void don_mayam() don mayam void available amount get property boolean have familiar warning use error cli execute set good  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_good   (agent_filament_strong_frame_bridge_thread) "><h2>don_mayam <small>[11.27]</small></h2><p><code>void don_mayam()</code></p><p>scripts/don_custom_functions.ash:555–581</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-27">function_index11.27.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-27">function_actual11.27.2</a></p><p><strong>Keywords:</strong> don, mayam, void, available, amount, get, property, boolean, have, familiar, warning, use, error, cli, execute, set, good</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-2">don_good</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_mayam() {
+<article class="entry" id="fn-11-29" data-search="don_mayam void don_mayam() don mayam void available amount get property boolean have familiar warning use error cli execute set good  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_good   (agent_filament_strong_frame_bridge_thread) "><h2>don_mayam <small>[11.29]</small></h2><p><code>void don_mayam()</code></p><p>scripts/don_custom_functions.ash:571–597</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-29">function_index11.29.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-29">function_actual11.29.2</a></p><p><strong>Keywords:</strong> don, mayam, void, available, amount, get, property, boolean, have, familiar, warning, use, error, cli, execute, set, good</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-2">don_good</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_mayam() {
     if (available_amount($item[Mayam Calendar]) == 0 ||
         get_property(&quot;_don_mayam_done&quot;).to_boolean()) return;
 
@@ -473,23 +485,220 @@
         don_error(&quot;Mayam command failed; completion pref unchanged.&quot;);
     }
 }</code></pre></details></article>
-<article class="entry" id="fn-11-28" data-search="augmentbreakfast void augmentbreakfast() augment breakfast void augmentbreakfast get property boolean don log cli execute warning raffle int available amount use mayam  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  raffle   (agent_filament_strong_frame_bearing_guy)  ·  don_mayam   (agent_filament_strong_frame_bearing_guy) "><h2>augmentBreakfast <small>[11.28]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:583–598</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-28">function_index11.28.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-28">function_actual11.28.2</a></p><p><strong>Keywords:</strong> augment, breakfast, void, augmentbreakfast, get, property, boolean, don, log, cli, execute, warning, raffle, int, available, amount, use, mayam</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-15">raffle</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-27">don_mayam</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void augmentBreakfast() {
-    if (get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
-        don_log(&quot;Breakfast already completed.&quot;);
+<article class="entry" id="fn-11-30" data-search="cockroach_fight_prep boolean cockroach_fight_prep() cockroach fight prep boolean get property don log inebriety limit warning set cli execute  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>cockroach_fight_prep <small>[11.30]</small></h2><p><code>boolean cockroach_fight_prep()</code></p><p>scripts/don_custom_functions.ash:602–620</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-30">function_index11.30.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-30">function_actual11.30.2</a></p><p><strong>Keywords:</strong> cockroach, fight, prep, boolean, get, property, don, log, inebriety, limit, warning, set, cli, execute</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean cockroach_fight_prep() {
+    if (get_property(&quot;_lastPirateRealmIsland&quot;) == &quot;Trash Island&quot;) {
+        don_log(&quot;PirateRealm already points to Trash Island.&quot;);
+        return true;
+    }
+    if (my_inebriety() &gt; inebriety_limit()) {
+        don_warning(&quot;Cockroach prep skipped: character is overdrunk.&quot;);
+        return false;
+    }
+    set_property(&quot;_don_cockroachRouteResult&quot;, &quot;not-run&quot;);
+    if (!cli_execute(&quot;call don_cockroach_router.ash&quot;)) {
+        don_warning(&quot;Cockroach router failed or is unavailable.&quot;);
+        return false;
+    }
+    boolean done = get_property(&quot;_don_cockroachRouteResult&quot;) == &quot;success&quot; &amp;&amp;
+                   get_property(&quot;_lastPirateRealmIsland&quot;) == &quot;Trash Island&quot;;
+    if (!done) don_warning(&quot;Cockroach preparation incomplete; review router logs.&quot;);
+    return done;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-31" data-search="don_breakfast_is_pastamancer boolean don_breakfast_is_pastamancer(class character_class) don breakfast pastamancer boolean class character no resolved project calls"><h2>don_breakfast_is_pastamancer <small>[11.31]</small></h2><p><code>boolean don_breakfast_is_pastamancer(class character_class)</code></p><p>scripts/don_custom_functions.ash:625–627</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-31">function_index11.31.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-31">function_actual11.31.2</a></p><p><strong>Keywords:</strong> don, breakfast, pastamancer, boolean, class, character</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_breakfast_is_pastamancer(class character_class) {
+    return character_class == $class[Pastamancer];
+}</code></pre></details></article>
+<article class="entry" id="fn-11-32" data-search="don_breakfast_combo_turns int don_breakfast_combo_turns(int adventures_available) don breakfast combo turns int adventures available no resolved project calls"><h2>don_breakfast_combo_turns <small>[11.32]</small></h2><p><code>int don_breakfast_combo_turns(int adventures_available)</code></p><p>scripts/don_custom_functions.ash:629–632</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-32">function_index11.32.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-32">function_actual11.32.2</a></p><p><strong>Keywords:</strong> don, breakfast, combo, turns, int, adventures, available</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>int don_breakfast_combo_turns(int adventures_available) {
+    if (adventures_available &lt;= 15) return 0;
+    return adventures_available - 15;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-33" data-search="don_breakfast_legacy_preference string don_breakfast_legacy_preference(string canonical) don breakfast legacy preference string canonical no resolved project calls"><h2>don_breakfast_legacy_preference <small>[11.33]</small></h2><p><code>string don_breakfast_legacy_preference(string canonical)</code></p><p>scripts/don_custom_functions.ash:636–643</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-33">function_index11.33.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-33">function_actual11.33.2</a></p><p><strong>Keywords:</strong> don, breakfast, legacy, preference, string, canonical</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>string don_breakfast_legacy_preference(string canonical) {
+    if (canonical == &quot;don_breakfast_barf&quot;) return &quot;donBreakfastBarf&quot;;
+    if (canonical == &quot;don_breakfast_nobarf&quot;) return &quot;donBreakfastNobarf&quot;;
+    if (canonical == &quot;don_breakfast_cowo&quot;) return &quot;donBreakfastCowo&quot;;
+    if (canonical == &quot;don_breakfast_nobarf_combo&quot;) return &quot;donBreakfastNobarfCombo&quot;;
+    if (canonical == &quot;don_breakfast_cockroach&quot;) return &quot;don_breakfastCockroach&quot;;
+    return &quot;&quot;;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-34" data-search="don_breakfast_preference_enabled boolean don_breakfast_preference_enabled(string canonical) don breakfast preference enabled boolean string canonical get property legacy  don_breakfast_legacy_preference   (agent_filament_strong_frame_bearing_guy) "><h2>don_breakfast_preference_enabled <small>[11.34]</small></h2><p><code>boolean don_breakfast_preference_enabled(string canonical)</code></p><p>scripts/don_custom_functions.ash:645–652</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-34">function_index11.34.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-34">function_actual11.34.2</a></p><p><strong>Keywords:</strong> don, breakfast, preference, enabled, boolean, string, canonical, get, property, legacy</p><p><strong>Filaments:</strong> <a href="#fn-11-33">don_breakfast_legacy_preference</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_breakfast_preference_enabled(string canonical) {
+    string saved_value = get_property(canonical);
+    if (saved_value == &quot;&quot;) {
+        string legacy_name = don_breakfast_legacy_preference(canonical);
+        if (legacy_name != &quot;&quot;) saved_value = get_property(legacy_name);
+    }
+    return saved_value.to_boolean();
+}</code></pre></details></article>
+<article class="entry" id="fn-11-35" data-search="don_breakfast_migrate_one void don_breakfast_migrate_one(string canonical) don breakfast migrate one void string canonical get property legacy preference set boolean  don_breakfast_legacy_preference   (agent_filament_strong_frame_bearing_guy) "><h2>don_breakfast_migrate_one <small>[11.35]</small></h2><p><code>void don_breakfast_migrate_one(string canonical)</code></p><p>scripts/don_custom_functions.ash:654–661</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-35">function_index11.35.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-35">function_actual11.35.2</a></p><p><strong>Keywords:</strong> don, breakfast, migrate, one, void, string, canonical, get, property, legacy, preference, set, boolean</p><p><strong>Filaments:</strong> <a href="#fn-11-33">don_breakfast_legacy_preference</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_breakfast_migrate_one(string canonical) {
+    if (get_property(canonical) != &quot;&quot;) return;
+    string legacy_name = don_breakfast_legacy_preference(canonical);
+    if (legacy_name == &quot;&quot;) return;
+    string legacy_value = get_property(legacy_name);
+    if (legacy_value == &quot;&quot;) return;
+    set_property(canonical, legacy_value.to_boolean() ? &quot;true&quot; : &quot;false&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-36" data-search="don_breakfast_migrate_preferences void don_breakfast_migrate_preferences() don breakfast migrate preferences void one  don_breakfast_migrate_one   (agent_filament_strong_frame_bearing_guy) "><h2>don_breakfast_migrate_preferences <small>[11.36]</small></h2><p><code>void don_breakfast_migrate_preferences()</code></p><p>scripts/don_custom_functions.ash:663–669</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-36">function_index11.36.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-36">function_actual11.36.2</a></p><p><strong>Keywords:</strong> don, breakfast, migrate, preferences, void, one</p><p><strong>Filaments:</strong> <a href="#fn-11-35">don_breakfast_migrate_one</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_breakfast_migrate_preferences() {
+    don_breakfast_migrate_one(&quot;don_breakfast_barf&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_nobarf&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_cowo&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_nobarf_combo&quot;);
+    don_breakfast_migrate_one(&quot;don_breakfast_cockroach&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-37" data-search="don_breakfast_active_modes int don_breakfast_active_modes() don breakfast active modes int get property boolean no resolved project calls"><h2>don_breakfast_active_modes <small>[11.37]</small></h2><p><code>int don_breakfast_active_modes()</code></p><p>scripts/don_custom_functions.ash:671–678</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-37">function_index11.37.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-37">function_actual11.37.2</a></p><p><strong>Keywords:</strong> don, breakfast, active, modes, int, get, property, boolean</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>int don_breakfast_active_modes() {
+    int active = 0;
+    if (get_property(&quot;don_breakfast_barf&quot;).to_boolean()) active += 1;
+    if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean()) active += 1;
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) active += 1;
+    if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) active += 1;
+    return active;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-38" data-search="don_breakfast_mode_preference string don_breakfast_mode_preference(string mode_name) don breakfast mode preference string name no resolved project calls"><h2>don_breakfast_mode_preference <small>[11.38]</small></h2><p><code>string don_breakfast_mode_preference(string mode_name)</code></p><p>scripts/don_custom_functions.ash:680–689</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-38">function_index11.38.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-38">function_actual11.38.2</a></p><p><strong>Keywords:</strong> don, breakfast, mode, preference, string, name</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>string don_breakfast_mode_preference(string mode_name) {
+    if (mode_name == &quot;barf&quot;) return &quot;don_breakfast_barf&quot;;
+    if (mode_name == &quot;nobarf&quot;) return &quot;don_breakfast_nobarf&quot;;
+    if (mode_name == &quot;cowo&quot;) return &quot;don_breakfast_cowo&quot;;
+    if (mode_name == &quot;nobarfcombo&quot; || mode_name == &quot;nobarf-combo&quot;)
+        return &quot;don_breakfast_nobarf_combo&quot;;
+    if (mode_name == &quot;cockroach&quot; || mode_name == &quot;roaches&quot;)
+        return &quot;don_breakfast_cockroach&quot;;
+    return &quot;&quot;;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-39" data-search="don_breakfast_set_mode boolean don_breakfast_set_mode(string mode_name, boolean enabled) don breakfast set mode boolean string name enabled preference warning migrate preferences active modes property pastamancer class  don_breakfast_mode_preference   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_breakfast_migrate_preferences   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_active_modes   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_is_pastamancer   (agent_filament_strong_frame_bearing_guy) "><h2>don_breakfast_set_mode <small>[11.39]</small></h2><p><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled)</code></p><p>scripts/don_custom_functions.ash:692–729</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-39">function_index11.39.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-39">function_actual11.39.2</a></p><p><strong>Keywords:</strong> don, breakfast, set, mode, boolean, string, name, enabled, preference, warning, migrate, preferences, active, modes, property, pastamancer, class</p><p><strong>Filaments:</strong> <a href="#fn-11-38">don_breakfast_mode_preference</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-36">don_breakfast_migrate_preferences</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-37">don_breakfast_active_modes</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-31">don_breakfast_is_pastamancer</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_breakfast_set_mode(string mode_name, boolean enabled) {
+    string preference_name = don_breakfast_mode_preference(mode_name);
+    if (preference_name == &quot;&quot;) {
+        don_warning(&quot;Unknown breakfast mode: &quot; + mode_name);
+        return false;
+    }
+
+    don_breakfast_migrate_preferences();
+
+    if (preference_name == &quot;don_breakfast_cockroach&quot;) {
+        if (!enabled &amp;&amp; don_breakfast_active_modes() &gt; 0) {
+            don_warning(&quot;Cannot turn off cockroach prep while a farming mode is enabled.&quot;);
+            return false;
+        }
+        set_property(preference_name, enabled ? &quot;true&quot; : &quot;false&quot;);
+        return true;
+    }
+
+    if (enabled &amp;&amp; preference_name == &quot;don_breakfast_cowo&quot; &amp;&amp;
+        !don_breakfast_is_pastamancer(my_class())) {
+        set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+        don_warning(&quot;Cowo requires Pastamancer. don_breakfast_cowo reset to false.&quot;);
+        return false;
+    }
+
+    if (enabled) {
+        // Only one farming mode may be active. Roach preparation is required.
+        set_property(&quot;don_breakfast_barf&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_nobarf&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+        set_property(&quot;don_breakfast_nobarf_combo&quot;, &quot;false&quot;);
+        set_property(preference_name, &quot;true&quot;);
+        set_property(&quot;don_breakfast_cockroach&quot;, &quot;true&quot;);
+    } else {
+        set_property(preference_name, &quot;false&quot;);
+    }
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-40" data-search="don_breakfast_help void don_breakfast_help() don breakfast help void header print preference enabled pastamancer class  don_header   (agent_filament_strong_frame_bridge_thread)  ·  don_breakfast_preference_enabled   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_is_pastamancer   (agent_filament_strong_frame_bearing_guy) "><h2>don_breakfast_help <small>[11.40]</small></h2><p><code>void don_breakfast_help()</code></p><p>scripts/don_custom_functions.ash:732–752</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-40">function_index11.40.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-40">function_actual11.40.2</a></p><p><strong>Keywords:</strong> don, breakfast, help, void, header, print, preference, enabled, pastamancer, class</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-7">don_header</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-34">don_breakfast_preference_enabled</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-31">don_breakfast_is_pastamancer</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_breakfast_help() {
+    don_header(&quot;donBreakfast preferences&quot;);
+    print(&quot;don_breakfast_barf = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_barf&quot;));
+    print(&quot;don_breakfast_nobarf = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_nobarf&quot;));
+    print(&quot;don_breakfast_cowo = &quot; + don_breakfast_preference_enabled(&quot;don_breakfast_cowo&quot;) +
+          &quot; (Pastamancer only; eligible: &quot; +
+          don_breakfast_is_pastamancer(my_class()) + &quot;)&quot;);
+    print(&quot;don_breakfast_nobarf_combo = &quot; +
+          don_breakfast_preference_enabled(&quot;don_breakfast_nobarf_combo&quot;) +
+          &quot; (nobarf, refresh all, combo with 15 adventures reserved)&quot;);
+    print(&quot;don_breakfast_cockroach = &quot; +
+          don_breakfast_preference_enabled(&quot;don_breakfast_cockroach&quot;) +
+          &quot; (required for every farming mode)&quot;);
+    print(&quot;All modes default to false when their preference is unset.&quot;);
+    print(&quot;Old preference values appear until migrated during mode changes or run.&quot;);
+    print(&quot;donBreakfast help | status | run&quot;);
+    print(&quot;donBreakfast barf|nobarf|cowo|nobarfcombo on|off&quot;);
+    print(&quot;donBreakfast cockroach on|off&quot;);
+    print(&quot;Using &#39;on&#39; disables competing farming modes and enables cockroach prep.&quot;);
+    print(&quot;Direct CLI &#39;set&#39; changes are validated when breakfast runs.&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-41" data-search="don_breakfast_validate_modes boolean don_breakfast_validate_modes() don breakfast validate modes boolean migrate preferences get property pastamancer class set warning active error log  don_breakfast_migrate_preferences   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_is_pastamancer   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_breakfast_active_modes   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_log   (agent_filament_strong_frame_bridge_thread) "><h2>don_breakfast_validate_modes <small>[11.41]</small></h2><p><code>boolean don_breakfast_validate_modes()</code></p><p>scripts/don_custom_functions.ash:756–773</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-41">function_index11.41.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-41">function_actual11.41.2</a></p><p><strong>Keywords:</strong> don, breakfast, validate, modes, boolean, migrate, preferences, get, property, pastamancer, class, set, warning, active, error, log</p><p><strong>Filaments:</strong> <a href="#fn-11-36">don_breakfast_migrate_preferences</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-31">don_breakfast_is_pastamancer</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-37">don_breakfast_active_modes</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_breakfast_validate_modes() {
+    don_breakfast_migrate_preferences();
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean() &amp;&amp;
+        !don_breakfast_is_pastamancer(my_class())) {
+        set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+        don_warning(&quot;Non-Pastamancer: don_breakfast_cowo reset to false.&quot;);
+    }
+    int active = don_breakfast_active_modes();
+    if (active &gt; 1) {
+        don_error(&quot;Conflicting breakfast modes: no farming will run. Use donBreakfast &lt;mode&gt; on or turn the unwanted preferences off.&quot;);
+        return false;
+    }
+    if (active == 1 &amp;&amp; !get_property(&quot;don_breakfast_cockroach&quot;).to_boolean()) {
+        set_property(&quot;don_breakfast_cockroach&quot;, &quot;true&quot;);
+        don_log(&quot;Enabled cockroach prep for the active breakfast farming mode.&quot;);
+    }
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-42" data-search="don_breakfast_run_farming_mode void don_breakfast_run_farming_mode() don breakfast run farming mode void get property boolean pastamancer class set warning cli execute error combo turns adventures log  don_breakfast_is_pastamancer   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_breakfast_combo_turns   (agent_filament_strong_frame_bearing_guy)  ·  don_log   (agent_filament_strong_frame_bridge_thread) "><h2>don_breakfast_run_farming_mode <small>[11.42]</small></h2><p><code>void don_breakfast_run_farming_mode()</code></p><p>scripts/don_custom_functions.ash:775–811</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-42">function_index11.42.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-42">function_actual11.42.2</a></p><p><strong>Keywords:</strong> don, breakfast, run, farming, mode, void, get, property, boolean, pastamancer, class, set, warning, cli, execute, error, combo, turns, adventures, log</p><p><strong>Filaments:</strong> <a href="#fn-11-31">don_breakfast_is_pastamancer</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-32">don_breakfast_combo_turns</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_breakfast_run_farming_mode() {
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) {
+            set_property(&quot;don_breakfast_cowo&quot;, &quot;false&quot;);
+            don_warning(&quot;Cowo skipped: only Pastamancers may enable it.&quot;);
+            return;
+        }
+        if (!cli_execute(&quot;cowo&quot;)) don_error(&quot;cowo CLI command failed.&quot;);
         return;
     }
-    if (!cli_execute(&quot;breakfast&quot;)) don_warning(&quot;Native breakfast command failed.&quot;);
-    raffle();
-    if (!get_property(&quot;_aprilShower&quot;).to_boolean())
-        cli_execute(&quot;shower ice&quot;);
-    if (get_property(&quot;bankedKarma&quot;).to_int() &gt; 2000 &amp;&amp;
-        available_amount($item[The Big Book of Every Skill]) &gt; 0)
-        use(1, $item[The Big Book of Every Skill]);
-    don_mayam();
-    if (!cli_execute(&quot;call don_praccess.ash&quot;))
-        don_warning(&quot;Optional don_praccess.ash failed or is not installed.&quot;);
+
+    if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) {
+        if (!cli_execute(&quot;nobarf&quot;)) {
+            don_error(&quot;nobarf failed. Skipping refresh and combo.&quot;);
+            return;
+        }
+        if (!cli_execute(&quot;refresh all&quot;)) {
+            don_error(&quot;refresh all failed. Skipping combo.&quot;);
+            return;
+        }
+        int combo_turns = don_breakfast_combo_turns(my_adventures());
+        if (combo_turns == 0) {
+            don_log(&quot;nobarf finished; 15-adventure reserve leaves no combo turns.&quot;);
+            return;
+        }
+        if (!cli_execute(&quot;combo &quot; + combo_turns))
+            don_error(&quot;combo failed after nobarf and refresh.&quot;);
+        return;
+    }
+
+    if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean()) {
+        if (!cli_execute(&quot;nobarf&quot;)) don_error(&quot;nobarf CLI command failed.&quot;);
+        return;
+    }
+    if (get_property(&quot;don_breakfast_barf&quot;).to_boolean() &amp;&amp;
+        !cli_execute(&quot;barf&quot;)) don_error(&quot;barf CLI command failed.&quot;);
 }</code></pre></details></article>
-<article class="entry" id="fn-11-29" data-search="baseline void baseline() baseline void shrugat cli execute set property have effect item amount buy  shrugat   (agent_filament_strong_frame_bearing_guy) "><h2>Baseline <small>[11.29]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:600–616</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-29">function_index11.29.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-29">function_actual11.29.2</a></p><p><strong>Keywords:</strong> baseline, void, shrugat, cli, execute, set, property, have, effect, item, amount, buy</p><p><strong>Filaments:</strong> <a href="#fn-11-26">shrugAT</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void Baseline() {
+<article class="entry" id="fn-11-43" data-search="don_breakfast_prepare_daily boolean don_breakfast_prepare_daily() don breakfast prepare daily boolean validate modes get property cli execute log raffle warning int available amount use mayam cockroach fight prep  don_breakfast_validate_modes   (agent_filament_strong_frame_bearing_guy)  ·  don_log   (agent_filament_strong_frame_bridge_thread)  ·  raffle   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_mayam   (agent_filament_strong_frame_bearing_guy)  ·  cockroach_fight_prep   (agent_filament_strong_frame_bearing_guy) "><h2>don_breakfast_prepare_daily <small>[11.43]</small></h2><p><code>boolean don_breakfast_prepare_daily()</code></p><p>scripts/don_custom_functions.ash:815–834</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-43">function_index11.43.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-43">function_actual11.43.2</a></p><p><strong>Keywords:</strong> don, breakfast, prepare, daily, boolean, validate, modes, get, property, cli, execute, log, raffle, warning, int, available, amount, use, mayam, cockroach, fight, prep</p><p><strong>Filaments:</strong> <a href="#fn-11-41">don_breakfast_validate_modes</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-15">raffle</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-29">don_mayam</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-30">cockroach_fight_prep</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_breakfast_prepare_daily() {
+    if (!don_breakfast_validate_modes()) return false;
+    if (!get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
+        if (!cli_execute(&quot;breakfast&quot;)) return false;
+    } else don_log(&quot;Native breakfast already completed; checking Don daily tasks.&quot;);
+    raffle();
+    if (!get_property(&quot;_aprilShower&quot;).to_boolean() &amp;&amp;
+        !cli_execute(&quot;shower ice&quot;)) don_warning(&quot;Shower ice command failed.&quot;);
+    if (get_property(&quot;bankedKarma&quot;).to_int() &gt; 2000 &amp;&amp;
+        available_amount($item[The Big Book of Every Skill]) &gt; 0 &amp;&amp;
+        !use(1, $item[The Big Book of Every Skill]))
+        don_warning(&quot;Could not use Big Book of Every Skill.&quot;);
+    don_mayam();
+    if (get_property(&quot;don_breakfast_cockroach&quot;).to_boolean() &amp;&amp;
+        !cockroach_fight_prep()) {
+        don_warning(&quot;Cockroach route failed; stopping before farming.&quot;);
+        return false;
+    }
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-44" data-search="augmentbreakfast void augmentbreakfast() augment breakfast void augmentbreakfast don prepare daily run farming mode  don_breakfast_prepare_daily   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_run_farming_mode   (agent_filament_strong_frame_bearing_guy) "><h2>augmentBreakfast <small>[11.44]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:836–839</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-44">function_index11.44.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-44">function_actual11.44.2</a></p><p><strong>Keywords:</strong> augment, breakfast, void, augmentbreakfast, don, prepare, daily, run, farming, mode</p><p><strong>Filaments:</strong> <a href="#fn-11-43">don_breakfast_prepare_daily</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-42">don_breakfast_run_farming_mode</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void augmentBreakfast() {
+    if (!don_breakfast_prepare_daily()) return;
+    don_breakfast_run_farming_mode();
+}</code></pre></details></article>
+<article class="entry" id="fn-11-45" data-search="baseline void baseline() baseline void shrugat cli execute set property have effect item amount buy  shrugat   (agent_filament_strong_frame_bearing_guy) "><h2>Baseline <small>[11.45]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:841–857</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-45">function_index11.45.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-45">function_actual11.45.2</a></p><p><strong>Keywords:</strong> baseline, void, shrugat, cli, execute, set, property, have, effect, item, amount, buy</p><p><strong>Filaments:</strong> <a href="#fn-11-28">shrugAT</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void Baseline() {
     shrugAT();
     cli_execute(&quot;hagnk all&quot;);
     cli_execute(&quot;refresh all&quot;);
@@ -506,26 +715,78 @@
         cli_execute(&quot;uneffect &quot; + sparky);
     }
 }</code></pre></details></article>
-<article class="entry" id="fn-11-30" data-search="nightcap void nightcap() nightcap void item amount available retrieve don warning buy error overdrink  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread) "><h2>nightcap <small>[11.30]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:618–636</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-30">function_index11.30.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-30">function_actual11.30.2</a></p><p><strong>Keywords:</strong> nightcap, void, item, amount, available, retrieve, don, warning, buy, error, overdrink</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void nightcap() {
-    // A drink must be in inventory before use. Owned items in the closet
-    // may be retrievable; inaccessible Hagnk&#39;s storage is not consumable.
-    if (item_amount(night_cap) &lt; 1 &amp;&amp; available_amount(night_cap) &gt; 0) {
-        if (!retrieve_item(1, night_cap))
-            don_warning(&quot;Could not retrieve owned &quot; + night_cap + &quot;.&quot;);
-    }
-
-    if (item_amount(night_cap) &lt; 1)
-        buy(1, night_cap, 175000);
-
-    if (item_amount(night_cap) &lt; 1) {
-        don_error(&quot;Nightcap unavailable in inventory within 175000 meat limit.&quot;);
-        return;
-    }
-
-    if (!overdrink(1, night_cap))
-        don_error(&quot;Could not drink &quot; + night_cap);
+<article class="entry" id="fn-11-46" data-search="don_nightcap_configured_id int don_nightcap_configured_id(string preference_name) don nightcap configured int string preference name get property no resolved project calls"><h2>don_nightcap_configured_id <small>[11.46]</small></h2><p><code>int don_nightcap_configured_id(string preference_name)</code></p><p>scripts/don_custom_functions.ash:861–865</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-46">function_index11.46.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-46">function_actual11.46.2</a></p><p><strong>Keywords:</strong> don, nightcap, configured, int, string, preference, name, get, property</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>int don_nightcap_configured_id(string preference_name) {
+    int chosen_id = get_property(preference_name).to_int();
+    if (chosen_id &lt;= 0) return 5227;
+    return chosen_id;
 }</code></pre></details></article>
-<article class="entry" id="fn-11-31" data-search="don_dpills void don_dpills() don dpills void cli execute adventures error set property  don_error   (agent_filament_strong_frame_bridge_thread) "><h2>don_dpills <small>[11.31]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:638–647</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-31">function_index11.31.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-31">function_actual11.31.2</a></p><p><strong>Keywords:</strong> don, dpills, void, cli, execute, adventures, error, set, property</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_dpills() {
+<article class="entry" id="fn-11-47" data-search="don_nightcap_price_limit int don_nightcap_price_limit() don nightcap price limit int get property no resolved project calls"><h2>don_nightcap_price_limit <small>[11.47]</small></h2><p><code>int don_nightcap_price_limit()</code></p><p>scripts/don_custom_functions.ash:867–870</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-47">function_index11.47.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-47">function_actual11.47.2</a></p><p><strong>Keywords:</strong> don, nightcap, price, limit, int, get, property</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>int don_nightcap_price_limit() {
+    int stored = get_property(&quot;don_nightcap_buy_limit&quot;).to_int();
+    return stored &gt; 0 ? stored : 175000;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-48" data-search="don_nightcap_pick item don_nightcap_pick() don nightcap pick item get property boolean configured mall price limit amount closet warning  don_nightcap_configured_id   (agent_filament_strong_frame_bearing_guy)  ·  don_nightcap_price_limit   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>don_nightcap_pick <small>[11.48]</small></h2><p><code>item don_nightcap_pick()</code></p><p>scripts/don_custom_functions.ash:872–896</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-48">function_index11.48.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-48">function_actual11.48.2</a></p><p><strong>Keywords:</strong> don, nightcap, pick, item, get, property, boolean, configured, mall, price, limit, amount, closet, warning</p><p><strong>Filaments:</strong> <a href="#fn-11-46">don_nightcap_configured_id</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-47">don_nightcap_price_limit</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>item don_nightcap_pick() {
+    string selector = get_property(&quot;don_event&quot;);
+    if (!selector.to_boolean())
+        return to_item(don_nightcap_configured_id(&quot;don_defaultNightcap&quot;));
+
+    item first = to_item(8553);
+    item second = to_item(8554);
+    int price_first = first == $item[none] ? 0 : mall_price(first);
+    int price_second = second == $item[none] ? 0 : mall_price(second);
+    int limit_price = don_nightcap_price_limit();
+
+    // Owned items have no new purchase cost; prefer them before mall shopping.
+    if (first != $item[none] &amp;&amp; (item_amount(first) &gt; 0 || closet_amount(first) &gt; 0))
+        return first;
+    if (second != $item[none] &amp;&amp; (item_amount(second) &gt; 0 || closet_amount(second) &gt; 0))
+        return second;
+
+    if (price_first &gt; 0 &amp;&amp; price_first &lt;= limit_price &amp;&amp;
+        (price_second &lt;= 0 || price_first &lt;= price_second))
+        return first;
+    if (price_second &gt; 0 &amp;&amp; price_second &lt;= limit_price) return second;
+
+    don_warning(&quot;Neither event item 8553 nor 8554 has an acceptable mall estimate; using don_eventNightcap fallback.&quot;);
+    return to_item(don_nightcap_configured_id(&quot;don_eventNightcap&quot;));
+}</code></pre></details></article>
+<article class="entry" id="fn-11-49" data-search="don_nightcap boolean don_nightcap() don nightcap boolean inebriety limit log pick error price item amount closet take mall buy overdrink good  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_nightcap_pick   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_nightcap_price_limit   (agent_filament_strong_frame_bearing_guy)  ·  don_good   (agent_filament_strong_frame_bridge_thread) "><h2>don_nightcap <small>[11.49]</small></h2><p><code>boolean don_nightcap()</code></p><p>scripts/don_custom_functions.ash:898–933</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-49">function_index11.49.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-49">function_actual11.49.2</a></p><p><strong>Keywords:</strong> don, nightcap, boolean, inebriety, limit, log, pick, error, price, item, amount, closet, take, mall, buy, overdrink, good</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-48">don_nightcap_pick</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-47">don_nightcap_price_limit</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-2">don_good</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_nightcap() {
+    if (my_inebriety() &gt; inebriety_limit()) {
+        don_log(&quot;Already overdrunk: will not consume a second nightcap.&quot;);
+        return true;
+    }
+    item selected = don_nightcap_pick();
+    if (selected == $item[none]) {
+        don_error(&quot;Configured nightcap item ID is invalid.&quot;);
+        return false;
+    }
+    int cap = don_nightcap_price_limit();
+    don_log(&quot;Nightcap selection: &quot; + selected + &quot; (item &quot; + selected.id + &quot;; buy limit &quot; + cap + &quot;).&quot;);
+    if (item_amount(selected) &lt; 1 &amp;&amp; closet_amount(selected) &gt; 0 &amp;&amp;
+        !take_closet(1, selected)) {
+        don_error(&quot;Could not retrieve nightcap from closet.&quot;);
+        return false;
+    }
+    if (item_amount(selected) &lt; 1) {
+        int estimate = mall_price(selected);
+        if (estimate &lt;= 0 || estimate &gt; cap) {
+            don_error(&quot;Nightcap mall estimate unavailable or above cap: &quot; + estimate);
+            return false;
+        }
+        if (buy(1, selected, cap) &lt; 1) {
+            don_error(&quot;Could not buy nightcap within configured cap.&quot;);
+            return false;
+        }
+    }
+    int before_inebriety = my_inebriety();
+    if (!overdrink(1, selected) || my_inebriety() &lt;= before_inebriety) {
+        don_error(&quot;Nightcap did not increase inebriety.&quot;);
+        return false;
+    }
+    don_good(&quot;Nightcap completed: &quot; + selected + &quot;.&quot;);
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-50" data-search="nightcap void nightcap() nightcap void don  don_nightcap   (agent_filament_strong_frame_bearing_guy) "><h2>nightcap <small>[11.50]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:935–935</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-50">function_index11.50.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-50">function_actual11.50.2</a></p><p><strong>Keywords:</strong> nightcap, void, don</p><p><strong>Filaments:</strong> <a href="#fn-11-49">don_nightcap</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void nightcap() { don_nightcap(); }</code></pre></details></article>
+<article class="entry" id="fn-11-51" data-search="don_dpills void don_dpills() don dpills void cli execute adventures error set property  don_error   (agent_filament_strong_frame_bridge_thread) "><h2>don_dpills <small>[11.51]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:938–947</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-51">function_index11.51.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-51">function_actual11.51.2</a></p><p><strong>Keywords:</strong> don, dpills, void, cli, execute, adventures, error, set, property</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_dpills() {
     cli_execute(&quot;ccs don_default&quot;);
     cli_execute(&quot;outfit wineglass&quot;);
     cli_execute(&quot;mood apathetic&quot;);
@@ -535,7 +796,7 @@
     }
     set_property(&quot;_don_dailyPills&quot;, my_adventures() &lt; 5 ? &quot;true&quot; : &quot;false&quot;);
 }</code></pre></details></article>
-<article class="entry" id="fn-11-32" data-search="don_midcap void don_midcap() don midcap void needtoacquireitem buy available amount error have familiar warning use overdrink  needtoacquireitem   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>don_Midcap <small>[11.32]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:649–665</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-32">function_index11.32.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-32">function_actual11.32.2</a></p><p><strong>Keywords:</strong> don, midcap, void, needtoacquireitem, buy, available, amount, error, have, familiar, warning, use, overdrink</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-88">needToAcquireItem</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_Midcap() {
+<article class="entry" id="fn-11-52" data-search="don_midcap void don_midcap() don midcap void needtoacquireitem buy available amount error have familiar warning use overdrink  needtoacquireitem   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>don_Midcap <small>[11.52]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:949–965</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-52">function_index11.52.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-52">function_actual11.52.2</a></p><p><strong>Keywords:</strong> don, midcap, void, needtoacquireitem, buy, available, amount, error, have, familiar, warning, use, overdrink</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-88">needToAcquireItem</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_Midcap() {
     item midcap = $item[bucket of wine];
     if (needToAcquireItem(midcap)) buy(1, midcap, 15000);
     if (available_amount(midcap) == 0) {
@@ -552,7 +813,7 @@
     if (!overdrink(1, midcap)) don_error(&quot;Overdrink failed.&quot;);
     if (previous != $familiar[none]) use_familiar(previous);
 }</code></pre></details></article>
-<article class="entry" id="fn-11-33" data-search="don_midcap_pills void don_midcap_pills() don midcap pills void overdrunk adventures cli execute error dpills  don_is_overdrunk   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_dpills   (agent_filament_strong_frame_bearing_guy) "><h2>don_Midcap_Pills <small>[11.33]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:667–676</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-33">function_index11.33.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-33">function_actual11.33.2</a></p><p><strong>Keywords:</strong> don, midcap, pills, void, overdrunk, adventures, cli, execute, error, dpills</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-32">don_is_overdrunk</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-31">don_dpills</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_Midcap_Pills() {
+<article class="entry" id="fn-11-53" data-search="don_midcap_pills void don_midcap_pills() don midcap pills void overdrunk adventures cli execute error dpills  don_is_overdrunk   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_dpills   (agent_filament_strong_frame_bearing_guy) "><h2>don_Midcap_Pills <small>[11.53]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:967–976</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-53">function_index11.53.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-53">function_actual11.53.2</a></p><p><strong>Keywords:</strong> don, midcap, pills, void, overdrunk, adventures, cli, execute, error, dpills</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-32">don_is_overdrunk</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-51">don_dpills</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_Midcap_Pills() {
     if (!don_is_overdrunk() &amp;&amp; my_adventures() &gt;= 50) {
         int spare = my_adventures() - 50;
         if (spare &gt; 0 &amp;&amp; !cli_execute(&quot;combo &quot; + spare)) {
@@ -562,7 +823,7 @@
     }
     don_dpills();
 }</code></pre></details></article>
-<article class="entry" id="fn-11-34" data-search="newstuff void newstuff() newstuff void visit url contains text don log get property int available amount buy max use error warning  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>newstuff <small>[11.34]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:678–704</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-34">function_index11.34.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-34">function_actual11.34.2</a></p><p><strong>Keywords:</strong> newstuff, void, visit, url, contains, text, don, log, get, property, int, available, amount, buy, max, use, error, warning</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void newstuff() {
+<article class="entry" id="fn-11-54" data-search="newstuff void newstuff() newstuff void visit url contains text don log get property int available amount buy max use error warning  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>newstuff <small>[11.54]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:978–1004</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-54">function_index11.54.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-54">function_actual11.54.2</a></p><p><strong>Keywords:</strong> newstuff, void, visit, url, contains, text, don, log, get, property, int, available, amount, buy, max, use, error, warning</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void newstuff() {
     int profitOffset = 100;
     string page = visit_url(&quot;campground.php?action=inspectdwelling&quot;);
     if (contains_text(page, &quot;Clockwork Maid&quot;) ||
@@ -588,4 +849,467 @@
         return;
     }
     don_warning(&quot;Maid / butler options are all outside price range.&quot;);
-}</code></pre></details></article><script>const q=document.getElementById("search"),items=[...document.querySelectorAll(".entry")],counter=document.getElementById("count");q.addEventListener("input",()=>{const tokens=q.value.toLowerCase().trim().split(/\s+/).filter(Boolean);let count=0;for(const item of items){const visible=tokens.every(t=>item.dataset.search.includes(t));item.hidden=!visible;if(visible)count++;}counter.textContent=count+" matching functions";});</script></body></html>
+}</code></pre></details></article>
+<article class="entry" id="fn-11-55" data-search="don_post_run_sync_date void don_post_run_sync_date() don post run sync date void today string get property set no resolved project calls"><h2>don_post_run_sync_date <small>[11.55]</small></h2><p><code>void don_post_run_sync_date()</code></p><p>scripts/don_custom_functions.ash:1012–1018</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-55">function_index11.55.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-55">function_actual11.55.2</a></p><p><strong>Keywords:</strong> don, post, run, sync, date, void, today, string, get, property, set</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_post_run_sync_date() {
+    string today = today_to_string();
+    if (get_property(&quot;don_post_run_date&quot;) == today) return;
+    set_property(&quot;don_post_run_date&quot;, today);
+    set_property(&quot;don_post_run_stage&quot;, &quot;new&quot;);
+    set_property(&quot;don_post_run_eod_step&quot;, &quot;0&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-56" data-search="don_post_run_step_done boolean don_post_run_step_done(string step_name) don post run step done boolean string name get property no resolved project calls"><h2>don_post_run_step_done <small>[11.56]</small></h2><p><code>boolean don_post_run_step_done(string step_name)</code></p><p>scripts/don_custom_functions.ash:1020–1022</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-56">function_index11.56.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-56">function_actual11.56.2</a></p><p><strong>Keywords:</strong> don, post, run, step, done, boolean, string, name, get, property</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_post_run_step_done(string step_name) {
+    return get_property(&quot;don_post_run_stage&quot;) == step_name;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-57" data-search="don_post_run_track void don_post_run_track(string label) don post run track void string label get property boolean cli execute warning  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>don_post_run_track <small>[11.57]</small></h2><p><code>void don_post_run_track(string label)</code></p><p>scripts/don_custom_functions.ash:1024–1029</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-57">function_index11.57.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-57">function_actual11.57.2</a></p><p><strong>Keywords:</strong> don, post, run, track, void, string, label, get, property, boolean, cli, execute, warning</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_post_run_track(string label) {
+    // Optional, non-authoritative telemetry; never a required import.
+    if (!get_property(&quot;don_post_run_ptrack&quot;).to_boolean()) return;
+    if (!cli_execute(&quot;call ptrack.ash add &quot; + label))
+        don_warning(&quot;ptrack checkpoint unavailable: &quot; + label);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-58" data-search="don_post_run_status void don_post_run_status() don post run status void print get property nightcap configured item boolean price limit adventures fullness spleen use inebriety  don_nightcap_configured_id   (agent_filament_strong_frame_bearing_guy)  ·  don_nightcap_price_limit   (agent_filament_strong_frame_bearing_guy) "><h2>don_post_run_status <small>[11.58]</small></h2><p><code>void don_post_run_status()</code></p><p>scripts/don_custom_functions.ash:1031–1048</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-58">function_index11.58.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-58">function_actual11.58.2</a></p><p><strong>Keywords:</strong> don, post, run, status, void, print, get, property, nightcap, configured, item, boolean, price, limit, adventures, fullness, spleen, use, inebriety</p><p><strong>Filaments:</strong> <a href="#fn-11-46">don_nightcap_configured_id</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-47">don_nightcap_price_limit</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_post_run_status() {
+    print(&quot;don_post_run_date = &quot; + get_property(&quot;don_post_run_date&quot;));
+    print(&quot;don_post_run_stage = &quot; + get_property(&quot;don_post_run_stage&quot;));
+    print(&quot;don_post_run_eod_step = &quot; + get_property(&quot;don_post_run_eod_step&quot;));
+    print(&quot;don_defaultNightcap = &quot; + don_nightcap_configured_id(&quot;don_defaultNightcap&quot;) +
+          &quot; (&quot; + to_item(don_nightcap_configured_id(&quot;don_defaultNightcap&quot;)) + &quot;)&quot;);
+    print(&quot;don_event = &quot; + get_property(&quot;don_event&quot;).to_boolean());
+    print(&quot;don_eventNightcap = &quot; + don_nightcap_configured_id(&quot;don_eventNightcap&quot;) +
+          &quot; (&quot; + to_item(don_nightcap_configured_id(&quot;don_eventNightcap&quot;)) + &quot;)&quot;);
+    print(&quot;don_nightcap_buy_limit = &quot; + don_nightcap_price_limit());
+    print(&quot;don_post_run_philter = &quot; + get_property(&quot;don_post_run_philter&quot;).to_boolean());
+    print(&quot;don_post_run_ptrack = &quot; + get_property(&quot;don_post_run_ptrack&quot;).to_boolean());
+    print(&quot;Yeti XP = &quot; + $familiar[cooler yeti].experience + &quot;/400&quot;);
+    print(&quot;Adventures = &quot; + my_adventures());
+    print(&quot;Fullness = &quot; + my_fullness() + &quot;/&quot; + fullness_limit() +
+          &quot;; spleen = &quot; + my_spleen_use() + &quot;/&quot; + spleen_limit() +
+          &quot;; inebriety = &quot; + my_inebriety() + &quot;/&quot; + inebriety_limit());
+}</code></pre></details></article>
+<article class="entry" id="fn-11-59" data-search="don_post_run_prepare boolean don_post_run_prepare() don post run prepare boolean sync date get property inebriety limit cli execute error set outfit stooperdis track  don_post_run_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  stooperdis   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_track   (agent_filament_strong_frame_bearing_guy) "><h2>don_post_run_prepare <small>[11.59]</small></h2><p><code>boolean don_post_run_prepare()</code></p><p>scripts/don_custom_functions.ash:1050–1072</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-59">function_index11.59.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-59">function_actual11.59.2</a></p><p><strong>Keywords:</strong> don, post, run, prepare, boolean, sync, date, get, property, inebriety, limit, cli, execute, error, set, outfit, stooperdis, track</p><p><strong>Filaments:</strong> <a href="#fn-11-55">don_post_run_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-24">stooperDis</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-57">don_post_run_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_post_run_prepare() {
+    don_post_run_sync_date();
+    if (!get_property(&quot;_don_famMax&quot;).to_boolean() &amp;&amp;
+        my_inebriety() &lt;= inebriety_limit()) {
+        if (!cli_execute(&quot;maximize familiar exp&quot;)) {
+            don_error(&quot;Familiar experience maximizer failed.&quot;);
+            return false;
+        }
+        set_property(&quot;_don_famMax&quot;, &quot;true&quot;);
+    }
+    if (!outfit(&quot;maxorgan&quot;)) {
+        don_error(&quot;Missing required maxorgan outfit.&quot;);
+        return false;
+    }
+    stooperDis();
+    if (!cli_execute(&quot;CONSUME ALL VALUE 6500&quot;)) {
+        don_error(&quot;CONSUME ALL VALUE 6500 failed.&quot;);
+        return false;
+    }
+    set_property(&quot;don_post_run_stage&quot;, &quot;prepared&quot;);
+    don_post_run_track(&quot;postrun_prepared&quot;);
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-60" data-search="don_post_run_yeti_stage boolean don_post_run_yeti_stage() don post run yeti stage boolean sync date have familiar error log set property adventures warning get outfit chowdown chowdown2 available amount equipped equipment equip can adventure use track  don_post_run_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  chowdown   (agent_filament_strong_frame_bearing_guy)  ·  chowdown2   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_track   (agent_filament_strong_frame_bearing_guy) "><h2>don_post_run_yeti_stage <small>[11.60]</small></h2><p><code>boolean don_post_run_yeti_stage()</code></p><p>scripts/don_custom_functions.ash:1075–1132</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-60">function_index11.60.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-60">function_actual11.60.2</a></p><p><strong>Keywords:</strong> don, post, run, yeti, stage, boolean, sync, date, have, familiar, error, log, set, property, adventures, warning, get, outfit, chowdown, chowdown2, available, amount, equipped, equipment, equip, can, adventure, use, track</p><p><strong>Filaments:</strong> <a href="#fn-11-55">don_post_run_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-20">chowDown</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-21">chowDown2</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-57">don_post_run_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_post_run_yeti_stage() {
+    don_post_run_sync_date();
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti)) {
+        don_error(&quot;No Cooler Yeti owned.&quot;);
+        return false;
+    }
+    don_log(&quot;Cooler Yeti XP: &quot; + yeti.experience + &quot;/400.&quot;);
+    if (yeti.experience &gt;= 400) {
+        set_property(&quot;don_post_run_stage&quot;, &quot;yeti_ready&quot;);
+        return true;
+    }
+    if (my_adventures() &lt;= 20) {
+        don_warning(&quot;Yeti is below 400 XP and no adventures remain above the 20-turn reserve.&quot;);
+        return false;
+    }
+    if (get_property(&quot;don_post_run_chow&quot;).to_boolean()) {
+        if (have_outfit(&quot;chowDown&quot;)) chowDown();
+        if (have_outfit(&quot;chowDown2&quot;)) chowDown2();
+    }
+    item bow = $item[toy cupid bow];
+    if (available_amount(bow) &gt; 0 || have_equipped(bow)) {
+        foreach other in $familiars[] {
+            if (other != yeti &amp;&amp; familiar_equipped_equipment(other) == bow)
+                if (!equip(other, $item[none])) {
+                    don_error(&quot;Cannot release toy cupid bow from &quot; + other);
+                    return false;
+                }
+        }
+        if (familiar_equipped_equipment(yeti) != bow &amp;&amp; !equip(yeti, bow)) {
+            don_error(&quot;Cannot equip toy cupid bow on Cooler Yeti.&quot;);
+            return false;
+        }
+    } else {
+        don_warning(&quot;Toy cupid bow unavailable; training without it.&quot;);
+    }
+    if (!can_adventure($location[The Dungeons of Doom])) {
+        // The legacy dungeon unlockers may spend all remaining adventures.
+        // Never run them automatically under a 20-adventure reserve.
+        don_error(&quot;Dungeons of Doom locked. Run openDungeon()/EGTS()/DOD() independently before resuming.&quot;);
+        return false;
+    }
+    if (!outfit(&quot;yetibuff&quot;) || !use_familiar(yeti)) {
+        don_error(&quot;Could not prepare Yeti outfit/familiar.&quot;);
+        return false;
+    }
+    while (my_adventures() &gt; 20 &amp;&amp; yeti.experience &lt; 400) {
+        if (!adventure(1, $location[The Dungeons of Doom])) {
+            don_error(&quot;Yeti training adventure failed.&quot;);
+            return false;
+        }
+    }
+    don_log(&quot;Cooler Yeti XP now &quot; + yeti.experience + &quot;/400.&quot;);
+    if (yeti.experience &lt; 400) return false;
+    set_property(&quot;don_post_run_stage&quot;, &quot;yeti_ready&quot;);
+    don_post_run_track(&quot;postrun_yeti_ready&quot;);
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-61" data-search="don_yeti_adv void don_yeti_adv() don yeti adv void post run stage  don_post_run_yeti_stage   (agent_filament_strong_frame_bearing_guy) "><h2>don_yeti_adv <small>[11.61]</small></h2><p><code>void don_yeti_adv()</code></p><p>scripts/don_custom_functions.ash:1135–1135</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-61">function_index11.61.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-61">function_actual11.61.2</a></p><p><strong>Keywords:</strong> don, yeti, adv, void, post, run, stage</p><p><strong>Filaments:</strong> <a href="#fn-11-60">don_post_run_yeti_stage</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_yeti_adv() { don_post_run_yeti_stage(); }</code></pre></details></article>
+<article class="entry" id="fn-11-62" data-search="don_post_run_combo_stage boolean don_post_run_combo_stage() don post run combo stage boolean sync date error get property adventures cli execute log set track  don_post_run_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_post_run_track   (agent_filament_strong_frame_bearing_guy) "><h2>don_post_run_combo_stage <small>[11.62]</small></h2><p><code>boolean don_post_run_combo_stage()</code></p><p>scripts/don_custom_functions.ash:1137–1155</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-62">function_index11.62.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-62">function_actual11.62.2</a></p><p><strong>Keywords:</strong> don, post, run, combo, stage, boolean, sync, date, error, get, property, adventures, cli, execute, log, set, track</p><p><strong>Filaments:</strong> <a href="#fn-11-55">don_post_run_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-57">don_post_run_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_post_run_combo_stage() {
+    don_post_run_sync_date();
+    if ($familiar[cooler yeti].experience &lt; 400) {
+        don_error(&quot;Cooler Yeti below 400 XP: refusing to start WaterSheep.&quot;);
+        return false;
+    }
+    string stage_name = get_property(&quot;don_post_run_stage&quot;);
+    if (stage_name == &quot;combo_done&quot; || stage_name == &quot;done&quot;) return true;
+    int turns = my_adventures();
+    if (turns &gt; 2) {
+        if (!cli_execute(&quot;combo watersheep-&quot; + turns)) {
+            don_error(&quot;WaterSheep combo command failed.&quot;);
+            return false;
+        }
+    } else don_log(&quot;At two or fewer adventures; no WaterSheep turns needed.&quot;);
+    set_property(&quot;don_post_run_stage&quot;, &quot;combo_done&quot;);
+    don_post_run_track(&quot;postrun_combo_done&quot;);
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-63" data-search="don_post_run_eod_ready boolean don_post_run_eod_ready() don post run eod ready boolean adventures fullness limit spleen use inebriety familiar wearing outfit no resolved project calls"><h2>don_post_run_eod_ready <small>[11.63]</small></h2><p><code>boolean don_post_run_eod_ready()</code></p><p>scripts/don_custom_functions.ash:1157–1165</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-63">function_index11.63.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-63">function_actual11.63.2</a></p><p><strong>Keywords:</strong> don, post, run, eod, ready, boolean, adventures, fullness, limit, spleen, use, inebriety, familiar, wearing, outfit</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_post_run_eod_ready() {
+    if (my_adventures() &gt; 2) return false;
+    if (my_fullness() &lt; fullness_limit()) return false;
+    if (my_spleen_use() &lt; spleen_limit()) return false;
+    if (my_inebriety() &lt; inebriety_limit()) return false;
+    if (my_familiar() != $familiar[Stooper]) return false;
+    if (!is_wearing_outfit(&quot;maxorgan&quot;)) return false;
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-64" data-search="don_eod_process boolean don_eod_process() don eod process boolean post run sync date get property log today string int ready warning status cool set outfit error familiar use nightcap have cli execute owned amount max track good  don_post_run_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_post_run_eod_ready   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_post_run_status   (agent_filament_strong_frame_bearing_guy)  ·  don_get_cool   (agent_filament_strong_frame_bearing_guy)  ·  don_error   (agent_filament_strong_frame_bridge_thread)  ·  don_nightcap   (agent_filament_strong_frame_bearing_guy)  ·  don_owned_amount   (agent_filament_strong_frame_bridge_thread)  ·  don_owned_amount   (agent_filament_strong_frame_bridge_thread)  ·  don_post_run_track   (agent_filament_strong_frame_bearing_guy)  ·  don_good   (agent_filament_strong_frame_bridge_thread) "><h2>don_eod_process <small>[11.64]</small></h2><p><code>boolean don_eod_process()</code></p><p>scripts/don_custom_functions.ash:1167–1243</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-64">function_index11.64.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-64">function_actual11.64.2</a></p><p><strong>Keywords:</strong> don, eod, process, boolean, post, run, sync, date, get, property, log, today, string, int, ready, warning, status, cool, set, outfit, error, familiar, use, nightcap, have, cli, execute, owned, amount, max, track, good</p><p><strong>Filaments:</strong> <a href="#fn-11-55">don_post_run_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-63">don_post_run_eod_ready</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-58">don_post_run_status</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-25">don_get_cool</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-5">don_error</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-49">don_nightcap</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-45">don_owned_amount</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-46">don_owned_amount</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-57">don_post_run_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-2">don_good</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_eod_process() {
+    don_post_run_sync_date();
+    if (get_property(&quot;don_post_run_stage&quot;) == &quot;done&quot;) {
+        don_log(&quot;Post-run already completed for &quot; + today_to_string());
+        return true;
+    }
+    int checkpoint = get_property(&quot;don_post_run_eod_step&quot;).to_int();
+    // The nightcap and later Left-Hand Man steps change the state used by
+    // the gate. Require original readiness only before the first EOD action.
+    if (checkpoint == 0 &amp;&amp; !don_post_run_eod_ready()) {
+        don_warning(&quot;EOD gate: need maxorgan, Stooper, full stomach/spleen/liver and &lt;=2 adventures.&quot;);
+        don_post_run_status();
+        return false;
+    }
+    if (checkpoint &lt; 1) {
+        if ($familiar[cooler yeti].experience &gt;= 400 &amp;&amp; !don_get_cool()) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;1&quot;);
+    }
+    if (checkpoint &lt; 2) {
+        // getCool() equips maxo and may change the current familiar.
+        if (!outfit(&quot;maxorgan&quot;)) {
+            don_error(&quot;Could not restore maxorgan before nightcap.&quot;);
+            return false;
+        }
+        if (my_familiar() != $familiar[Stooper] &amp;&amp;
+            !use_familiar($familiar[Stooper])) {
+            don_error(&quot;Could not restore Stooper before nightcap.&quot;);
+            return false;
+        }
+        if (!don_nightcap()) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;2&quot;);
+    }
+    if (checkpoint &lt; 3) {
+        familiar lefty = $familiar[Left-Hand Man];
+        if (!have_familiar(lefty) || !use_familiar(lefty)) {
+            don_warning(&quot;Left-Hand Man unavailable. Retry EOD later.&quot;);
+            return false;
+        }
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;3&quot;);
+    }
+    if (checkpoint &lt; 4) {
+        if (!cli_execute(&quot;genie effect offhand remarkable&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;4&quot;);
+    }
+    if (checkpoint &lt; 5) {
+        if (!cli_execute(&quot;max adv&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;5&quot;);
+    }
+    if (checkpoint &lt; 6) {
+        // No auto-answer to Philter&#39;s uncategorized-item prompt is assumed.
+        if (get_property(&quot;don_post_run_philter&quot;).to_boolean()) {
+            if (!cli_execute(&quot;philter&quot;)) {
+                don_error(&quot;Philter failed or cancelled.&quot;);
+                return false;
+            }
+        } else don_log(&quot;Philter skipped: don_post_run_philter=false.&quot;);
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;6&quot;);
+    }
+    if (checkpoint &lt; 7) {
+        if (!cli_execute(&quot;mall-manager reprice&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;7&quot;);
+    }
+    if (checkpoint &lt; 8) {
+        if (!cli_execute(&quot;call buy-script.js&quot;)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;8&quot;);
+    }
+    if (checkpoint &lt; 9) {
+        int have_tickets = don_owned_amount($item[raffle ticket]);
+        int need_tickets = max(0, 111 - have_tickets);
+        if (need_tickets &gt; 0 &amp;&amp; !cli_execute(&quot;raffle &quot; + need_tickets)) return false;
+        set_property(&quot;don_post_run_eod_step&quot;, &quot;9&quot;);
+    }
+    don_post_run_track(&quot;postrun_eod_complete&quot;);
+    set_property(&quot;don_post_run_stage&quot;, &quot;done&quot;);
+    don_good(&quot;Don post-run EOD complete.&quot;);
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-65" data-search="eod_proccess boolean eod_proccess() eod proccess boolean don process  don_eod_process   (agent_filament_strong_frame_bearing_guy) "><h2>eod_proccess <small>[11.65]</small></h2><p><code>boolean eod_proccess()</code></p><p>scripts/don_custom_functions.ash:1246–1246</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-65">function_index11.65.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-65">function_actual11.65.2</a></p><p><strong>Keywords:</strong> eod, proccess, boolean, don, process</p><p><strong>Filaments:</strong> <a href="#fn-11-64">don_eod_process</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean eod_proccess() { return don_eod_process(); }</code></pre></details></article>
+<article class="entry" id="fn-11-66" data-search="eod_process boolean eod_process() eod process boolean don  don_eod_process   (agent_filament_strong_frame_bearing_guy) "><h2>eod_process <small>[11.66]</small></h2><p><code>boolean eod_process()</code></p><p>scripts/don_custom_functions.ash:1247–1247</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-66">function_index11.66.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-66">function_actual11.66.2</a></p><p><strong>Keywords:</strong> eod, process, boolean, don</p><p><strong>Filaments:</strong> <a href="#fn-11-64">don_eod_process</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean eod_process() { return don_eod_process(); }</code></pre></details></article>
+<article class="entry" id="fn-11-67" data-search="don_post_run_from boolean don_post_run_from(string entry_stage) don post run from boolean string entry stage sync date nightcap eod proccess get cool yeti property prepare warning combo outfit have familiar use ready  don_post_run_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_nightcap   (agent_filament_strong_frame_bearing_guy)  ·  eod_proccess   (agent_filament_strong_frame_bearing_guy)  ·  don_get_cool   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_yeti_stage   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_prepare   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_post_run_combo_stage   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_eod_ready   (agent_filament_strong_frame_bearing_guy) "><h2>don_post_run_from <small>[11.67]</small></h2><p><code>boolean don_post_run_from(string entry_stage)</code></p><p>scripts/don_custom_functions.ash:1249–1279</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-67">function_index11.67.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-67">function_actual11.67.2</a></p><p><strong>Keywords:</strong> don, post, run, from, boolean, string, entry, stage, sync, date, nightcap, eod, proccess, get, cool, yeti, property, prepare, warning, combo, outfit, have, familiar, use, ready</p><p><strong>Filaments:</strong> <a href="#fn-11-55">don_post_run_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-49">don_nightcap</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-65">eod_proccess</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-25">don_get_cool</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-60">don_post_run_yeti_stage</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-59">don_post_run_prepare</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-62">don_post_run_combo_stage</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-63">don_post_run_eod_ready</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_post_run_from(string entry_stage) {
+    don_post_run_sync_date();
+    if (entry_stage == &quot;nightcap&quot;) return don_nightcap();
+    if (entry_stage == &quot;eod&quot;) return eod_proccess();
+    if (entry_stage == &quot;cool&quot;) return don_get_cool() &amp;&amp; eod_proccess();
+    if (entry_stage == &quot;yeti&quot;) {
+        if (!don_post_run_yeti_stage()) return false;
+    } else if (entry_stage == &quot;&quot; || entry_stage == &quot;start&quot;) {
+        if (get_property(&quot;don_post_run_stage&quot;) == &quot;done&quot;) return true;
+        if (get_property(&quot;don_post_run_stage&quot;) == &quot;new&quot;) {
+            if (!don_post_run_prepare()) return false;
+        }
+        if (get_property(&quot;don_post_run_stage&quot;) == &quot;prepared&quot;) {
+            if (!don_post_run_yeti_stage()) return false;
+        }
+    } else {
+        don_warning(&quot;Unknown post-run stage: &quot; + entry_stage);
+        return false;
+    }
+
+    if (!don_post_run_combo_stage()) return false;
+    // Reapply the EOD gate setup after the Yeti and farming stages.
+    if (!outfit(&quot;maxorgan&quot;)) return false;
+    if (have_familiar($familiar[Stooper]) &amp;&amp;
+        !use_familiar($familiar[Stooper])) return false;
+    if (!don_post_run_eod_ready()) {
+        don_warning(&quot;WaterSheep returned; EOD requirements not met. Resume later with don-post-run eod.&quot;);
+        return false;
+    }
+    return eod_proccess();
+}</code></pre></details></article>
+<article class="entry" id="fn-11-68" data-search="don_post_run void don_post_run() don post run void from  don_post_run_from   (agent_filament_strong_frame_bearing_guy) "><h2>don_post_run <small>[11.68]</small></h2><p><code>void don_post_run()</code></p><p>scripts/don_custom_functions.ash:1281–1281</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-68">function_index11.68.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-68">function_actual11.68.2</a></p><p><strong>Keywords:</strong> don, post, run, void, from</p><p><strong>Filaments:</strong> <a href="#fn-11-67">don_post_run_from</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_post_run() { don_post_run_from(&quot;start&quot;); }</code></pre></details></article>
+<article class="entry" id="fn-11-69" data-search="don_login_default_true boolean don_login_default_true(string pref_name) don login default true boolean string pref name get property no resolved project calls"><h2>don_login_default_true <small>[11.69]</small></h2><p><code>boolean don_login_default_true(string pref_name)</code></p><p>scripts/don_custom_functions.ash:1290–1293</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-69">function_index11.69.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-69">function_actual11.69.2</a></p><p><strong>Keywords:</strong> don, login, default, true, boolean, string, pref, name, get, property</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_default_true(string pref_name) {
+    string raw_value = get_property(pref_name);
+    return raw_value == &quot;&quot; || raw_value.to_boolean();
+}</code></pre></details></article>
+<article class="entry" id="fn-11-70" data-search="don_login_second_allowed boolean don_login_second_allowed(int daily_ascensions) don login second allowed boolean int daily ascensions no resolved project calls"><h2>don_login_second_allowed <small>[11.70]</small></h2><p><code>boolean don_login_second_allowed(int daily_ascensions)</code></p><p>scripts/don_custom_functions.ash:1295–1297</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-70">function_index11.70.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-70">function_actual11.70.2</a></p><p><strong>Keywords:</strong> don, login, second, allowed, boolean, int, daily, ascensions</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_second_allowed(int daily_ascensions) {
+    return daily_ascensions &gt; 0;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-71" data-search="don_login_sync_date void don_login_sync_date() don login sync date void today string get property set no resolved project calls"><h2>don_login_sync_date <small>[11.71]</small></h2><p><code>void don_login_sync_date()</code></p><p>scripts/don_custom_functions.ash:1299–1306</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-71">function_index11.71.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-71">function_actual11.71.2</a></p><p><strong>Keywords:</strong> don, login, sync, date, void, today, string, get, property, set</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_login_sync_date() {
+    string date_now = today_to_string();
+    if (get_property(&quot;don_login_date&quot;) == date_now) return;
+    set_property(&quot;don_login_date&quot;, date_now);
+    set_property(&quot;don_login_stage&quot;, &quot;new&quot;);
+    set_property(&quot;don_login_holiday&quot;, &quot;none&quot;);
+    set_property(&quot;don_login_breakfast2_ascensions&quot;, &quot;0&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-72" data-search="don_login_track void don_login_track(string label) don login track void string label get property boolean cli execute warning  don_warning   (agent_filament_strong_frame_bridge_thread) "><h2>don_login_track <small>[11.72]</small></h2><p><code>void don_login_track(string label)</code></p><p>scripts/don_custom_functions.ash:1308–1312</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-72">function_index11.72.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-72">function_actual11.72.2</a></p><p><strong>Keywords:</strong> don, login, track, void, string, label, get, property, boolean, cli, execute, warning</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_login_track(string label) {
+    if (!get_property(&quot;don_login_ptrack&quot;).to_boolean()) return;
+    if (!cli_execute(&quot;call ptrack.ash add &quot; + label))
+        don_warning(&quot;Optional ptrack checkpoint failed: &quot; + label);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-73" data-search="don_login_install_aliases boolean don_login_install_aliases() don login install aliases boolean cli execute no resolved project calls"><h2>don_login_install_aliases <small>[11.73]</small></h2><p><code>boolean don_login_install_aliases()</code></p><p>scripts/don_custom_functions.ash:1314–1320</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-73">function_index11.73.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-73">function_actual11.73.2</a></p><p><strong>Keywords:</strong> don, login, install, aliases, boolean, cli, execute</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_install_aliases() {
+    boolean good = cli_execute(&quot;alias don-login =&gt; call don_login.ash %%&quot;);
+    if (!cli_execute(&quot;alias don-breakfast-1 =&gt; call don_login.ash breakfast_1&quot;)) good = false;
+    if (!cli_execute(&quot;alias don-breakfast-2 =&gt; call don_login.ash breakfast_2&quot;)) good = false;
+    if (!cli_execute(&quot;alias don-login-eod =&gt; call don_login.ash eod&quot;)) good = false;
+    return good;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-74" data-search="don_login_status void don_login_status() don login status void print get property int boolean no resolved project calls"><h2>don_login_status <small>[11.74]</small></h2><p><code>void don_login_status()</code></p><p>scripts/don_custom_functions.ash:1322–1330</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-74">function_index11.74.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-74">function_actual11.74.2</a></p><p><strong>Keywords:</strong> don, login, status, void, print, get, property, int, boolean</p><p><strong>Filaments:</strong> No resolved project calls</p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_login_status() {
+    print(&quot;don_login_date = &quot; + get_property(&quot;don_login_date&quot;));
+    print(&quot;don_login_stage = &quot; + get_property(&quot;don_login_stage&quot;));
+    print(&quot;don_login_holiday = &quot; + get_property(&quot;don_login_holiday&quot;));
+    print(&quot;ascensionsToday = &quot; + get_property(&quot;ascensionsToday&quot;).to_int());
+    print(&quot;don_login_breakfast2_ascensions = &quot; + get_property(&quot;don_login_breakfast2_ascensions&quot;));
+    print(&quot;breakfastCompleted = &quot; + get_property(&quot;breakfastCompleted&quot;).to_boolean());
+    print(&quot;kingLiberated = &quot; + get_property(&quot;kingLiberated&quot;).to_boolean());
+}</code></pre></details></article>
+<article class="entry" id="fn-11-75" data-search="don_login_help void don_login_help() don login help void header print default true get property boolean breakfast  don_header   (agent_filament_strong_frame_bridge_thread)  ·  don_login_default_true   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_help   (agent_filament_strong_frame_bearing_guy) "><h2>don_login_help <small>[11.75]</small></h2><p><code>void don_login_help()</code></p><p>scripts/don_custom_functions.ash:1332–1343</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-75">function_index11.75.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-75">function_actual11.75.2</a></p><p><strong>Keywords:</strong> don, login, help, void, header, print, default, true, get, property, boolean, breakfast</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-7">don_header</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-69">don_login_default_true</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-40">don_breakfast_help</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_login_help() {
+    don_header(&quot;Don Login / breakfast_1 / breakfast_2&quot;);
+    print(&quot;don-login help | status | breakfast_1 | breakfast_2 | postascend | eod | install&quot;);
+    print(&quot;breakfast_1: combo watersheep-free, git update, tracking, raffle, holiday, breakfast, boneFarm, farming.&quot;);
+    print(&quot;breakfast_2: requires ascensionsToday &gt; 0 and kingLiberated=true.&quot;);
+    print(&quot;don_login_bone_farm = &quot; + don_login_default_true(&quot;don_login_bone_farm&quot;) + &quot; (default true)&quot;);
+    print(&quot;don_login_default_garbo = &quot; + don_login_default_true(&quot;don_login_default_garbo&quot;) + &quot; (default true)&quot;);
+    print(&quot;don_login_holidays = &quot; + don_login_default_true(&quot;don_login_holidays&quot;) + &quot; (default true)&quot;);
+    print(&quot;don_login_ptrack = &quot; + get_property(&quot;don_login_ptrack&quot;).to_boolean());
+    print(&quot;don_login_auto_eod = &quot; + get_property(&quot;don_login_auto_eod&quot;).to_boolean());
+    don_breakfast_help();
+}</code></pre></details></article>
+<article class="entry" id="fn-11-76" data-search="don_login_raffle_topup boolean don_login_raffle_topup() don login raffle topup boolean available amount log max owned cli execute  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_owned_amount   (agent_filament_strong_frame_bridge_thread)  ·  don_owned_amount   (agent_filament_strong_frame_bridge_thread) "><h2>don_login_raffle_topup <small>[11.76]</small></h2><p><code>boolean don_login_raffle_topup()</code></p><p>scripts/don_custom_functions.ash:1345–1355</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-76">function_index11.76.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-76">function_actual11.76.2</a></p><p><strong>Keywords:</strong> don, login, raffle, topup, boolean, available, amount, log, max, owned, cli, execute</p><p><strong>Filaments:</strong> <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-45">don_owned_amount</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-46">don_owned_amount</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_raffle_topup() {
+    if (available_amount($item[134]) == 0 &amp;&amp;
+        available_amount($item[pumpkin carriage]) == 0 &amp;&amp;
+        available_amount($item[Desert Bus pass]) == 0) {
+        don_log(&quot;Raffle access not detected; skipping top-up.&quot;);
+        return true;
+    }
+    int needed = max(0, 111 - don_owned_amount($item[raffle ticket]));
+    if (needed &lt;= 0) return true;
+    return cli_execute(&quot;raffle &quot; + needed);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-77" data-search="don_login_detect_holiday string don_login_detect_holiday() don login detect holiday string default true visit url contains text log  don_login_default_true   (agent_filament_strong_frame_bearing_guy)  ·  don_log   (agent_filament_strong_frame_bridge_thread) "><h2>don_login_detect_holiday <small>[11.77]</small></h2><p><code>string don_login_detect_holiday()</code></p><p>scripts/don_custom_functions.ash:1357–1366</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-77">function_index11.77.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-77">function_actual11.77.2</a></p><p><strong>Keywords:</strong> don, login, detect, holiday, string, default, true, visit, url, contains, text, log</p><p><strong>Filaments:</strong> <a href="#fn-11-69">don_login_default_true</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>string don_login_detect_holiday() {
+    if (!don_login_default_true(&quot;don_login_holidays&quot;)) return &quot;none&quot;;
+    string page_html = visit_url(&quot;main.php&quot;);
+    if (contains_text(page_html, &quot;Halloween&quot;)) return &quot;halloween&quot;;
+    if (contains_text(page_html, &quot;Time Tower&quot;)) return &quot;time_tower&quot;;
+    if (contains_text(page_html, &quot;Crimbo&quot;)) return &quot;crimbo&quot;;
+    if (contains_text(page_html, &quot;Feast of Boris&quot;))
+        don_log(&quot;Feast of Boris: regular farming route remains selected.&quot;);
+    return &quot;none&quot;;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-78" data-search="don_login_bone_farm boolean don_login_bone_farm() don login bone farm boolean default true cli execute  don_login_default_true   (agent_filament_strong_frame_bearing_guy) "><h2>don_login_bone_farm <small>[11.78]</small></h2><p><code>boolean don_login_bone_farm()</code></p><p>scripts/don_custom_functions.ash:1368–1371</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-78">function_index11.78.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-78">function_actual11.78.2</a></p><p><strong>Keywords:</strong> don, login, bone, farm, boolean, default, true, cli, execute</p><p><strong>Filaments:</strong> <a href="#fn-11-69">don_login_default_true</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_bone_farm() {
+    if (!don_login_default_true(&quot;don_login_bone_farm&quot;)) return true;
+    return cli_execute(&quot;call boneFarm.ash&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-79" data-search="don_login_farming boolean don_login_farming() don login farming boolean breakfast validate modes get property pastamancer class cli execute combo turns adventures default true  don_breakfast_validate_modes   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_is_pastamancer   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_combo_turns   (agent_filament_strong_frame_bearing_guy)  ·  don_login_default_true   (agent_filament_strong_frame_bearing_guy) "><h2>don_login_farming <small>[11.79]</small></h2><p><code>boolean don_login_farming()</code></p><p>scripts/don_custom_functions.ash:1373–1391</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-79">function_index11.79.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-79">function_actual11.79.2</a></p><p><strong>Keywords:</strong> don, login, farming, boolean, breakfast, validate, modes, get, property, pastamancer, class, cli, execute, combo, turns, adventures, default, true</p><p><strong>Filaments:</strong> <a href="#fn-11-41">don_breakfast_validate_modes</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-31">don_breakfast_is_pastamancer</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-32">don_breakfast_combo_turns</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-69">don_login_default_true</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_farming() {
+    if (!don_breakfast_validate_modes()) return false;
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) return false;
+        return cli_execute(&quot;cowo&quot;);
+    }
+    if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) {
+        if (!cli_execute(&quot;nobarf&quot;)) return false;
+        if (!cli_execute(&quot;refresh all&quot;)) return false;
+        int turns_remaining = don_breakfast_combo_turns(my_adventures());
+        return turns_remaining &lt; 1 || cli_execute(&quot;combo &quot; + turns_remaining);
+    }
+    if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean())
+        return cli_execute(&quot;nobarf&quot;);
+    if (get_property(&quot;don_breakfast_barf&quot;).to_boolean())
+        return cli_execute(&quot;barf&quot;);
+    if (!don_login_default_true(&quot;don_login_default_garbo&quot;)) return true;
+    return cli_execute(&quot;barf1&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-80" data-search="don_login_breakfast_1 boolean don_login_breakfast_1() don login breakfast boolean sync date get property log set cli execute install aliases warning header day today string item track raffle topup detect holiday prepare daily bone farm farming post run  don_login_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_login_install_aliases   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_header   (agent_filament_strong_frame_bridge_thread)  ·  day   (agent_filament_strong_frame_bridge_thread)  ·  don_login_track   (agent_filament_strong_frame_bearing_guy)  ·  don_login_raffle_topup   (agent_filament_strong_frame_bearing_guy)  ·  don_login_detect_holiday   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_prepare_daily   (agent_filament_strong_frame_bearing_guy)  ·  don_login_bone_farm   (agent_filament_strong_frame_bearing_guy)  ·  don_login_farming   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_from   (agent_filament_strong_frame_bearing_guy) "><h2>don_login_breakfast_1 <small>[11.80]</small></h2><p><code>boolean don_login_breakfast_1()</code></p><p>scripts/don_custom_functions.ash:1395–1480</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-80">function_index11.80.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-80">function_actual11.80.2</a></p><p><strong>Keywords:</strong> don, login, breakfast, boolean, sync, date, get, property, log, set, cli, execute, install, aliases, warning, header, day, today, string, item, track, raffle, topup, detect, holiday, prepare, daily, bone, farm, farming, post, run</p><p><strong>Filaments:</strong> <a href="#fn-11-71">don_login_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-73">don_login_install_aliases</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-7">don_header</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="don_master_lib_micro_agent.html#fn-12-100">Day</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-72">don_login_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-76">don_login_raffle_topup</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-77">don_login_detect_holiday</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-43">don_breakfast_prepare_daily</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-78">don_login_bone_farm</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-79">don_login_farming</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-67">don_post_run_from</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_breakfast_1() {
+    don_login_sync_date();
+    string stage_name = get_property(&quot;don_login_stage&quot;);
+    if (stage_name == &quot;done&quot; || stage_name == &quot;in_run_done&quot; ||
+        stage_name == &quot;already_breakfast&quot;) {
+        don_log(&quot;breakfast_1 already handled today.&quot;);
+        return true;
+    }
+    // Required first and second CLI actions, in this exact order.
+    if (stage_name == &quot;new&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;free_running&quot;);
+        if (!cli_execute(&quot;combo watersheep-free&quot;)) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;free_done&quot;);
+        stage_name = &quot;free_done&quot;;
+    }
+    if (stage_name == &quot;free_done&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;update_running&quot;);
+        if (!cli_execute(&quot;git update&quot;)) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;update_done&quot;);
+        stage_name = &quot;update_done&quot;;
+    }
+    if (stage_name == &quot;update_done&quot;) {
+        if (!don_login_install_aliases())
+            don_warning(&quot;Could not install every don-login alias.&quot;);
+        set_property(&quot;don_login_stage&quot;, &quot;aliases_done&quot;);
+        stage_name = &quot;aliases_done&quot;;
+    }
+    if (stage_name == &quot;aliases_done&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;checks_running&quot;);
+        don_header(&quot;Don login: &quot; + Day() + &quot; &quot; + today_to_string());
+        don_log(&quot;Bounty item: &quot; + to_item(get_property(&quot;currentBountyItem&quot;)));
+        if (!cli_execute(&quot;counters&quot;)) don_warning(&quot;Counters report unavailable.&quot;);
+        if (!cli_execute(&quot;conditions&quot;)) don_warning(&quot;Conditions report unavailable.&quot;);
+        don_login_track(&quot;login_start&quot;);
+        if (!don_login_raffle_topup()) return false;
+        set_property(&quot;don_login_holiday&quot;, don_login_detect_holiday());
+        set_property(&quot;don_login_stage&quot;, &quot;checks_done&quot;);
+        stage_name = &quot;checks_done&quot;;
+    }
+    if (stage_name == &quot;checks_done&quot;) {
+        if (get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
+            don_warning(&quot;Native breakfast was completed before breakfast_1; no automatic Garbo.&quot;);
+            set_property(&quot;don_login_stage&quot;, &quot;already_breakfast&quot;);
+            return true;
+        }
+        if (!get_property(&quot;kingLiberated&quot;).to_boolean()) {
+            set_property(&quot;don_login_stage&quot;, &quot;in_run_running&quot;);
+            if (!cli_execute(&quot;breakfast&quot;)) return false;
+            set_property(&quot;don_login_stage&quot;, &quot;in_run_done&quot;);
+            return true;
+        }
+        set_property(&quot;don_login_stage&quot;, &quot;breakfast_running&quot;);
+        if (!don_breakfast_prepare_daily()) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;breakfast_done&quot;);
+        don_login_track(&quot;breakfast_1_done&quot;);
+        stage_name = &quot;breakfast_done&quot;;
+    }
+    if (stage_name == &quot;breakfast_done&quot;) {
+        string holiday_name = get_property(&quot;don_login_holiday&quot;);
+        if (holiday_name != &quot;&quot; &amp;&amp; holiday_name != &quot;none&quot;) {
+            set_property(&quot;don_login_stage&quot;, &quot;holiday_running&quot;);
+            if (holiday_name == &quot;halloween&quot; &amp;&amp; !cli_execute(&quot;freecandy&quot;))
+                return false;
+            if ((holiday_name == &quot;time_tower&quot; || holiday_name == &quot;crimbo&quot;) &amp;&amp;
+                !cli_execute(&quot;nobarf&quot;)) return false;
+            set_property(&quot;don_login_stage&quot;, &quot;done&quot;);
+            return true;
+        }
+        set_property(&quot;don_login_stage&quot;, &quot;bone_running&quot;);
+        if (!don_login_bone_farm()) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;bone_done&quot;);
+        stage_name = &quot;bone_done&quot;;
+    }
+    if (stage_name == &quot;bone_done&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;farm_running&quot;);
+        if (!don_login_farming()) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;done&quot;);
+        don_login_track(&quot;login_farm_done&quot;);
+        if (get_property(&quot;don_login_auto_eod&quot;).to_boolean())
+            return don_post_run_from(&quot;start&quot;);
+        return true;
+    }
+    don_warning(&quot;don_login paused at stage &quot; + get_property(&quot;don_login_stage&quot;) +
+                &quot;; inspect actions before manually repairing the checkpoint.&quot;);
+    return false;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-81" data-search="don_login_breakfast_2 boolean don_login_breakfast_2() don login breakfast boolean get property int second allowed warning sync date log set track prepare daily bone farm farming post run from  don_login_second_allowed   (agent_filament_strong_frame_bearing_guy)  ·  don_warning   (agent_filament_strong_frame_bridge_thread)  ·  don_login_sync_date   (agent_filament_strong_frame_bearing_guy)  ·  don_log   (agent_filament_strong_frame_bridge_thread)  ·  don_login_track   (agent_filament_strong_frame_bearing_guy)  ·  don_breakfast_prepare_daily   (agent_filament_strong_frame_bearing_guy)  ·  don_login_bone_farm   (agent_filament_strong_frame_bearing_guy)  ·  don_login_farming   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_from   (agent_filament_strong_frame_bearing_guy) "><h2>don_login_breakfast_2 <small>[11.81]</small></h2><p><code>boolean don_login_breakfast_2()</code></p><p>scripts/don_custom_functions.ash:1483–1507</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-81">function_index11.81.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-81">function_actual11.81.2</a></p><p><strong>Keywords:</strong> don, login, breakfast, boolean, get, property, int, second, allowed, warning, sync, date, log, set, track, prepare, daily, bone, farm, farming, post, run, from</p><p><strong>Filaments:</strong> <a href="#fn-11-70">don_login_second_allowed</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-4">don_warning</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-71">don_login_sync_date</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="don_master_lib_micro_agent.html#fn-12-1">don_log</a> <small>(agent_filament_strong_frame_bridge_thread)</small> · <a href="#fn-11-72">don_login_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-43">don_breakfast_prepare_daily</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-78">don_login_bone_farm</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-79">don_login_farming</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-67">don_post_run_from</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_breakfast_2() {
+    int daily_count = get_property(&quot;ascensionsToday&quot;).to_int();
+    if (!don_login_second_allowed(daily_count)) {
+        don_warning(&quot;breakfast_2 requires ascensionsToday &gt; 0.&quot;);
+        return false;
+    }
+    if (!get_property(&quot;kingLiberated&quot;).to_boolean()) {
+        don_warning(&quot;breakfast_2 requires kingLiberated=true.&quot;);
+        return false;
+    }
+    don_login_sync_date();
+    if (get_property(&quot;don_login_breakfast2_ascensions&quot;).to_int() &gt;= daily_count) {
+        don_log(&quot;breakfast_2 already attempted for ascension #&quot; + daily_count);
+        return true;
+    }
+    set_property(&quot;don_login_breakfast2_ascensions&quot;, daily_count);
+    don_login_track(&quot;breakfast_2_start&quot;);
+    if (!don_breakfast_prepare_daily()) return false;
+    if (!don_login_bone_farm()) return false;
+    if (!don_login_farming()) return false;
+    don_login_track(&quot;breakfast_2_done&quot;);
+    if (get_property(&quot;don_login_auto_eod&quot;).to_boolean())
+        return don_post_run_from(&quot;start&quot;);
+    return true;
+}</code></pre></details></article>
+<article class="entry" id="fn-11-82" data-search="don_login_eod boolean don_login_eod() don login eod boolean track post run from  don_login_track   (agent_filament_strong_frame_bearing_guy)  ·  don_post_run_from   (agent_filament_strong_frame_bearing_guy) "><h2>don_login_eod <small>[11.82]</small></h2><p><code>boolean don_login_eod()</code></p><p>scripts/don_custom_functions.ash:1509–1512</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-82">function_index11.82.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-82">function_actual11.82.2</a></p><p><strong>Keywords:</strong> don, login, eod, boolean, track, post, run, from</p><p><strong>Filaments:</strong> <a href="#fn-11-72">don_login_track</a> <small>(agent_filament_strong_frame_bearing_guy)</small> · <a href="#fn-11-67">don_post_run_from</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>boolean don_login_eod() {
+    don_login_track(&quot;login_eod_start&quot;);
+    return don_post_run_from(&quot;eod&quot;);
+}</code></pre></details></article>
+<article class="entry" id="fn-11-83" data-search="don_login void don_login() don login void breakfast  don_login_breakfast_1   (agent_filament_strong_frame_bearing_guy) "><h2>don_login <small>[11.83]</small></h2><p><code>void don_login()</code></p><p>scripts/don_custom_functions.ash:1514–1514</p><p><a href="agent_web_index/don_custom_functions.html5#index-11-83">function_index11.83.1</a> · <a href="agent_web_actual/don_custom_functions.html5#actual-11-83">function_actual11.83.2</a></p><p><strong>Keywords:</strong> don, login, void, breakfast</p><p><strong>Filaments:</strong> <a href="#fn-11-80">don_login_breakfast_1</a> <small>(agent_filament_strong_frame_bearing_guy)</small></p><details><summary>Actual ASH source (read only)</summary><pre><code>void don_login() { don_login_breakfast_1(); }</code></pre></details></article><script>const q=document.getElementById("search"),items=[...document.querySelectorAll(".entry")],counter=document.getElementById("count");q.addEventListener("input",()=>{const tokens=q.value.toLowerCase().trim().split(/\s+/).filter(Boolean);let count=0;for(const item of items){const visible=tokens.every(t=>item.dataset.search.includes(t));item.hidden=!visible;if(visible)count++;}counter.textContent=count+" matching functions";});</script></body></html>
