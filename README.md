@@ -221,6 +221,80 @@ shower, Big Book, Mayam, and optionally cockroach setup) are independently
 checked on every invocation. Individual tasks remain responsible for their
 own daily idempotence and resource limits.
 
+## Morning companion — don_login() / breakfast_1 / breakfast_2
+
+Import-safe library entrypoint: `don_login()`. KoLmafia gCLI entrypoint:
+`don_login.ash`. Start in dry/read-only mode:
+
+~~~text
+verify don_custom_functions.ash
+verify don_login.ash
+verify don_login_smoke.ash
+call don_login_smoke.ash
+call don_login.ash help
+call don_login.ash status
+~~~
+
+To install aliases without gameplay: `call don_login.ash install`.
+
+Aliases automatically installed **after** the morning combo and Git update:
+`don-login => call don_login.ash %%`,
+`don-breakfast-1 => call don_login.ash breakfast_1`,
+`don-breakfast-2 => call don_login.ash breakfast_2`,
+`don-login-eod => call don_login.ash eod`.
+
+`don-login breakfast_1` runs **`combo watersheep-free` first** and
+**`git update` second**, then alias setup, bounty/counters/conditions,
+optional ptrack checkpoint, raffle top-up to 111 where accessible, holiday
+detection, and either native in-run breakfast or aftercore Don breakfast.
+Aftercore then runs boneFarm (unless disabled) followed by the selected
+exclusive `don_breakfast_*` farming mode, otherwise `barf1`. If native
+breakfast was completed *before* this morning run, farming is skipped.
+Halloween overrides with `freecandy`; Crimbo/Time Tower with `nobarf`.
+Feast of Boris is logged, continuing normal mode. Each phase uses a saved
+daily `don_login_stage`; an interrupted `*_running` phase will not
+silently retry paid or turn-consuming actions.
+
+`don-login breakfast_2` / `don-login postascend` handles post-ascension
+aftercore breakfast. It **requires `ascensionsToday > 0` and
+`kingLiberated=true`**. A call is recorded once per daily ascension count
+*before* gameplay begins; a failed/ambiguous attempt requires manual
+reconciliation. It deliberately does not rerun the first login's free combo
+or Git update. Use `don-login status` to inspect checkpoints.
+
+`don-login eod` hands off to `don_post_run_from("eod")`. To
+automatically hand off to the full post-run chain after farming, set
+`don_login_auto_eod=true` (default false).
+
+### Login preferences
+
+| Preference | Default | Effect |
+| --- | --- | --- |
+| `don_login_bone_farm` | true | `call boneFarm.ash` |
+| `don_login_default_garbo` | true | `barf1` when no breakfast farming mode selected |
+| `don_login_holidays` | true | Holiday override |
+| `don_login_ptrack` | false | Optional `call ptrack.ash add <name>` |
+| `don_login_auto_eod` | false | Opt-in post-run chain |
+| `don_login_stage` / `don_login_date` | managed | Daily checkpoints |
+| `don_login_breakfast2_ascensions` | managed | Last second-breakfast attempt |
+
+`don-login help` includes the existing `don_breakfast_*` preference
+list. Shared daily breakfast setup is `don_breakfast_prepare_daily()`;
+the original `augmentBreakfast()` still invokes the configured farming
+mode after preparation, without running anything on import.
+
+External `ptrack.ash`, `don_utilV2.ash`, `don_update_lib.ash`,
+`TimeTracking.ash`, and `ProfitTracking.ash` remain optional; they are
+not imported into this library to avoid missing-dependency compilation
+failures. Git updates are handled by the requested native `git update`
+command. An unverified shutdown-capable `don_update_check(false)` is not
+invoked. For ptrack EOD checkpoints, use the already supported
+`don_post_run_ptrack=true` switch.
+
+**Live gameplay not tested here.** Note that `git update` can update
+scripts during the current invocation; verify again before subsequent live
+runs. The morning/ascension stages may spend turns and Meat.
+
 ## Don Post-Run — independent stages and full chain (feature branch)
 
 **Safe first steps (compile / read-only):**

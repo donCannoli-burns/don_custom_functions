@@ -674,41 +674,31 @@
     if (get_property(&quot;don_breakfast_barf&quot;).to_boolean() &amp;&amp;
         !cli_execute(&quot;barf&quot;)) don_error(&quot;barf CLI command failed.&quot;);
 }</code></pre></article>
-<article id="actual-11-43"><h2>augmentBreakfast <small>[11.43]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:815–848</p><p>function_actual11.43.2</p><pre><code>void augmentBreakfast() {
-    if (!don_breakfast_validate_modes()) return;
-
+<article id="actual-11-43"><h2>don_breakfast_prepare_daily <small>[11.43]</small></h2><p><code>boolean don_breakfast_prepare_daily()</code></p><p>scripts/don_custom_functions.ash:815–834</p><p>function_actual11.43.2</p><pre><code>boolean don_breakfast_prepare_daily() {
+    if (!don_breakfast_validate_modes()) return false;
     if (!get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
-        if (!cli_execute(&quot;breakfast&quot;))
-            don_warning(&quot;Native breakfast command failed.&quot;);
-    } else {
-        don_log(&quot;Native breakfast already completed; checking Don daily tasks.&quot;);
-    }
-
+        if (!cli_execute(&quot;breakfast&quot;)) return false;
+    } else don_log(&quot;Native breakfast already completed; checking Don daily tasks.&quot;);
     raffle();
-
     if (!get_property(&quot;_aprilShower&quot;).to_boolean() &amp;&amp;
-        !cli_execute(&quot;shower ice&quot;))
-        don_warning(&quot;April shower ice command failed.&quot;);
-
+        !cli_execute(&quot;shower ice&quot;)) don_warning(&quot;Shower ice command failed.&quot;);
     if (get_property(&quot;bankedKarma&quot;).to_int() &gt; 2000 &amp;&amp;
         available_amount($item[The Big Book of Every Skill]) &gt; 0 &amp;&amp;
         !use(1, $item[The Big Book of Every Skill]))
-        don_warning(&quot;Unable to use The Big Book of Every Skill.&quot;);
-
+        don_warning(&quot;Could not use Big Book of Every Skill.&quot;);
     don_mayam();
-
-    if (get_property(&quot;don_breakfast_cockroach&quot;).to_boolean()) {
-        if (!cockroach_fight_prep()) {
-            don_warning(&quot;Cockroach setup incomplete; any requested farming mode was NOT started.&quot;);
-            return;
-        }
-    } else {
-        don_log(&quot;PirateRealm cockroach route skipped (don_breakfast_cockroach=false).&quot;);
+    if (get_property(&quot;don_breakfast_cockroach&quot;).to_boolean() &amp;&amp;
+        !cockroach_fight_prep()) {
+        don_warning(&quot;Cockroach route failed; stopping before farming.&quot;);
+        return false;
     }
-
+    return true;
+}</code></pre></article>
+<article id="actual-11-44"><h2>augmentBreakfast <small>[11.44]</small></h2><p><code>void augmentBreakfast()</code></p><p>scripts/don_custom_functions.ash:836–839</p><p>function_actual11.44.2</p><pre><code>void augmentBreakfast() {
+    if (!don_breakfast_prepare_daily()) return;
     don_breakfast_run_farming_mode();
 }</code></pre></article>
-<article id="actual-11-44"><h2>Baseline <small>[11.44]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:850–866</p><p>function_actual11.44.2</p><pre><code>void Baseline() {
+<article id="actual-11-45"><h2>Baseline <small>[11.45]</small></h2><p><code>void Baseline()</code></p><p>scripts/don_custom_functions.ash:841–857</p><p>function_actual11.45.2</p><pre><code>void Baseline() {
     shrugAT();
     cli_execute(&quot;hagnk all&quot;);
     cli_execute(&quot;refresh all&quot;);
@@ -725,16 +715,16 @@
         cli_execute(&quot;uneffect &quot; + sparky);
     }
 }</code></pre></article>
-<article id="actual-11-45"><h2>don_nightcap_configured_id <small>[11.45]</small></h2><p><code>int don_nightcap_configured_id(string preference_name)</code></p><p>scripts/don_custom_functions.ash:870–874</p><p>function_actual11.45.2</p><pre><code>int don_nightcap_configured_id(string preference_name) {
+<article id="actual-11-46"><h2>don_nightcap_configured_id <small>[11.46]</small></h2><p><code>int don_nightcap_configured_id(string preference_name)</code></p><p>scripts/don_custom_functions.ash:861–865</p><p>function_actual11.46.2</p><pre><code>int don_nightcap_configured_id(string preference_name) {
     int chosen_id = get_property(preference_name).to_int();
     if (chosen_id &lt;= 0) return 5227;
     return chosen_id;
 }</code></pre></article>
-<article id="actual-11-46"><h2>don_nightcap_price_limit <small>[11.46]</small></h2><p><code>int don_nightcap_price_limit()</code></p><p>scripts/don_custom_functions.ash:876–879</p><p>function_actual11.46.2</p><pre><code>int don_nightcap_price_limit() {
+<article id="actual-11-47"><h2>don_nightcap_price_limit <small>[11.47]</small></h2><p><code>int don_nightcap_price_limit()</code></p><p>scripts/don_custom_functions.ash:867–870</p><p>function_actual11.47.2</p><pre><code>int don_nightcap_price_limit() {
     int stored = get_property(&quot;don_nightcap_buy_limit&quot;).to_int();
     return stored &gt; 0 ? stored : 175000;
 }</code></pre></article>
-<article id="actual-11-47"><h2>don_nightcap_pick <small>[11.47]</small></h2><p><code>item don_nightcap_pick()</code></p><p>scripts/don_custom_functions.ash:881–905</p><p>function_actual11.47.2</p><pre><code>item don_nightcap_pick() {
+<article id="actual-11-48"><h2>don_nightcap_pick <small>[11.48]</small></h2><p><code>item don_nightcap_pick()</code></p><p>scripts/don_custom_functions.ash:872–896</p><p>function_actual11.48.2</p><pre><code>item don_nightcap_pick() {
     string selector = get_property(&quot;don_event&quot;);
     if (!selector.to_boolean())
         return to_item(don_nightcap_configured_id(&quot;don_defaultNightcap&quot;));
@@ -759,7 +749,7 @@
     don_warning(&quot;Neither event item 8553 nor 8554 has an acceptable mall estimate; using don_eventNightcap fallback.&quot;);
     return to_item(don_nightcap_configured_id(&quot;don_eventNightcap&quot;));
 }</code></pre></article>
-<article id="actual-11-48"><h2>don_nightcap <small>[11.48]</small></h2><p><code>boolean don_nightcap()</code></p><p>scripts/don_custom_functions.ash:907–942</p><p>function_actual11.48.2</p><pre><code>boolean don_nightcap() {
+<article id="actual-11-49"><h2>don_nightcap <small>[11.49]</small></h2><p><code>boolean don_nightcap()</code></p><p>scripts/don_custom_functions.ash:898–933</p><p>function_actual11.49.2</p><pre><code>boolean don_nightcap() {
     if (my_inebriety() &gt; inebriety_limit()) {
         don_log(&quot;Already overdrunk: will not consume a second nightcap.&quot;);
         return true;
@@ -795,8 +785,8 @@
     don_good(&quot;Nightcap completed: &quot; + selected + &quot;.&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-49"><h2>nightcap <small>[11.49]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:944–944</p><p>function_actual11.49.2</p><pre><code>void nightcap() { don_nightcap(); }</code></pre></article>
-<article id="actual-11-50"><h2>don_dpills <small>[11.50]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:947–956</p><p>function_actual11.50.2</p><pre><code>void don_dpills() {
+<article id="actual-11-50"><h2>nightcap <small>[11.50]</small></h2><p><code>void nightcap()</code></p><p>scripts/don_custom_functions.ash:935–935</p><p>function_actual11.50.2</p><pre><code>void nightcap() { don_nightcap(); }</code></pre></article>
+<article id="actual-11-51"><h2>don_dpills <small>[11.51]</small></h2><p><code>void don_dpills()</code></p><p>scripts/don_custom_functions.ash:938–947</p><p>function_actual11.51.2</p><pre><code>void don_dpills() {
     cli_execute(&quot;ccs don_default&quot;);
     cli_execute(&quot;outfit wineglass&quot;);
     cli_execute(&quot;mood apathetic&quot;);
@@ -806,7 +796,7 @@
     }
     set_property(&quot;_don_dailyPills&quot;, my_adventures() &lt; 5 ? &quot;true&quot; : &quot;false&quot;);
 }</code></pre></article>
-<article id="actual-11-51"><h2>don_Midcap <small>[11.51]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:958–974</p><p>function_actual11.51.2</p><pre><code>void don_Midcap() {
+<article id="actual-11-52"><h2>don_Midcap <small>[11.52]</small></h2><p><code>void don_Midcap()</code></p><p>scripts/don_custom_functions.ash:949–965</p><p>function_actual11.52.2</p><pre><code>void don_Midcap() {
     item midcap = $item[bucket of wine];
     if (needToAcquireItem(midcap)) buy(1, midcap, 15000);
     if (available_amount(midcap) == 0) {
@@ -823,7 +813,7 @@
     if (!overdrink(1, midcap)) don_error(&quot;Overdrink failed.&quot;);
     if (previous != $familiar[none]) use_familiar(previous);
 }</code></pre></article>
-<article id="actual-11-52"><h2>don_Midcap_Pills <small>[11.52]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:976–985</p><p>function_actual11.52.2</p><pre><code>void don_Midcap_Pills() {
+<article id="actual-11-53"><h2>don_Midcap_Pills <small>[11.53]</small></h2><p><code>void don_Midcap_Pills()</code></p><p>scripts/don_custom_functions.ash:967–976</p><p>function_actual11.53.2</p><pre><code>void don_Midcap_Pills() {
     if (!don_is_overdrunk() &amp;&amp; my_adventures() &gt;= 50) {
         int spare = my_adventures() - 50;
         if (spare &gt; 0 &amp;&amp; !cli_execute(&quot;combo &quot; + spare)) {
@@ -833,7 +823,7 @@
     }
     don_dpills();
 }</code></pre></article>
-<article id="actual-11-53"><h2>newstuff <small>[11.53]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:987–1013</p><p>function_actual11.53.2</p><pre><code>void newstuff() {
+<article id="actual-11-54"><h2>newstuff <small>[11.54]</small></h2><p><code>void newstuff()</code></p><p>scripts/don_custom_functions.ash:978–1004</p><p>function_actual11.54.2</p><pre><code>void newstuff() {
     int profitOffset = 100;
     string page = visit_url(&quot;campground.php?action=inspectdwelling&quot;);
     if (contains_text(page, &quot;Clockwork Maid&quot;) ||
@@ -860,23 +850,23 @@
     }
     don_warning(&quot;Maid / butler options are all outside price range.&quot;);
 }</code></pre></article>
-<article id="actual-11-54"><h2>don_post_run_sync_date <small>[11.54]</small></h2><p><code>void don_post_run_sync_date()</code></p><p>scripts/don_custom_functions.ash:1021–1027</p><p>function_actual11.54.2</p><pre><code>void don_post_run_sync_date() {
+<article id="actual-11-55"><h2>don_post_run_sync_date <small>[11.55]</small></h2><p><code>void don_post_run_sync_date()</code></p><p>scripts/don_custom_functions.ash:1012–1018</p><p>function_actual11.55.2</p><pre><code>void don_post_run_sync_date() {
     string today = today_to_string();
     if (get_property(&quot;don_post_run_date&quot;) == today) return;
     set_property(&quot;don_post_run_date&quot;, today);
     set_property(&quot;don_post_run_stage&quot;, &quot;new&quot;);
     set_property(&quot;don_post_run_eod_step&quot;, &quot;0&quot;);
 }</code></pre></article>
-<article id="actual-11-55"><h2>don_post_run_step_done <small>[11.55]</small></h2><p><code>boolean don_post_run_step_done(string step_name)</code></p><p>scripts/don_custom_functions.ash:1029–1031</p><p>function_actual11.55.2</p><pre><code>boolean don_post_run_step_done(string step_name) {
+<article id="actual-11-56"><h2>don_post_run_step_done <small>[11.56]</small></h2><p><code>boolean don_post_run_step_done(string step_name)</code></p><p>scripts/don_custom_functions.ash:1020–1022</p><p>function_actual11.56.2</p><pre><code>boolean don_post_run_step_done(string step_name) {
     return get_property(&quot;don_post_run_stage&quot;) == step_name;
 }</code></pre></article>
-<article id="actual-11-56"><h2>don_post_run_track <small>[11.56]</small></h2><p><code>void don_post_run_track(string label)</code></p><p>scripts/don_custom_functions.ash:1033–1038</p><p>function_actual11.56.2</p><pre><code>void don_post_run_track(string label) {
+<article id="actual-11-57"><h2>don_post_run_track <small>[11.57]</small></h2><p><code>void don_post_run_track(string label)</code></p><p>scripts/don_custom_functions.ash:1024–1029</p><p>function_actual11.57.2</p><pre><code>void don_post_run_track(string label) {
     // Optional, non-authoritative telemetry; never a required import.
     if (!get_property(&quot;don_post_run_ptrack&quot;).to_boolean()) return;
     if (!cli_execute(&quot;call ptrack.ash add &quot; + label))
         don_warning(&quot;ptrack checkpoint unavailable: &quot; + label);
 }</code></pre></article>
-<article id="actual-11-57"><h2>don_post_run_status <small>[11.57]</small></h2><p><code>void don_post_run_status()</code></p><p>scripts/don_custom_functions.ash:1040–1057</p><p>function_actual11.57.2</p><pre><code>void don_post_run_status() {
+<article id="actual-11-58"><h2>don_post_run_status <small>[11.58]</small></h2><p><code>void don_post_run_status()</code></p><p>scripts/don_custom_functions.ash:1031–1048</p><p>function_actual11.58.2</p><pre><code>void don_post_run_status() {
     print(&quot;don_post_run_date = &quot; + get_property(&quot;don_post_run_date&quot;));
     print(&quot;don_post_run_stage = &quot; + get_property(&quot;don_post_run_stage&quot;));
     print(&quot;don_post_run_eod_step = &quot; + get_property(&quot;don_post_run_eod_step&quot;));
@@ -894,7 +884,7 @@
           &quot;; spleen = &quot; + my_spleen_use() + &quot;/&quot; + spleen_limit() +
           &quot;; inebriety = &quot; + my_inebriety() + &quot;/&quot; + inebriety_limit());
 }</code></pre></article>
-<article id="actual-11-58"><h2>don_post_run_prepare <small>[11.58]</small></h2><p><code>boolean don_post_run_prepare()</code></p><p>scripts/don_custom_functions.ash:1059–1081</p><p>function_actual11.58.2</p><pre><code>boolean don_post_run_prepare() {
+<article id="actual-11-59"><h2>don_post_run_prepare <small>[11.59]</small></h2><p><code>boolean don_post_run_prepare()</code></p><p>scripts/don_custom_functions.ash:1050–1072</p><p>function_actual11.59.2</p><pre><code>boolean don_post_run_prepare() {
     don_post_run_sync_date();
     if (!get_property(&quot;_don_famMax&quot;).to_boolean() &amp;&amp;
         my_inebriety() &lt;= inebriety_limit()) {
@@ -917,7 +907,7 @@
     don_post_run_track(&quot;postrun_prepared&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-59"><h2>don_post_run_yeti_stage <small>[11.59]</small></h2><p><code>boolean don_post_run_yeti_stage()</code></p><p>scripts/don_custom_functions.ash:1084–1141</p><p>function_actual11.59.2</p><pre><code>boolean don_post_run_yeti_stage() {
+<article id="actual-11-60"><h2>don_post_run_yeti_stage <small>[11.60]</small></h2><p><code>boolean don_post_run_yeti_stage()</code></p><p>scripts/don_custom_functions.ash:1075–1132</p><p>function_actual11.60.2</p><pre><code>boolean don_post_run_yeti_stage() {
     don_post_run_sync_date();
     familiar yeti = $familiar[cooler yeti];
     if (!have_familiar(yeti)) {
@@ -975,8 +965,8 @@
     don_post_run_track(&quot;postrun_yeti_ready&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-60"><h2>don_yeti_adv <small>[11.60]</small></h2><p><code>void don_yeti_adv()</code></p><p>scripts/don_custom_functions.ash:1144–1144</p><p>function_actual11.60.2</p><pre><code>void don_yeti_adv() { don_post_run_yeti_stage(); }</code></pre></article>
-<article id="actual-11-61"><h2>don_post_run_combo_stage <small>[11.61]</small></h2><p><code>boolean don_post_run_combo_stage()</code></p><p>scripts/don_custom_functions.ash:1146–1164</p><p>function_actual11.61.2</p><pre><code>boolean don_post_run_combo_stage() {
+<article id="actual-11-61"><h2>don_yeti_adv <small>[11.61]</small></h2><p><code>void don_yeti_adv()</code></p><p>scripts/don_custom_functions.ash:1135–1135</p><p>function_actual11.61.2</p><pre><code>void don_yeti_adv() { don_post_run_yeti_stage(); }</code></pre></article>
+<article id="actual-11-62"><h2>don_post_run_combo_stage <small>[11.62]</small></h2><p><code>boolean don_post_run_combo_stage()</code></p><p>scripts/don_custom_functions.ash:1137–1155</p><p>function_actual11.62.2</p><pre><code>boolean don_post_run_combo_stage() {
     don_post_run_sync_date();
     if ($familiar[cooler yeti].experience &lt; 400) {
         don_error(&quot;Cooler Yeti below 400 XP: refusing to start WaterSheep.&quot;);
@@ -995,7 +985,7 @@
     don_post_run_track(&quot;postrun_combo_done&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-62"><h2>don_post_run_eod_ready <small>[11.62]</small></h2><p><code>boolean don_post_run_eod_ready()</code></p><p>scripts/don_custom_functions.ash:1166–1174</p><p>function_actual11.62.2</p><pre><code>boolean don_post_run_eod_ready() {
+<article id="actual-11-63"><h2>don_post_run_eod_ready <small>[11.63]</small></h2><p><code>boolean don_post_run_eod_ready()</code></p><p>scripts/don_custom_functions.ash:1157–1165</p><p>function_actual11.63.2</p><pre><code>boolean don_post_run_eod_ready() {
     if (my_adventures() &gt; 2) return false;
     if (my_fullness() &lt; fullness_limit()) return false;
     if (my_spleen_use() &lt; spleen_limit()) return false;
@@ -1004,7 +994,7 @@
     if (!is_wearing_outfit(&quot;maxorgan&quot;)) return false;
     return true;
 }</code></pre></article>
-<article id="actual-11-63"><h2>don_eod_process <small>[11.63]</small></h2><p><code>boolean don_eod_process()</code></p><p>scripts/don_custom_functions.ash:1176–1252</p><p>function_actual11.63.2</p><pre><code>boolean don_eod_process() {
+<article id="actual-11-64"><h2>don_eod_process <small>[11.64]</small></h2><p><code>boolean don_eod_process()</code></p><p>scripts/don_custom_functions.ash:1167–1243</p><p>function_actual11.64.2</p><pre><code>boolean don_eod_process() {
     don_post_run_sync_date();
     if (get_property(&quot;don_post_run_stage&quot;) == &quot;done&quot;) {
         don_log(&quot;Post-run already completed for &quot; + today_to_string());
@@ -1081,9 +1071,9 @@
     don_good(&quot;Don post-run EOD complete.&quot;);
     return true;
 }</code></pre></article>
-<article id="actual-11-64"><h2>eod_proccess <small>[11.64]</small></h2><p><code>boolean eod_proccess()</code></p><p>scripts/don_custom_functions.ash:1255–1255</p><p>function_actual11.64.2</p><pre><code>boolean eod_proccess() { return don_eod_process(); }</code></pre></article>
-<article id="actual-11-65"><h2>eod_process <small>[11.65]</small></h2><p><code>boolean eod_process()</code></p><p>scripts/don_custom_functions.ash:1256–1256</p><p>function_actual11.65.2</p><pre><code>boolean eod_process() { return don_eod_process(); }</code></pre></article>
-<article id="actual-11-66"><h2>don_post_run_from <small>[11.66]</small></h2><p><code>boolean don_post_run_from(string entry_stage)</code></p><p>scripts/don_custom_functions.ash:1258–1288</p><p>function_actual11.66.2</p><pre><code>boolean don_post_run_from(string entry_stage) {
+<article id="actual-11-65"><h2>eod_proccess <small>[11.65]</small></h2><p><code>boolean eod_proccess()</code></p><p>scripts/don_custom_functions.ash:1246–1246</p><p>function_actual11.65.2</p><pre><code>boolean eod_proccess() { return don_eod_process(); }</code></pre></article>
+<article id="actual-11-66"><h2>eod_process <small>[11.66]</small></h2><p><code>boolean eod_process()</code></p><p>scripts/don_custom_functions.ash:1247–1247</p><p>function_actual11.66.2</p><pre><code>boolean eod_process() { return don_eod_process(); }</code></pre></article>
+<article id="actual-11-67"><h2>don_post_run_from <small>[11.67]</small></h2><p><code>boolean don_post_run_from(string entry_stage)</code></p><p>scripts/don_custom_functions.ash:1249–1279</p><p>function_actual11.67.2</p><pre><code>boolean don_post_run_from(string entry_stage) {
     don_post_run_sync_date();
     if (entry_stage == &quot;nightcap&quot;) return don_nightcap();
     if (entry_stage == &quot;eod&quot;) return eod_proccess();
@@ -1114,4 +1104,212 @@
     }
     return eod_proccess();
 }</code></pre></article>
-<article id="actual-11-67"><h2>don_post_run <small>[11.67]</small></h2><p><code>void don_post_run()</code></p><p>scripts/don_custom_functions.ash:1290–1290</p><p>function_actual11.67.2</p><pre><code>void don_post_run() { don_post_run_from(&quot;start&quot;); }</code></pre></article></body></html>
+<article id="actual-11-68"><h2>don_post_run <small>[11.68]</small></h2><p><code>void don_post_run()</code></p><p>scripts/don_custom_functions.ash:1281–1281</p><p>function_actual11.68.2</p><pre><code>void don_post_run() { don_post_run_from(&quot;start&quot;); }</code></pre></article>
+<article id="actual-11-69"><h2>don_login_default_true <small>[11.69]</small></h2><p><code>boolean don_login_default_true(string pref_name)</code></p><p>scripts/don_custom_functions.ash:1290–1293</p><p>function_actual11.69.2</p><pre><code>boolean don_login_default_true(string pref_name) {
+    string raw_value = get_property(pref_name);
+    return raw_value == &quot;&quot; || raw_value.to_boolean();
+}</code></pre></article>
+<article id="actual-11-70"><h2>don_login_second_allowed <small>[11.70]</small></h2><p><code>boolean don_login_second_allowed(int daily_ascensions)</code></p><p>scripts/don_custom_functions.ash:1295–1297</p><p>function_actual11.70.2</p><pre><code>boolean don_login_second_allowed(int daily_ascensions) {
+    return daily_ascensions &gt; 0;
+}</code></pre></article>
+<article id="actual-11-71"><h2>don_login_sync_date <small>[11.71]</small></h2><p><code>void don_login_sync_date()</code></p><p>scripts/don_custom_functions.ash:1299–1306</p><p>function_actual11.71.2</p><pre><code>void don_login_sync_date() {
+    string date_now = today_to_string();
+    if (get_property(&quot;don_login_date&quot;) == date_now) return;
+    set_property(&quot;don_login_date&quot;, date_now);
+    set_property(&quot;don_login_stage&quot;, &quot;new&quot;);
+    set_property(&quot;don_login_holiday&quot;, &quot;none&quot;);
+    set_property(&quot;don_login_breakfast2_ascensions&quot;, &quot;0&quot;);
+}</code></pre></article>
+<article id="actual-11-72"><h2>don_login_track <small>[11.72]</small></h2><p><code>void don_login_track(string label)</code></p><p>scripts/don_custom_functions.ash:1308–1312</p><p>function_actual11.72.2</p><pre><code>void don_login_track(string label) {
+    if (!get_property(&quot;don_login_ptrack&quot;).to_boolean()) return;
+    if (!cli_execute(&quot;call ptrack.ash add &quot; + label))
+        don_warning(&quot;Optional ptrack checkpoint failed: &quot; + label);
+}</code></pre></article>
+<article id="actual-11-73"><h2>don_login_install_aliases <small>[11.73]</small></h2><p><code>boolean don_login_install_aliases()</code></p><p>scripts/don_custom_functions.ash:1314–1320</p><p>function_actual11.73.2</p><pre><code>boolean don_login_install_aliases() {
+    boolean good = cli_execute(&quot;alias don-login =&gt; call don_login.ash %%&quot;);
+    if (!cli_execute(&quot;alias don-breakfast-1 =&gt; call don_login.ash breakfast_1&quot;)) good = false;
+    if (!cli_execute(&quot;alias don-breakfast-2 =&gt; call don_login.ash breakfast_2&quot;)) good = false;
+    if (!cli_execute(&quot;alias don-login-eod =&gt; call don_login.ash eod&quot;)) good = false;
+    return good;
+}</code></pre></article>
+<article id="actual-11-74"><h2>don_login_status <small>[11.74]</small></h2><p><code>void don_login_status()</code></p><p>scripts/don_custom_functions.ash:1322–1330</p><p>function_actual11.74.2</p><pre><code>void don_login_status() {
+    print(&quot;don_login_date = &quot; + get_property(&quot;don_login_date&quot;));
+    print(&quot;don_login_stage = &quot; + get_property(&quot;don_login_stage&quot;));
+    print(&quot;don_login_holiday = &quot; + get_property(&quot;don_login_holiday&quot;));
+    print(&quot;ascensionsToday = &quot; + get_property(&quot;ascensionsToday&quot;).to_int());
+    print(&quot;don_login_breakfast2_ascensions = &quot; + get_property(&quot;don_login_breakfast2_ascensions&quot;));
+    print(&quot;breakfastCompleted = &quot; + get_property(&quot;breakfastCompleted&quot;).to_boolean());
+    print(&quot;kingLiberated = &quot; + get_property(&quot;kingLiberated&quot;).to_boolean());
+}</code></pre></article>
+<article id="actual-11-75"><h2>don_login_help <small>[11.75]</small></h2><p><code>void don_login_help()</code></p><p>scripts/don_custom_functions.ash:1332–1343</p><p>function_actual11.75.2</p><pre><code>void don_login_help() {
+    don_header(&quot;Don Login / breakfast_1 / breakfast_2&quot;);
+    print(&quot;don-login help | status | breakfast_1 | breakfast_2 | postascend | eod | install&quot;);
+    print(&quot;breakfast_1: combo watersheep-free, git update, tracking, raffle, holiday, breakfast, boneFarm, farming.&quot;);
+    print(&quot;breakfast_2: requires ascensionsToday &gt; 0 and kingLiberated=true.&quot;);
+    print(&quot;don_login_bone_farm = &quot; + don_login_default_true(&quot;don_login_bone_farm&quot;) + &quot; (default true)&quot;);
+    print(&quot;don_login_default_garbo = &quot; + don_login_default_true(&quot;don_login_default_garbo&quot;) + &quot; (default true)&quot;);
+    print(&quot;don_login_holidays = &quot; + don_login_default_true(&quot;don_login_holidays&quot;) + &quot; (default true)&quot;);
+    print(&quot;don_login_ptrack = &quot; + get_property(&quot;don_login_ptrack&quot;).to_boolean());
+    print(&quot;don_login_auto_eod = &quot; + get_property(&quot;don_login_auto_eod&quot;).to_boolean());
+    don_breakfast_help();
+}</code></pre></article>
+<article id="actual-11-76"><h2>don_login_raffle_topup <small>[11.76]</small></h2><p><code>boolean don_login_raffle_topup()</code></p><p>scripts/don_custom_functions.ash:1345–1355</p><p>function_actual11.76.2</p><pre><code>boolean don_login_raffle_topup() {
+    if (available_amount($item[134]) == 0 &amp;&amp;
+        available_amount($item[pumpkin carriage]) == 0 &amp;&amp;
+        available_amount($item[Desert Bus pass]) == 0) {
+        don_log(&quot;Raffle access not detected; skipping top-up.&quot;);
+        return true;
+    }
+    int needed = max(0, 111 - don_owned_amount($item[raffle ticket]));
+    if (needed &lt;= 0) return true;
+    return cli_execute(&quot;raffle &quot; + needed);
+}</code></pre></article>
+<article id="actual-11-77"><h2>don_login_detect_holiday <small>[11.77]</small></h2><p><code>string don_login_detect_holiday()</code></p><p>scripts/don_custom_functions.ash:1357–1366</p><p>function_actual11.77.2</p><pre><code>string don_login_detect_holiday() {
+    if (!don_login_default_true(&quot;don_login_holidays&quot;)) return &quot;none&quot;;
+    string page_html = visit_url(&quot;main.php&quot;);
+    if (contains_text(page_html, &quot;Halloween&quot;)) return &quot;halloween&quot;;
+    if (contains_text(page_html, &quot;Time Tower&quot;)) return &quot;time_tower&quot;;
+    if (contains_text(page_html, &quot;Crimbo&quot;)) return &quot;crimbo&quot;;
+    if (contains_text(page_html, &quot;Feast of Boris&quot;))
+        don_log(&quot;Feast of Boris: regular farming route remains selected.&quot;);
+    return &quot;none&quot;;
+}</code></pre></article>
+<article id="actual-11-78"><h2>don_login_bone_farm <small>[11.78]</small></h2><p><code>boolean don_login_bone_farm()</code></p><p>scripts/don_custom_functions.ash:1368–1371</p><p>function_actual11.78.2</p><pre><code>boolean don_login_bone_farm() {
+    if (!don_login_default_true(&quot;don_login_bone_farm&quot;)) return true;
+    return cli_execute(&quot;call boneFarm.ash&quot;);
+}</code></pre></article>
+<article id="actual-11-79"><h2>don_login_farming <small>[11.79]</small></h2><p><code>boolean don_login_farming()</code></p><p>scripts/don_custom_functions.ash:1373–1391</p><p>function_actual11.79.2</p><pre><code>boolean don_login_farming() {
+    if (!don_breakfast_validate_modes()) return false;
+    if (get_property(&quot;don_breakfast_cowo&quot;).to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) return false;
+        return cli_execute(&quot;cowo&quot;);
+    }
+    if (get_property(&quot;don_breakfast_nobarf_combo&quot;).to_boolean()) {
+        if (!cli_execute(&quot;nobarf&quot;)) return false;
+        if (!cli_execute(&quot;refresh all&quot;)) return false;
+        int turns_remaining = don_breakfast_combo_turns(my_adventures());
+        return turns_remaining &lt; 1 || cli_execute(&quot;combo &quot; + turns_remaining);
+    }
+    if (get_property(&quot;don_breakfast_nobarf&quot;).to_boolean())
+        return cli_execute(&quot;nobarf&quot;);
+    if (get_property(&quot;don_breakfast_barf&quot;).to_boolean())
+        return cli_execute(&quot;barf&quot;);
+    if (!don_login_default_true(&quot;don_login_default_garbo&quot;)) return true;
+    return cli_execute(&quot;barf1&quot;);
+}</code></pre></article>
+<article id="actual-11-80"><h2>don_login_breakfast_1 <small>[11.80]</small></h2><p><code>boolean don_login_breakfast_1()</code></p><p>scripts/don_custom_functions.ash:1395–1480</p><p>function_actual11.80.2</p><pre><code>boolean don_login_breakfast_1() {
+    don_login_sync_date();
+    string stage_name = get_property(&quot;don_login_stage&quot;);
+    if (stage_name == &quot;done&quot; || stage_name == &quot;in_run_done&quot; ||
+        stage_name == &quot;already_breakfast&quot;) {
+        don_log(&quot;breakfast_1 already handled today.&quot;);
+        return true;
+    }
+    // Required first and second CLI actions, in this exact order.
+    if (stage_name == &quot;new&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;free_running&quot;);
+        if (!cli_execute(&quot;combo watersheep-free&quot;)) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;free_done&quot;);
+        stage_name = &quot;free_done&quot;;
+    }
+    if (stage_name == &quot;free_done&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;update_running&quot;);
+        if (!cli_execute(&quot;git update&quot;)) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;update_done&quot;);
+        stage_name = &quot;update_done&quot;;
+    }
+    if (stage_name == &quot;update_done&quot;) {
+        if (!don_login_install_aliases())
+            don_warning(&quot;Could not install every don-login alias.&quot;);
+        set_property(&quot;don_login_stage&quot;, &quot;aliases_done&quot;);
+        stage_name = &quot;aliases_done&quot;;
+    }
+    if (stage_name == &quot;aliases_done&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;checks_running&quot;);
+        don_header(&quot;Don login: &quot; + Day() + &quot; &quot; + today_to_string());
+        don_log(&quot;Bounty item: &quot; + to_item(get_property(&quot;currentBountyItem&quot;)));
+        if (!cli_execute(&quot;counters&quot;)) don_warning(&quot;Counters report unavailable.&quot;);
+        if (!cli_execute(&quot;conditions&quot;)) don_warning(&quot;Conditions report unavailable.&quot;);
+        don_login_track(&quot;login_start&quot;);
+        if (!don_login_raffle_topup()) return false;
+        set_property(&quot;don_login_holiday&quot;, don_login_detect_holiday());
+        set_property(&quot;don_login_stage&quot;, &quot;checks_done&quot;);
+        stage_name = &quot;checks_done&quot;;
+    }
+    if (stage_name == &quot;checks_done&quot;) {
+        if (get_property(&quot;breakfastCompleted&quot;).to_boolean()) {
+            don_warning(&quot;Native breakfast was completed before breakfast_1; no automatic Garbo.&quot;);
+            set_property(&quot;don_login_stage&quot;, &quot;already_breakfast&quot;);
+            return true;
+        }
+        if (!get_property(&quot;kingLiberated&quot;).to_boolean()) {
+            set_property(&quot;don_login_stage&quot;, &quot;in_run_running&quot;);
+            if (!cli_execute(&quot;breakfast&quot;)) return false;
+            set_property(&quot;don_login_stage&quot;, &quot;in_run_done&quot;);
+            return true;
+        }
+        set_property(&quot;don_login_stage&quot;, &quot;breakfast_running&quot;);
+        if (!don_breakfast_prepare_daily()) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;breakfast_done&quot;);
+        don_login_track(&quot;breakfast_1_done&quot;);
+        stage_name = &quot;breakfast_done&quot;;
+    }
+    if (stage_name == &quot;breakfast_done&quot;) {
+        string holiday_name = get_property(&quot;don_login_holiday&quot;);
+        if (holiday_name != &quot;&quot; &amp;&amp; holiday_name != &quot;none&quot;) {
+            set_property(&quot;don_login_stage&quot;, &quot;holiday_running&quot;);
+            if (holiday_name == &quot;halloween&quot; &amp;&amp; !cli_execute(&quot;freecandy&quot;))
+                return false;
+            if ((holiday_name == &quot;time_tower&quot; || holiday_name == &quot;crimbo&quot;) &amp;&amp;
+                !cli_execute(&quot;nobarf&quot;)) return false;
+            set_property(&quot;don_login_stage&quot;, &quot;done&quot;);
+            return true;
+        }
+        set_property(&quot;don_login_stage&quot;, &quot;bone_running&quot;);
+        if (!don_login_bone_farm()) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;bone_done&quot;);
+        stage_name = &quot;bone_done&quot;;
+    }
+    if (stage_name == &quot;bone_done&quot;) {
+        set_property(&quot;don_login_stage&quot;, &quot;farm_running&quot;);
+        if (!don_login_farming()) return false;
+        set_property(&quot;don_login_stage&quot;, &quot;done&quot;);
+        don_login_track(&quot;login_farm_done&quot;);
+        if (get_property(&quot;don_login_auto_eod&quot;).to_boolean())
+            return don_post_run_from(&quot;start&quot;);
+        return true;
+    }
+    don_warning(&quot;don_login paused at stage &quot; + get_property(&quot;don_login_stage&quot;) +
+                &quot;; inspect actions before manually repairing the checkpoint.&quot;);
+    return false;
+}</code></pre></article>
+<article id="actual-11-81"><h2>don_login_breakfast_2 <small>[11.81]</small></h2><p><code>boolean don_login_breakfast_2()</code></p><p>scripts/don_custom_functions.ash:1483–1507</p><p>function_actual11.81.2</p><pre><code>boolean don_login_breakfast_2() {
+    int daily_count = get_property(&quot;ascensionsToday&quot;).to_int();
+    if (!don_login_second_allowed(daily_count)) {
+        don_warning(&quot;breakfast_2 requires ascensionsToday &gt; 0.&quot;);
+        return false;
+    }
+    if (!get_property(&quot;kingLiberated&quot;).to_boolean()) {
+        don_warning(&quot;breakfast_2 requires kingLiberated=true.&quot;);
+        return false;
+    }
+    don_login_sync_date();
+    if (get_property(&quot;don_login_breakfast2_ascensions&quot;).to_int() &gt;= daily_count) {
+        don_log(&quot;breakfast_2 already attempted for ascension #&quot; + daily_count);
+        return true;
+    }
+    set_property(&quot;don_login_breakfast2_ascensions&quot;, daily_count);
+    don_login_track(&quot;breakfast_2_start&quot;);
+    if (!don_breakfast_prepare_daily()) return false;
+    if (!don_login_bone_farm()) return false;
+    if (!don_login_farming()) return false;
+    don_login_track(&quot;breakfast_2_done&quot;);
+    if (get_property(&quot;don_login_auto_eod&quot;).to_boolean())
+        return don_post_run_from(&quot;start&quot;);
+    return true;
+}</code></pre></article>
+<article id="actual-11-82"><h2>don_login_eod <small>[11.82]</small></h2><p><code>boolean don_login_eod()</code></p><p>scripts/don_custom_functions.ash:1509–1512</p><p>function_actual11.82.2</p><pre><code>boolean don_login_eod() {
+    don_login_track(&quot;login_eod_start&quot;);
+    return don_post_run_from(&quot;eod&quot;);
+}</code></pre></article>
+<article id="actual-11-83"><h2>don_login <small>[11.83]</small></h2><p><code>void don_login()</code></p><p>scripts/don_custom_functions.ash:1514–1514</p><p>function_actual11.83.2</p><pre><code>void don_login() { don_login_breakfast_1(); }</code></pre></article></body></html>

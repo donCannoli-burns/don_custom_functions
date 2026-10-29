@@ -812,38 +812,29 @@ void don_breakfast_run_farming_mode() {
 
 // Breakfast's daily tasks are independent of KoLmafia's breakfastCompleted flag.
 // PirateRealm runs when explicitly enabled or required by a farming mode.
-void augmentBreakfast() {
-    if (!don_breakfast_validate_modes()) return;
-
+boolean don_breakfast_prepare_daily() {
+    if (!don_breakfast_validate_modes()) return false;
     if (!get_property("breakfastCompleted").to_boolean()) {
-        if (!cli_execute("breakfast"))
-            don_warning("Native breakfast command failed.");
-    } else {
-        don_log("Native breakfast already completed; checking Don daily tasks.");
-    }
-
+        if (!cli_execute("breakfast")) return false;
+    } else don_log("Native breakfast already completed; checking Don daily tasks.");
     raffle();
-
     if (!get_property("_aprilShower").to_boolean() &&
-        !cli_execute("shower ice"))
-        don_warning("April shower ice command failed.");
-
+        !cli_execute("shower ice")) don_warning("Shower ice command failed.");
     if (get_property("bankedKarma").to_int() > 2000 &&
         available_amount($item[The Big Book of Every Skill]) > 0 &&
         !use(1, $item[The Big Book of Every Skill]))
-        don_warning("Unable to use The Big Book of Every Skill.");
-
+        don_warning("Could not use Big Book of Every Skill.");
     don_mayam();
-
-    if (get_property("don_breakfast_cockroach").to_boolean()) {
-        if (!cockroach_fight_prep()) {
-            don_warning("Cockroach setup incomplete; any requested farming mode was NOT started.");
-            return;
-        }
-    } else {
-        don_log("PirateRealm cockroach route skipped (don_breakfast_cockroach=false).");
+    if (get_property("don_breakfast_cockroach").to_boolean() &&
+        !cockroach_fight_prep()) {
+        don_warning("Cockroach route failed; stopping before farming.");
+        return false;
     }
+    return true;
+}
 
+void augmentBreakfast() {
+    if (!don_breakfast_prepare_daily()) return;
     don_breakfast_run_farming_mode();
 }
 
@@ -1289,3 +1280,235 @@ boolean don_post_run_from(string entry_stage) {
 
 void don_post_run() { don_post_run_from("start"); }
 
+
+
+/*
+ * DON LOGIN: companion to don_post_run().
+ * No gameplay, preferences, CLI calls, or aliases execute upon import.
+ * 'breakfast_1' is the morning stage; 'breakfast_2' is post ascension.
+ */
+boolean don_login_default_true(string pref_name) {
+    string raw_value = get_property(pref_name);
+    return raw_value == "" || raw_value.to_boolean();
+}
+
+boolean don_login_second_allowed(int daily_ascensions) {
+    return daily_ascensions > 0;
+}
+
+void don_login_sync_date() {
+    string date_now = today_to_string();
+    if (get_property("don_login_date") == date_now) return;
+    set_property("don_login_date", date_now);
+    set_property("don_login_stage", "new");
+    set_property("don_login_holiday", "none");
+    set_property("don_login_breakfast2_ascensions", "0");
+}
+
+void don_login_track(string label) {
+    if (!get_property("don_login_ptrack").to_boolean()) return;
+    if (!cli_execute("call ptrack.ash add " + label))
+        don_warning("Optional ptrack checkpoint failed: " + label);
+}
+
+boolean don_login_install_aliases() {
+    boolean good = cli_execute("alias don-login => call don_login.ash %%");
+    if (!cli_execute("alias don-breakfast-1 => call don_login.ash breakfast_1")) good = false;
+    if (!cli_execute("alias don-breakfast-2 => call don_login.ash breakfast_2")) good = false;
+    if (!cli_execute("alias don-login-eod => call don_login.ash eod")) good = false;
+    return good;
+}
+
+void don_login_status() {
+    print("don_login_date = " + get_property("don_login_date"));
+    print("don_login_stage = " + get_property("don_login_stage"));
+    print("don_login_holiday = " + get_property("don_login_holiday"));
+    print("ascensionsToday = " + get_property("ascensionsToday").to_int());
+    print("don_login_breakfast2_ascensions = " + get_property("don_login_breakfast2_ascensions"));
+    print("breakfastCompleted = " + get_property("breakfastCompleted").to_boolean());
+    print("kingLiberated = " + get_property("kingLiberated").to_boolean());
+}
+
+void don_login_help() {
+    don_header("Don Login / breakfast_1 / breakfast_2");
+    print("don-login help | status | breakfast_1 | breakfast_2 | postascend | eod | install");
+    print("breakfast_1: combo watersheep-free, git update, tracking, raffle, holiday, breakfast, boneFarm, farming.");
+    print("breakfast_2: requires ascensionsToday > 0 and kingLiberated=true.");
+    print("don_login_bone_farm = " + don_login_default_true("don_login_bone_farm") + " (default true)");
+    print("don_login_default_garbo = " + don_login_default_true("don_login_default_garbo") + " (default true)");
+    print("don_login_holidays = " + don_login_default_true("don_login_holidays") + " (default true)");
+    print("don_login_ptrack = " + get_property("don_login_ptrack").to_boolean());
+    print("don_login_auto_eod = " + get_property("don_login_auto_eod").to_boolean());
+    don_breakfast_help();
+}
+
+boolean don_login_raffle_topup() {
+    if (available_amount($item[134]) == 0 &&
+        available_amount($item[pumpkin carriage]) == 0 &&
+        available_amount($item[Desert Bus pass]) == 0) {
+        don_log("Raffle access not detected; skipping top-up.");
+        return true;
+    }
+    int needed = max(0, 111 - don_owned_amount($item[raffle ticket]));
+    if (needed <= 0) return true;
+    return cli_execute("raffle " + needed);
+}
+
+string don_login_detect_holiday() {
+    if (!don_login_default_true("don_login_holidays")) return "none";
+    string page_html = visit_url("main.php");
+    if (contains_text(page_html, "Halloween")) return "halloween";
+    if (contains_text(page_html, "Time Tower")) return "time_tower";
+    if (contains_text(page_html, "Crimbo")) return "crimbo";
+    if (contains_text(page_html, "Feast of Boris"))
+        don_log("Feast of Boris: regular farming route remains selected.");
+    return "none";
+}
+
+boolean don_login_bone_farm() {
+    if (!don_login_default_true("don_login_bone_farm")) return true;
+    return cli_execute("call boneFarm.ash");
+}
+
+boolean don_login_farming() {
+    if (!don_breakfast_validate_modes()) return false;
+    if (get_property("don_breakfast_cowo").to_boolean()) {
+        if (!don_breakfast_is_pastamancer(my_class())) return false;
+        return cli_execute("cowo");
+    }
+    if (get_property("don_breakfast_nobarf_combo").to_boolean()) {
+        if (!cli_execute("nobarf")) return false;
+        if (!cli_execute("refresh all")) return false;
+        int turns_remaining = don_breakfast_combo_turns(my_adventures());
+        return turns_remaining < 1 || cli_execute("combo " + turns_remaining);
+    }
+    if (get_property("don_breakfast_nobarf").to_boolean())
+        return cli_execute("nobarf");
+    if (get_property("don_breakfast_barf").to_boolean())
+        return cli_execute("barf");
+    if (!don_login_default_true("don_login_default_garbo")) return true;
+    return cli_execute("barf1");
+}
+
+// Ambiguous in-progress stages remain blocked; do not replay
+// adventures or purchases when a previous invocation was interrupted.
+boolean don_login_breakfast_1() {
+    don_login_sync_date();
+    string stage_name = get_property("don_login_stage");
+    if (stage_name == "done" || stage_name == "in_run_done" ||
+        stage_name == "already_breakfast") {
+        don_log("breakfast_1 already handled today.");
+        return true;
+    }
+    // Required first and second CLI actions, in this exact order.
+    if (stage_name == "new") {
+        set_property("don_login_stage", "free_running");
+        if (!cli_execute("combo watersheep-free")) return false;
+        set_property("don_login_stage", "free_done");
+        stage_name = "free_done";
+    }
+    if (stage_name == "free_done") {
+        set_property("don_login_stage", "update_running");
+        if (!cli_execute("git update")) return false;
+        set_property("don_login_stage", "update_done");
+        stage_name = "update_done";
+    }
+    if (stage_name == "update_done") {
+        if (!don_login_install_aliases())
+            don_warning("Could not install every don-login alias.");
+        set_property("don_login_stage", "aliases_done");
+        stage_name = "aliases_done";
+    }
+    if (stage_name == "aliases_done") {
+        set_property("don_login_stage", "checks_running");
+        don_header("Don login: " + Day() + " " + today_to_string());
+        don_log("Bounty item: " + to_item(get_property("currentBountyItem")));
+        if (!cli_execute("counters")) don_warning("Counters report unavailable.");
+        if (!cli_execute("conditions")) don_warning("Conditions report unavailable.");
+        don_login_track("login_start");
+        if (!don_login_raffle_topup()) return false;
+        set_property("don_login_holiday", don_login_detect_holiday());
+        set_property("don_login_stage", "checks_done");
+        stage_name = "checks_done";
+    }
+    if (stage_name == "checks_done") {
+        if (get_property("breakfastCompleted").to_boolean()) {
+            don_warning("Native breakfast was completed before breakfast_1; no automatic Garbo.");
+            set_property("don_login_stage", "already_breakfast");
+            return true;
+        }
+        if (!get_property("kingLiberated").to_boolean()) {
+            set_property("don_login_stage", "in_run_running");
+            if (!cli_execute("breakfast")) return false;
+            set_property("don_login_stage", "in_run_done");
+            return true;
+        }
+        set_property("don_login_stage", "breakfast_running");
+        if (!don_breakfast_prepare_daily()) return false;
+        set_property("don_login_stage", "breakfast_done");
+        don_login_track("breakfast_1_done");
+        stage_name = "breakfast_done";
+    }
+    if (stage_name == "breakfast_done") {
+        string holiday_name = get_property("don_login_holiday");
+        if (holiday_name != "" && holiday_name != "none") {
+            set_property("don_login_stage", "holiday_running");
+            if (holiday_name == "halloween" && !cli_execute("freecandy"))
+                return false;
+            if ((holiday_name == "time_tower" || holiday_name == "crimbo") &&
+                !cli_execute("nobarf")) return false;
+            set_property("don_login_stage", "done");
+            return true;
+        }
+        set_property("don_login_stage", "bone_running");
+        if (!don_login_bone_farm()) return false;
+        set_property("don_login_stage", "bone_done");
+        stage_name = "bone_done";
+    }
+    if (stage_name == "bone_done") {
+        set_property("don_login_stage", "farm_running");
+        if (!don_login_farming()) return false;
+        set_property("don_login_stage", "done");
+        don_login_track("login_farm_done");
+        if (get_property("don_login_auto_eod").to_boolean())
+            return don_post_run_from("start");
+        return true;
+    }
+    don_warning("don_login paused at stage " + get_property("don_login_stage") +
+                "; inspect actions before manually repairing the checkpoint.");
+    return false;
+}
+
+// Daily count, not my_ascensions() lifetime count. Once per ascension value.
+boolean don_login_breakfast_2() {
+    int daily_count = get_property("ascensionsToday").to_int();
+    if (!don_login_second_allowed(daily_count)) {
+        don_warning("breakfast_2 requires ascensionsToday > 0.");
+        return false;
+    }
+    if (!get_property("kingLiberated").to_boolean()) {
+        don_warning("breakfast_2 requires kingLiberated=true.");
+        return false;
+    }
+    don_login_sync_date();
+    if (get_property("don_login_breakfast2_ascensions").to_int() >= daily_count) {
+        don_log("breakfast_2 already attempted for ascension #" + daily_count);
+        return true;
+    }
+    set_property("don_login_breakfast2_ascensions", daily_count);
+    don_login_track("breakfast_2_start");
+    if (!don_breakfast_prepare_daily()) return false;
+    if (!don_login_bone_farm()) return false;
+    if (!don_login_farming()) return false;
+    don_login_track("breakfast_2_done");
+    if (get_property("don_login_auto_eod").to_boolean())
+        return don_post_run_from("start");
+    return true;
+}
+
+boolean don_login_eod() {
+    don_login_track("login_eod_start");
+    return don_post_run_from("eod");
+}
+
+void don_login() { don_login_breakfast_1(); }
