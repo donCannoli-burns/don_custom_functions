@@ -13,7 +13,7 @@ void codmaster_help() {
     print("codMaster equip <name>         - read/equip named preset (live equipment mutation)");
     print("codMaster snapshot <name>      - capture currently mounted gems to a save");
     print("codMaster empty                - clear codpiece slots (live equipment mutation)");
-    print("Save path: data/cod_master/saves/<name>.txt (unchanged)");
+    print("Save savefile: data/cod_master/saves/<name>.txt (unchanged)");
     print("Example: codMaster show spell ; codMaster equip spell");
 }
 
@@ -32,10 +32,10 @@ void codmaster_list() {
 
 boolean codmaster_allow_overwrite(string name) {
     string [string] current;
-    string path = don_cod_save_path(name);
-    if (path == "") return false;
+    string savefile = don_cod_save_path(name);
+    if (savefile == "") return false;
     // Ask BEFORE any write. Historical codMaster asked after overwriting.
-    if (file_to_map(path, current))
+    if (file_to_map(savefile, current))
         return user_confirm("Overwrite existing codMaster preset '" + name + "'?");
     return true;
 }
