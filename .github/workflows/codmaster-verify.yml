@@ -1,0 +1,47 @@
+name: CodMaster KoLmafia compile and save roundtrip
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  codmaster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: donCannoli-burns/don-ash-lib
+          ref: feature/codmaster-absorption-20261029
+          path: _don-ash-lib
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Download KoLmafia r29334
+        run: |
+          curl -L --fail --silent --show-error -o KoLmafia-29334.jar \
+            https://github.com/kolmafia/kolmafia/releases/download/r29334/KoLmafia-29334.jar
+      - name: Compile CLI/library and test legacy map roundtrip in isolated profile
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.kolmafia/scripts"
+          cp scripts/codMaster.ash "$HOME/.kolmafia/scripts/"
+          cp _don-ash-lib/don-master-ash-lib/scripts/don_codmaster_*.ash "$HOME/.kolmafia/scripts/"
+          cat > "$HOME/.kolmafia/scripts/__verify_codmaster.txt" <<'EOF'
+          verify don_codmaster_lib.ash
+          verify don_codmaster_smoke.ash
+          verify don_codmaster_ci_roundtrip.ash
+          verify codMaster.ash
+          call don_codmaster_smoke.ash
+          call don_codmaster_ci_roundtrip.ash
+          exit
+          EOF
+          cd "$HOME/.kolmafia"
+          timeout 100s java -jar "$GITHUB_WORKSPACE/KoLmafia-29334.jar" --CLI __verify_codmaster.txt > "$GITHUB_WORKSPACE/codmaster.log" 2>&1 || true
+          cat "$GITHUB_WORKSPACE/codmaster.log"
+          test "$(grep -Fc 'Script verification complete.' "$GITHUB_WORKSPACE/codmaster.log" || true)" -eq 4
+          grep -Fq 'don_codmaster_lib read-only smoke PASS.' "$GITHUB_WORKSPACE/codmaster.log"
+          grep -Fq 'don_codmaster_lib CI disk roundtrip PASS.' "$GITHUB_WORKSPACE/codmaster.log"
