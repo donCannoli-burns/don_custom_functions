@@ -113,3 +113,26 @@ To check compilation without taking gameplay actions:
 verify don_lowerstats.ash
 verify don_praccess.ash
 ```
+
+## Absorbed checklist and updates commands
+
+This repository now installs **hardened standalone commands** from Prusias-kol's MIT-licensed pChecklist/pUpdates projects:
+
+- `pChecklist help` and `pChecklist crimbo22` (also `don_checklist`): read-only reports using `data/checklistData.txt` and existing personal checklists. The checker validates target names and bounded ID sets, and uses `don_true_owned_amount` from the master library to include equipment held by familiars. Items that are separately represented as bound and unbound objects can still require manual interpretation.
+- `pUpdates help`, `pUpdates init <name>`, `pUpdates add <name> <note>`, `pUpdates check <name>`: stable old command name backed by the new `don_updates_lib.ash`. Update notes print as text (not HTML); invalid files do not advance your seen-version preference.
+
+These commands are provided by the don_custom_functions checkout and the already declared don-ash-lib dependency. The standalone dChecklist/dUpdates checkouts are no longer needed **after** confirming the new files install and compile, and should not remain installed alongside this checkout because the file names overlap.
+
+```text
+git update donCannoli-burns-don-ash-lib-main
+git update donCannoli-burns-don_custom_functions-main
+git sync
+verify don_checklist_lib.ash
+verify pChecklist.ash
+verify pUpdates.ash
+pChecklist help
+pUpdates help
+```
+
+The publicly shipped checklist data is preserved. **Personal checklist files are never overwritten during installation**; personal data is read from the legacy location if present. Upstream MIT notices are retained in `licenses/`. Experimental: use at your own risk. Runtime compilation has not been confirmed.
+
