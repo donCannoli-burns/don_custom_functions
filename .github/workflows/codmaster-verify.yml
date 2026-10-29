@@ -45,3 +45,6 @@ jobs:
           test "$(grep -Fc 'Script verification complete.' "$GITHUB_WORKSPACE/codmaster.log" || true)" -eq 4
           grep -Fq 'don_codmaster_lib read-only smoke PASS.' "$GITHUB_WORKSPACE/codmaster.log"
           grep -Fq 'don_codmaster_lib CI disk roundtrip PASS.' "$GITHUB_WORKSPACE/codmaster.log"
+          # Physical-path assertion: KoLmafia's data root must not be doubled.
+          test -f "$HOME/.kolmafia/data/cod_master/saves/__don_cod_ci_roundtrip.txt"
+          test ! -e "$HOME/.kolmafia/data/data/cod_master/saves/__don_cod_ci_roundtrip.txt"
