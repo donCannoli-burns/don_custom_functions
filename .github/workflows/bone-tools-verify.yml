@@ -32,7 +32,6 @@ jobs:
           set -euo pipefail
           mkdir -p "$HOME/.kolmafia/scripts" "$HOME/.kolmafia/relay"
           cp scripts/boneFarm.ash scripts/boneTrack.ash "$HOME/.kolmafia/scripts/"
-          cp relay/relay_BoneTrack.ash "$HOME/.kolmafia/scripts/"
           cp relay/relay_BoneTrack.ash "$HOME/.kolmafia/relay/"
           cp _don-ash-lib/don-master-ash-lib/scripts/don_bone_lib.ash "$HOME/.kolmafia/scripts/"
           cp _don-ash-lib/don-master-ash-lib/scripts/don_bone_smoke.ash "$HOME/.kolmafia/scripts/"
