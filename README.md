@@ -89,6 +89,12 @@ These functions are intended to be called **explicitly** and may spend Meat/adve
 
 Some are integrations, **not bundled dependencies**, requiring your other installed scripts or commands: `CONSUME`, `combo`, `combo.js`, `barfascend.txt`, `dpills`, and `don_praccess.ash`. They are not automatically downloaded and should be verified separately. Outfits `chowDown`, `chowDown2`, `yetibuff`, and `maxo` are player-defined.
 
+### Cooler Yeti: `getCool()` / `get_cool()`
+
+When the Cooler Yeti has at least 400 familiar XP and has not yet used its daily drink boost, `getCool()` (also available as `get_cool()`) explicitly configures `choiceAdventure1560 = 2` and requests **“Make my next drink impossibly cold!”** (choice 1560, option 2). It verifies the live choice ID and option text before manual submission, handles the case where KoLmafia has already applied the configured option, and **does not** submit a second unverified `run_choice(1)`.
+
+The game/KoLmafia owns `_coolerYetiAdventures` (daily used flag) and `coolerYetiMode` (`adventures` after a successful selection). The function checks these for confirmation rather than setting them itself. It will not try to repeat an already-used daily boost. Option 2 costs 400 familiar XP once per day; calling the function does not itself drink a beverage.
+
 ## Repository layout
 
 ~~~text
