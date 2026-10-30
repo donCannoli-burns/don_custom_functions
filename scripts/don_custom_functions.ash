@@ -530,6 +530,14 @@ void getCool() {
     // Override a stale player preference but verify the live choice before acting.
     set_property("choiceAdventure1560", "2");
     visit_url("main.php?talktoyeti=1", false, true);
+    // KoLmafia may have handled choice 1560 automatically using this preference.
+    if (last_choice() == 1560 &&
+        get_property("_coolerYetiAdventures").to_boolean() &&
+        get_property("coolerYetiMode") == "adventures") {
+        if (previous != $familiar[none]) use_familiar(previous);
+        don_good("Cooler Yeti: next drink will be impossibly cold.");
+        return;
+    }
     if (!handling_choice() || last_choice() != 1560) {
         don_error("Cooler Yeti did not open choice 1560; no choice submitted.");
         if (previous != $familiar[none]) use_familiar(previous);
