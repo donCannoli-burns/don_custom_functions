@@ -150,6 +150,18 @@ Any further direct source incorporation must carry its corresponding
 upstream license and provenance. The initial IotM catalog is a new
 metadata API informed by these sources, not a copy of their executors.
 
+### Additional pure train-set utility
+
+6. `don-ash-lib/don-master-ash-lib/scripts/don_train_plan.ash`:
+   `don_train_layout_valid(config)` / `don_train_layout_error(config)`
+   validate exactly eight unique train pieces (IDs 1–20 except 10)
+   without touching the workshed.
+7. `don_custom_functions/scripts/don_train_plan_smoke.ash`:
+   positive/negative read-only configuration checks.
+
+The adapted train-validation pattern includes a separate MIT notice for
+`C2Talon/c2t_kol_scripts` under the library's `third_party/` folder.
+
 ## Next gated implementation candidates
 
 1. Add a deterministic eight-slot train-set validator returning a typed
