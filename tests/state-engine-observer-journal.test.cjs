@@ -6,7 +6,7 @@ const { makeObservationPort, makeJournalIO } = require("../.state-build/ports.js
 
 function reader(overrides = {}) {
   const obj = {
-    myId: () => "1079721",
+    myId: () => "12345",
     todayToString: () => "20261030",
     myAscensions: () => 32,
     myTurncount: () => 17,
@@ -84,7 +84,7 @@ function memIO(canWrite = true) {
 }
 check("journal path is scope partitioned", () => {
   assert.equal(observationPath(caught.snapshot),
-    "don_Data/state-engine/1079721/20261030/life-32/observations.jsonl");
+    "don_Data/state-engine/12345/20261030/life-32/observations.jsonl");
 });
 check("append one observation", () => {
   const io = memIO();
