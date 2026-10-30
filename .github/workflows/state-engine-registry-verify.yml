@@ -1,0 +1,42 @@
+name: Don State Engine Registry Static Check
+on:
+  push:
+    paths:
+      - "tools/don-state-engine/**"
+      - "docs/DON_STATE_ENGINE_SPEC.md"
+      - ".github/workflows/state-engine-registry-verify.yml"
+  pull_request:
+    paths:
+      - "tools/don-state-engine/**"
+      - "docs/DON_STATE_ENGINE_SPEC.md"
+      - ".github/workflows/state-engine-registry-verify.yml"
+
+jobs:
+  registry-typecheck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned TypeScript (no runtime dependencies)
+        run: npm install --global typescript@5.8.3
+      - name: Typecheck import registry
+        run: tsc --noEmit --strict --target es2020 --lib es2020 tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts
+      - name: Compile pure planner for offline tests
+        run: tsc --strict --target es2020 --lib es2020 --module commonjs --outDir .state-build tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts
+      - name: Run synthetic no-execution scenarios
+        run: node tests/state-engine-planner.test.cjs
+      - name: Verify no unapproved source-level execution primitives
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const data = fs.readFileSync('tools/don-state-engine/registry.ts', 'utf8');
+          if (/\b(?:eval|new Function|cliExecute|visitUrl|runChoice|adv1|adventure|setProperty)\s*\(/.test(data))
+            throw new Error('Executable primitive unexpectedly introduced into registry');
+          for (const marker of ['SEGMENTS', 'FLAGS', 'FARM_MODES', 'IMPORTS', 'ACTIONS', 'needs_reconciliation'])
+            if (!data.includes(marker)) throw new Error('Missing registry marker ' + marker);
+          console.log('Registry is declarative; no direct KoL mutations');
+          NODE
