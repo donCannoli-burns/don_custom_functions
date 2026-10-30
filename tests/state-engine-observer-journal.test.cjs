@@ -2,6 +2,7 @@
 const assert = require("node:assert/strict");
 const { captureKoLState } = require("../.state-build/observer.js");
 const { appendObservation, observationPath, parseJournal } = require("../.state-build/journal.js");
+const { makeObservationPort, makeJournalIO } = require("../.state-build/ports.js");
 
 function reader(overrides = {}) {
   const obj = {
@@ -166,5 +167,43 @@ failure("cross-player data stops", () => {
   io.files.set(foreignPath, JSON.stringify(event) + "\n");
   appendObservation(io, foreign, "login-0002");
 }, "DON_JOURNAL_CORRUPT_CHAIN_LINE_1");
+
+check("read port denies other preference names", () => {
+  const port = makeObservationPort(reader());
+  assert.equal(port.getProperty("kingLiberated"), "false");
+  assert.throws(() => port.getProperty("password"), /DON_OBSERVER_PREF_NOT_ALLOWLISTED/);
+});
+check("native port appends only with injected lease", () => {
+  const files = new Map();
+  const native = {
+    fileToBuffer: p => files.get(p) || "",
+    toBuffer: s => String(s),
+    appendBufferToFile: (buf, p) => {
+      files.set(p, (files.get(p) || "") + buf);
+      return true;
+    }
+  };
+  const io = makeJournalIO(native, () => true);
+  const recorded = appendObservation(io, caught, "native-0001");
+  assert.equal(recorded.disposition, "written");
+  assert.equal(parseJournal(io.readText(recorded.path), caught.snapshot).length, 1);
+});
+failure("old mafia revision blocks append instead of rewrite", () => {
+  const io = makeJournalIO({
+    fileToBuffer: () => "",
+    toBuffer: s => s
+  }, () => true);
+  appendObservation(io, caught, "legacy-0001");
+}, "DON_JOURNAL_NEEDS_KOLMAFIA_R29125");
+check("write port retains strict lease boundary", () => {
+  let calls = 0;
+  const io = makeJournalIO({
+    fileToBuffer: () => { calls++; return ""; },
+    toBuffer: s => s
+  }, () => false);
+  assert.throws(() => appendObservation(io, caught, "no-lease"), /DON_JOURNAL_NO_EXCLUSIVE_LEASE/);
+  assert.equal(calls, 0);
+});
+
 console.log("Don State Engine observer and journal scenarios: " + cases +
             " passed; no KoL requests, commands or live player writes.");
