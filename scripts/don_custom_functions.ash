@@ -502,6 +502,17 @@ void stooperDis() {
 }
 
 void getCool() {
+    familiar yeti = $familiar[cooler yeti];
+    if (!have_familiar(yeti) || yeti.experience < 400) {
+        don_warning("Cooler Yeti missing or below 400 XP.");
+        return;
+    }
+    // KoLmafia owns this daily usage flag; never reset it to force a second use.
+    if (get_property("_coolerYetiAdventures").to_boolean()) {
+        don_warning("Cooler Yeti drink cooling already used today.");
+        return;
+    }
+
     outfit("maxo");
     refresh_status();
     if (!get_property("_communismUsed").to_boolean() &&
@@ -509,37 +520,43 @@ void getCool() {
         stooperDis();
 
     familiar previous = my_familiar();
-    familiar yeti = $familiar[cooler yeti];
-    if (!have_familiar(yeti) || yeti.experience < 400) {
-        don_warning("Cooler Yeti missing or below 400 XP.");
-        return;
-    }
     if (!use_familiar(yeti)) {
         don_error("Unable to equip Cooler Yeti.");
         return;
     }
     cli_execute("cast ode to booze");
 
-    // Explicit choice validation: do not submit unrelated choice options.
-    buffer page = visit_url("main.php?talktoyeti=1", false, true);
-    buffer_to_file(page, "_yeti_talk2.html");
-    string[int] choices = available_choice_options();
-    if (!handling_choice() || choices[2] == "") {
-        don_error("Cooler Yeti did not offer expected first option 2.");
+    // Choice 1560, option 2: "Make my next drink impossibly cold!"
+    // Override a stale player preference but verify the live choice before acting.
+    set_property("choiceAdventure1560", "2");
+    visit_url("main.php?talktoyeti=1", false, true);
+    if (!handling_choice() || last_choice() != 1560) {
+        don_error("Cooler Yeti did not open choice 1560; no choice submitted.");
         if (previous != $familiar[none]) use_familiar(previous);
         return;
     }
-    run_choice(2);
-    choices = available_choice_options();
-    if (!handling_choice() || choices[1] == "") {
-        don_error("Cooler Yeti did not offer expected follow-up option 1.");
-        if (previous != $familiar[none]) use_familiar(previous);
-        return;
-    }
-    run_choice(1);
 
+    string[int] choices = available_choice_options();
+    if (!contains_text(choices[2], "Make my next drink impossibly cold")) {
+        don_error("Choice 1560 option 2 is not the expected drink-cooling action.");
+        if (previous != $familiar[none]) use_familiar(previous);
+        return;
+    }
+
+    run_choice(2);
+    // Option 2 completes this request. Never submit a blind follow-up option 1.
     if (previous != $familiar[none]) use_familiar(previous);
-    don_good("Yeti drink enhancement sequence submitted.");
+    if (get_property("_coolerYetiAdventures").to_boolean() &&
+        get_property("coolerYetiMode") == "adventures") {
+        don_good("Cooler Yeti: next drink will be impossibly cold.");
+    } else {
+        don_error("Cooler Yeti choice submitted, but usage was not confirmed.");
+    }
+}
+
+// Snake-case compatibility alias for callers using get_cool().
+void get_cool() {
+    getCool();
 }
 
 void shrugAT() {
