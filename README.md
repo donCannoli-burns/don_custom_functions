@@ -2,6 +2,31 @@
 
 Reusable [KoLmafia](https://kolmafia.us/) ASH utilities by donCannoli. Designed as a **companion to** [don-ash-lib](https://github.com/donCannoli-burns/don-ash-lib), not another copy of it.
 
+## C2Talon-derived capability review (2026-10-29)
+
+A bounded, **read-only** first pass of C2Talon's IotM library and standalone ASH scripts is documented in [C2T_ASH_ADOPTION_AUDIT_2026-10-29.md](C2T_ASH_ADOPTION_AUDIT_2026-10-29.md). The executable C2T gameplay flows have **not** been wholesale absorbed.
+
+New GCLI entrypoints:
+
+```text
+git update donCannoli-burns-don-ash-lib-main
+git update donCannoli-burns-don_custom_functions-main
+verify don_iotm.ash
+verify don_relay_select2.ash
+verify don_train_plan.ash
+call don_iotm_smoke.ash
+call don_relay_select2_smoke.ash
+call don_train_plan_smoke.ash
+don_iotm list
+don_iotm cooler-yeti-adventures
+```
+
+- `don_iotm` lists source-backed IotM capabilities, choice metadata, cost and read-only observed status; it **does not run** a selected capability.
+- `don_relay_tag_searchable_selects(page)` (in `don_relay_select2.ash`) adds a namespaced HTML class. It does not load a Select2 frontend, make network requests or take over any relay choice page.
+- `don_train_layout_valid("1,2,3,4,5,6,7,8")` and `don_train_layout_error(...)` (in `don_train_plan.ash`) validate configurations without touching the workshed.
+
+The initial source edits have not been compiled in a live KoLmafia instance; run `verify` and the smoke scripts before relying on them. Upstream license notices are retained in the `don-ash-lib` dependency.
+
 ## Agent Web AA–DD read-only prototype
 
 The checkout includes an HTML micro-agent map of `don_custom_functions` and imported `don_master_lib`. It is an indexed source viewer, **not** an executing agent.
