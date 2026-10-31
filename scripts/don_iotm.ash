@@ -7,7 +7,7 @@ import <don_iotm_catalog.ash>;
  *      don_iotm cooler-yeti-adventures
  */
 void main(string requested) {
-    string key = trim(requested);
+    string key = replace_all(create_matcher("^\\s+|\\s+$", requested), "");
     don_iotm_capability[int] entries = don_iotm_catalog();
 
     if (key == "" || key == "help" || key == "list") {
