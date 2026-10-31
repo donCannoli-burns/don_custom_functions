@@ -5,6 +5,7 @@ on:
       - "tools/don-state-engine/**"
       - "docs/DON_STATE_ENGINE_SPEC.md"
       - "docs/DON_OBSERVER_JOURNAL_SPEC.md"
+      - "docs/DON_PASSIVE_EVENTS_SPEC.md"
       - "tests/state-engine-*.test.cjs"
       - ".github/workflows/state-engine-registry-verify.yml"
   pull_request:
@@ -12,6 +13,7 @@ on:
       - "tools/don-state-engine/**"
       - "docs/DON_STATE_ENGINE_SPEC.md"
       - "docs/DON_OBSERVER_JOURNAL_SPEC.md"
+      - "docs/DON_PASSIVE_EVENTS_SPEC.md"
       - "tests/state-engine-*.test.cjs"
       - ".github/workflows/state-engine-registry-verify.yml"
 
@@ -28,13 +30,15 @@ jobs:
       - name: Install pinned TypeScript (no runtime dependencies)
         run: npm install --global typescript@5.8.3
       - name: Typecheck import registry
-        run: tsc --noEmit --strict --target es2020 --lib es2020 tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts tools/don-state-engine/observer.ts tools/don-state-engine/journal.ts tools/don-state-engine/ports.ts
+        run: tsc --noEmit --strict --target es2020 --lib es2020 tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts tools/don-state-engine/observer.ts tools/don-state-engine/journal.ts tools/don-state-engine/ports.ts tools/don-state-engine/event-observer.ts tools/don-state-engine/event-projects.ts tools/don-state-engine/event-journal.ts tools/don-state-engine/event-reconciler.ts
       - name: Compile pure planner for offline tests
-        run: tsc --strict --target es2020 --lib es2020 --module commonjs --outDir .state-build tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts tools/don-state-engine/observer.ts tools/don-state-engine/journal.ts tools/don-state-engine/ports.ts
+        run: tsc --strict --target es2020 --lib es2020 --module commonjs --outDir .state-build tools/don-state-engine/registry.ts tools/don-state-engine/planner.ts tools/don-state-engine/observer.ts tools/don-state-engine/journal.ts tools/don-state-engine/ports.ts tools/don-state-engine/event-observer.ts tools/don-state-engine/event-projects.ts tools/don-state-engine/event-journal.ts tools/don-state-engine/event-reconciler.ts
       - name: Run synthetic no-execution scenarios
         run: node tests/state-engine-planner.test.cjs
       - name: Run observer and journal synthetic scenarios
         run: node tests/state-engine-observer-journal.test.cjs
+      - name: Run passive event privacy, journal, and replay scenarios
+        run: node tests/state-engine-events.test.cjs
       - name: Verify no unapproved source-level execution primitives
         run: |
           node - <<'NODE'
